@@ -14,8 +14,8 @@ export default function Home() {
     }, [])
 
     function calculateTimeLeft() {
-        // Set target date to February 2, 2025, 2:30 PM UTC
-        const targetDate = new Date("2025-02-02T14:30:00Z")
+        // Set target date to December 25, 2025, 2:30 PM UTC
+        const targetDate = new Date("2025-12-25T14:30:00Z")
         const now = new Date()
         const difference = targetDate.getTime() - now.getTime()
 
@@ -56,7 +56,7 @@ export default function Home() {
             {/* Countdown Content */}
             <div className="flex flex-col items-center justify-center h-full text-white text-center bg-black bg-opacity-50">
                 <h1 className="text-6xl font-bold mb-4">Coming Soon</h1>
-                <p className="text-lg mb-8">Launching at 2:30 PM UTC, February 2, 2025!</p>
+                <p className="text-lg mb-8">Launching at 2:30 PM UTC, December 25, 2025!</p>
 
                 <div className="flex gap-4 text-4xl font-semibold">
                     <div>
