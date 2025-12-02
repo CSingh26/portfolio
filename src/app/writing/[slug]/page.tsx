@@ -4,15 +4,16 @@ import { notFound } from "next/navigation"
 import { writing } from "@/data/writing"
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return writing.map((post) => ({ slug: post.slug }))
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const post = writing.find((item) => item.slug === params.slug)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = writing.find((item) => item.slug === slug)
   if (!post) return { title: "Writing | Chaitanya Singh" }
 
   return {
@@ -21,8 +22,9 @@ export function generateMetadata({ params }: Props): Metadata {
   }
 }
 
-export default function WritingDetail({ params }: Props) {
-  const post = writing.find((item) => item.slug === params.slug)
+export default async function WritingDetail({ params }: Props) {
+  const { slug } = await params
+  const post = writing.find((item) => item.slug === slug)
   if (!post) notFound()
 
   return (

@@ -1,21 +1,8 @@
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
-})
-
-const display = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
-})
 
 export const metadata: Metadata = {
   title: "Chaitanya Singh | Data, Cloud & FinTech Engineer",
@@ -46,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${display.variable} antialiased bg-background text-foreground`}>
+      <body className="antialiased bg-background text-foreground">
         <ThemeProvider>
           <div className="noise" aria-hidden />
           <div className="pointer-events-none fixed inset-0 -z-10">

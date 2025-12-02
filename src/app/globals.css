@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --color-bg: #f4e8c1;
   --color-text: #0c0f0a;
   --color-muted: #a0c1b9;
