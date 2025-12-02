@@ -5,17 +5,17 @@
 :root {
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --color-bg: #f4e8c1;
-  --color-text: #0c0f0a;
-  --color-muted: #a0c1b9;
-  --color-accent: #70a0af;
-  --color-card: rgba(255, 255, 255, 0.6);
-  --color-border: rgba(12, 15, 10, 0.12);
-  --color-border-strong: rgba(12, 15, 10, 0.2);
-  --shadow-color: 0 10px 45px rgba(12, 15, 10, 0.12);
-  --gradient: radial-gradient(circle at 10% 20%, rgba(160, 193, 185, 0.45), transparent 25%),
-    radial-gradient(circle at 80% 0%, rgba(112, 160, 175, 0.4), transparent 25%),
-    radial-gradient(circle at 50% 90%, rgba(112, 160, 175, 0.35), transparent 25%);
+  --color-bg: #f4f6ff;
+  --color-text: #10375c;
+  --color-muted: #6b7a99;
+  --color-accent: #f3c623;
+  --color-card: rgba(255, 255, 255, 0.72);
+  --color-border: rgba(16, 55, 92, 0.15);
+  --color-border-strong: rgba(16, 55, 92, 0.22);
+  --shadow-color: 0 10px 45px rgba(16, 55, 92, 0.12);
+  --gradient: radial-gradient(circle at 10% 20%, rgba(243, 198, 35, 0.28), transparent 28%),
+    radial-gradient(circle at 80% 0%, rgba(235, 131, 23, 0.22), transparent 24%),
+    radial-gradient(circle at 50% 90%, rgba(16, 55, 92, 0.22), transparent 28%);
   color-scheme: light;
 }
 

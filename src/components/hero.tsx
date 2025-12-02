@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Download } from "lucide-react"
 import Link from "next/link"
+import { SkillDeck } from "./skill-deck"
 
 const fade = {
   initial: { opacity: 0, y: 24 },
@@ -36,7 +37,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="container relative grid gap-10 md:gap-14 lg:grid-cols-[1.05fr_1fr]">
+      <div className="container relative grid gap-12 md:gap-16 xl:gap-20 lg:grid-cols-[1.05fr_1fr] items-start">
         <motion.div
           className="flex flex-col gap-6"
           initial={fade.initial}
@@ -82,113 +83,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
-          <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-accent/20 via-transparent to-foreground/10 blur-3xl" />
-          <div className="glass relative overflow-hidden rounded-3xl p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted">Systems Pulse</p>
-                <p className="text-2xl font-bold">Signals I&apos;m shipping</p>
-              </div>
-              <span className="rounded-full bg-foreground/90 px-3 py-1 text-xs font-semibold text-background">
-                Live
-              </span>
-            </div>
-
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <motion.div
-                className="rounded-2xl border border-border bg-background/60 p-4 shadow-soft"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : { rotate: [0, -1.5, 1.5, 0], transition: { duration: 8, repeat: Infinity } }
-                }
-              >
-                <p className="text-sm text-muted">FraudGuard · Realtime</p>
-                <p className="mt-2 text-3xl font-semibold">99.4%</p>
-                <p className="text-xs text-muted">Streaming precision on anomaly detections</p>
-                <div className="mt-3 flex items-center gap-2 text-xs text-muted">
-                  <span className="rounded-full bg-card px-3 py-1">Kafka</span>
-                  <span className="rounded-full bg-card px-3 py-1">Airflow</span>
-                  <span className="rounded-full bg-card px-3 py-1">Python</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="rounded-2xl border border-border bg-background/60 p-4 shadow-soft"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : { y: [0, -4, 0, 4, 0], transition: { duration: 9, repeat: Infinity, ease: "easeInOut" } }
-                }
-              >
-                <p className="text-sm text-muted">MoneyMind · FinOps</p>
-                <p className="mt-2 text-3xl font-semibold">+18%</p>
-                <p className="text-xs text-muted">Budget adherence from smart alerts</p>
-                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-border">
-                  <div className="h-full w-[72%] rounded-full bg-accent" />
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-3 text-xs text-muted">
-              <div className="rounded-2xl border border-border bg-card px-4 py-3">
-                <p className="text-[0.7rem] uppercase tracking-[0.18em]">Data</p>
-                <p className="text-lg font-semibold text-foreground">Postgres · Druid</p>
-              </div>
-              <div className="rounded-2xl border border-border bg-card px-4 py-3">
-                <p className="text-[0.7rem] uppercase tracking-[0.18em]">Cloud</p>
-                <p className="text-lg font-semibold text-foreground">AWS · OCI</p>
-              </div>
-              <div className="rounded-2xl border border-border bg-card px-4 py-3">
-                <p className="text-[0.7rem] uppercase tracking-[0.18em]">Security</p>
-                <p className="text-lg font-semibold text-foreground">Reverse Eng</p>
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-border bg-background/70 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted">Snapshot</p>
-                <p className="mt-1 text-lg font-semibold text-foreground">Phoenix · UTC-7 · Open to relocate</p>
-                <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-muted">
-                  <div className="rounded-xl border border-border bg-card px-3 py-2">
-                    <p className="text-[0.68rem] uppercase tracking-[0.2em]">Focus</p>
-                    <p className="font-semibold text-foreground">FinTech · Cloud</p>
-                  </div>
-                  <div className="rounded-xl border border-border bg-card px-3 py-2">
-                    <p className="text-[0.68rem] uppercase tracking-[0.2em]">Certs</p>
-                    <p className="font-semibold text-foreground">RHCSA · RHCE</p>
-                  </div>
-                  <div className="rounded-xl border border-border bg-card px-3 py-2">
-                    <p className="text-[0.68rem] uppercase tracking-[0.2em]">Stack</p>
-                    <p className="font-semibold text-foreground">TS · AWS · Postgres</p>
-                  </div>
-                </div>
-              </div>
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 p-4 shadow-soft">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/25 via-transparent to-foreground/10" />
-                <div className="relative flex items-center gap-3">
-                  <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-border shadow-soft">
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/50 via-foreground/50 to-background/20" />
-                    <div className="relative flex h-full w-full items-center justify-center text-xl font-bold text-background">
-                      CS
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[0.68rem] uppercase tracking-[0.2em] text-muted">Chaitanya Singh</p>
-                    <p className="text-lg font-semibold text-foreground">Systems &amp; FinTech Engineer</p>
-                    <p className="text-xs text-muted">ASU · Data · Security · Backend</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <SkillDeck />
       </div>
     </section>
   )

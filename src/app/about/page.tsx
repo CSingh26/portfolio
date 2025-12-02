@@ -4,7 +4,7 @@ import { AboutSection } from "@/components/about-section"
 export const metadata: Metadata = {
   title: "About | Chaitanya Singh",
   description:
-    "About Chaitanya Singh — CS junior at ASU focused on data analytics, backend, cloud, fintech, and security projects.",
+    "About Chaitanya Singh — CS senior at ASU focused on data analytics, backend, cloud, fintech, and security projects.",
 }
 
 export default function AboutPage() {

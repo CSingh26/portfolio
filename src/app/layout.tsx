@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Chaitanya Singh | Data, Cloud & FinTech Engineer",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Chaitanya Singh | Data, Cloud & FinTech Engineer",
     description:
-      "CS junior at Arizona State University shipping data-driven, secure, cloud-native products.",
+      "CS senior at Arizona State University shipping data-driven, secure, cloud-native products.",
     url: "https://chaitanya-singh.dev",
     siteName: "Chaitanya Singh",
     locale: "en_US",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Chaitanya Singh | Data, Cloud & FinTech Engineer",
     description:
-      "CS junior at ASU with a focus on data analytics, backend systems, cloud, and fintech security.",
+      "CS senior at ASU with a focus on data analytics, backend systems, cloud, and fintech security.",
   },
 }
 
@@ -43,13 +44,7 @@ export default function RootLayout({
           </div>
           <Navbar />
           <main className="relative z-10 min-h-screen pb-10">{children}</main>
-          <footer className="container relative z-10 flex flex-col gap-2 pb-12 pt-6 text-sm text-muted">
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-            <p>
-              © {new Date().getFullYear()} Chaitanya Singh. Built with Next.js, TypeScript, Tailwind CSS, and Framer
-              Motion.
-            </p>
-          </footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

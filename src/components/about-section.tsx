@@ -23,7 +23,7 @@ export function AboutSection() {
       id="about"
       eyebrow="About"
       title="Systems-minded engineer blending data, cloud, and fintech."
-      description="ASU junior combining rigorous systems training with a bias for shipping real products—quiz platforms, budgeting apps, fraud detection engines, and healthtech."
+      description="ASU senior combining rigorous systems training with a bias for shipping real products—quiz platforms, budgeting apps, fraud detection engines, and healthtech."
     >
       <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
         <div className="space-y-4 text-lg text-muted">
