@@ -9,6 +9,7 @@ const certifications = [
     status: "Completed",
     focus: "Linux administration, SELinux, storage, networking basics",
     year: "2024",
+    file: "/certifications/RHCSA_Chaitanya.jpeg",
   },
   {
     title: "Red Hat Certified Engineer (RHCE)",
@@ -16,13 +17,15 @@ const certifications = [
     status: "Completed",
     focus: "Automation with Ansible, security hardening, troubleshooting",
     year: "2024",
+    file: "/certifications/RHCE_Chaitanya.pdf",
   },
   {
     title: "Red Hat Certified Specialist in Containers and Kubernetes",
     issuer: "Red Hat",
     status: "Completed",
     focus: "Containerization, Podman/Kubernetes fundamentals, secure supply chain",
-    year: "2023",
+    year: "2025",
+    file: "/certifications/Container_Chaitanya.jpeg",
   },
 ]
 
@@ -62,20 +65,20 @@ export default function CertificationsPage() {
               <p className="mt-3 text-sm text-muted">{cert.focus}</p>
               <div className="mt-3 flex items-center justify-between text-xs text-muted">
                 <span>{cert.year}</span>
-                <button
+                <a
+                  href={cert.file}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 font-semibold text-accent transition hover:border-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label="Request badge or PDF"
+                  aria-label={`View ${cert.title} certificate`}
                 >
-                  Request badge
+                  View certificate
                   <ExternalLink className="h-4 w-4" />
-                </button>
+                </a>
               </div>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-sm text-muted">
-          Want to see badge URLs or PDFs? Let me know which ones you need and I&apos;ll attach them.
-        </p>
       </SectionShell>
     </main>
   )

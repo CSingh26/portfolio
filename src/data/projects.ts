@@ -19,14 +19,14 @@ export const projects: Project[] = [
     slug: "quiz-website",
     description:
       "Quiz platform where instructors create rooms, share unique codes, and run timed sessions with real-time leaderboards.",
-    status: "Live",
+    status: "In Progress",
     tags: ["Next.js", "React", "Express.js", "AWS", "MongoDB", "Vercel"],
   },
   {
     title: "Online Journal Website",
     slug: "online-journal",
     description: "Secure journaling app with authentication, entry creation, and journal history tracking.",
-    status: "Live",
+    status: "In Progress",
     tags: ["Flask", "Python", "MySQL", "HTML/CSS", "JavaScript"],
   },
   {
