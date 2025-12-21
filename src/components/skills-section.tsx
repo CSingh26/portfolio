@@ -9,8 +9,8 @@ export function SkillsSection() {
     <SectionShell
       id="skills"
       eyebrow="Skills"
-      title="A toolkit for shipping reliable, data-aware products."
-      description="Comfortable across the stack with a strong emphasis on backend systems, data pipelines, and cloud operations."
+      title="A toolkit for building web and data-driven projects."
+      description="Comfortable across web development, data analysis, and cloud fundamentals."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((group) => (

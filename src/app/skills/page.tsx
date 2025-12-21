@@ -3,7 +3,7 @@ import { SkillsSection } from "@/components/skills-section"
 
 export const metadata: Metadata = {
   title: "Skills | Chaitanya Singh",
-  description: "Technical toolkit across TypeScript, Node.js, cloud, data, ML, and security.",
+  description: "Technical toolkit across web development, databases, and cloud fundamentals.",
 }
 
 export default function SkillsPage() {

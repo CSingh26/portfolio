@@ -10,7 +10,7 @@ export function HomeProjects() {
     <SectionShell
       eyebrow="Featured"
       title="Recent projects at a glance."
-      description="Fast, data-heavy builds with secure defaults. Explore the full gallery for deeper breakdowns."
+      description="Recent web projects ranging from quiz platforms to journaling and design sites."
       className="pb-24"
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
