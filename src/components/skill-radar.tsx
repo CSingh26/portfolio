@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion"
 import { radarCategories, type RadarCategory } from "@/data/skill-radar"
 import { cn } from "@/lib/utils"
 
-const size = 620
+const size = 680
 const center = size / 2
-const radius = 250
+const radius = 240
+const labelOffset = 32
+const labelFont = "text-[12px] sm:text-[13px] font-semibold fill-foreground"
 
 function toRadians(deg: number) {
   return (deg * Math.PI) / 180
@@ -26,6 +28,18 @@ function polygonPoints(skills: RadarCategory["skills"]) {
     .join(" ")
 }
 
+function splitLabel(label: string) {
+  if (!label.includes(" ") || label.length <= 12) {
+    return [label]
+  }
+  const words = label.split(" ")
+  if (words.length === 2) {
+    return words
+  }
+  const midpoint = Math.ceil(words.length / 2)
+  return [words.slice(0, midpoint).join(" "), words.slice(midpoint).join(" ")]
+}
+
 export function SkillRadar() {
   const [activeId, setActiveId] = useState(radarCategories[0].id)
   const active = radarCategories.find((cat) => cat.id === activeId) ?? radarCategories[0]
@@ -33,21 +47,25 @@ export function SkillRadar() {
   const polygon = polygonPoints(active.skills)
 
   return (
-    <div className="glass relative overflow-hidden rounded-3xl p-8 shadow-soft lg:p-10">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-muted">Technical Proficiency</p>
-          <p className="text-2xl font-bold">Skill radar</p>
-        </div>
-        <div className="flex flex-wrap gap-2 rounded-full border border-border bg-card px-2 py-1 text-sm">
+    <div className="glass relative overflow-hidden rounded-3xl border border-border/70 bg-card/60 p-6 shadow-soft sm:p-8">
+      <div className="flex flex-col gap-2">
+        <h3 className="text-2xl font-semibold text-foreground">Technical Proficiency</h3>
+        <p className="text-base text-muted">Visualization of my technical skills and expertise.</p>
+      </div>
+      <div className="mt-5 rounded-full border border-border bg-background/60 p-1">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {radarCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveId(cat.id)}
               className={cn(
-                "rounded-full px-3 py-1 font-semibold transition",
-                activeId === cat.id ? "bg-foreground text-background" : "text-muted hover:text-foreground",
+                "rounded-full px-4 py-2 text-sm font-semibold transition",
+                activeId === cat.id
+                  ? "bg-foreground text-background shadow-soft"
+                  : "text-muted hover:text-foreground",
               )}
+              aria-pressed={activeId === cat.id}
+              type="button"
             >
               {cat.title}
             </button>
@@ -55,13 +73,13 @@ export function SkillRadar() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div className="relative mx-auto flex w-full max-w-full items-center justify-center rounded-3xl border border-border bg-background/70 p-5 md:p-8 overflow-hidden">
-          <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full max-h-[620px] max-w-[620px]" preserveAspectRatio="xMidYMid meet">
+      <div className="mt-8 flex flex-col items-center justify-center">
+        <div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center">
+          <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="var(--color-foreground)" stopOpacity="0.35" />
+                <stop offset="0%" stopColor="var(--color-text)" stopOpacity="0.08" />
+                <stop offset="100%" stopColor="var(--color-text)" stopOpacity="0.22" />
               </linearGradient>
             </defs>
             <g>
@@ -79,18 +97,7 @@ export function SkillRadar() {
                 const angle = toRadians(-90 + (360 / active.skills.length) * idx)
                 const x = center + radius * Math.cos(angle)
                 const y = center + radius * Math.sin(angle)
-                return (
-                  <line
-                    key={idx}
-                    x1={center}
-                    y1={center}
-                    x2={x}
-                    y2={y}
-                    stroke="var(--color-border)"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                  />
-                )
+                return <line key={idx} x1={center} y1={center} x2={x} y2={y} stroke="var(--color-border)" strokeWidth="1" />
               })}
               <polygon points={guidePoints} fill="none" stroke="var(--color-border)" strokeWidth="1" />
               <AnimatePresence mode="wait">
@@ -98,7 +105,8 @@ export function SkillRadar() {
                   key={activeId}
                   points={polygon}
                   fill="url(#radarFill)"
-                  stroke="var(--color-accent)"
+                  stroke="var(--color-text)"
+                  strokeOpacity="0.75"
                   strokeWidth="2"
                   initial={{ opacity: 0, scale: 0.92 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -108,53 +116,34 @@ export function SkillRadar() {
               </AnimatePresence>
               {active.skills.map((skill, idx) => {
                 const angle = toRadians(-90 + (360 / active.skills.length) * idx)
-                const valueRadius = (skill.value / 100) * radius
-                const x = center + valueRadius * Math.cos(angle)
-                const y = center + valueRadius * Math.sin(angle)
+                const labelRadius = radius + labelOffset
+                const x = center + labelRadius * Math.cos(angle)
+                const y = center + labelRadius * Math.sin(angle)
+                const lines = splitLabel(skill.label)
                 return (
-                  <g key={skill.label}>
-                    <circle cx={x} cy={y} r={4} fill="var(--color-foreground)" />
-                    <text
-                      x={x}
-                      y={y}
-                      dx={x < center ? -10 : 10}
-                      dy={y < center ? -6 : 14}
-                      textAnchor={x < center ? "end" : "start"}
-                      className="text-[10px] font-semibold fill-foreground"
-                    >
-                      {skill.label}
-                    </text>
-                  </g>
+                  <text
+                    key={skill.label}
+                    x={x}
+                    y={y}
+                    dx={x < center ? -6 : 6}
+                    dy={y < center ? -6 : 14}
+                    textAnchor={x < center ? "end" : "start"}
+                    className={labelFont}
+                  >
+                    {lines.map((line, lineIndex) => (
+                      <tspan key={`${skill.label}-${lineIndex}`} x={x} dy={lineIndex === 0 ? 0 : 14}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
                 )
               })}
             </g>
           </svg>
         </div>
-        <div className="space-y-4">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <p className="text-sm uppercase tracking-[0.18em] text-muted">{active.title}</p>
-              <h3 className="font-display text-xl text-foreground">Strengths by category</h3>
-              <p className="mt-2 text-sm text-muted">{active.description}</p>
-              <div className="mt-4 grid grid-cols-3 gap-3 text-xs sm:text-sm">
-                {active.skills.map((skill) => (
-                  <div
-                    key={skill.label}
-                    className="flex items-center justify-between rounded-full border border-border bg-card px-3 py-2"
-                  >
-                    <span className="font-semibold text-foreground truncate">{skill.label}</span>
-                    <span className="ml-2 text-muted">{skill.value}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+        <div className="mt-4 flex items-center gap-2 text-xs text-muted">
+          <span className="h-3 w-3 rounded-sm bg-foreground" />
+          <span>Skill Level</span>
         </div>
       </div>
     </div>

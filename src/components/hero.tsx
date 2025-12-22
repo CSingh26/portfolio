@@ -1,9 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Download } from "lucide-react"
 import Link from "next/link"
-import { SkillDeck } from "./skill-deck"
 
 const fade = {
   initial: { opacity: 0, y: 24 },
@@ -13,6 +13,15 @@ const fade = {
 
 export function Hero() {
   const reduceMotion = useReducedMotion()
+  const [photoError, setPhotoError] = useState(false)
+  const focusTags = [
+    "Software Development",
+    "Data Analysis",
+    "Web Development",
+    "Cloud",
+    "Cybersecurity",
+    "AI",
+  ]
 
   return (
     <section className="relative overflow-hidden pb-14 pt-28 sm:pt-32">
@@ -37,25 +46,29 @@ export function Hero() {
         />
       </div>
 
-      <div className="container relative grid gap-12 md:gap-16 xl:gap-20 lg:grid-cols-[1.05fr_1fr] items-start">
+      <div className="container relative grid gap-10 md:gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
         <motion.div
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
           initial={fade.initial}
           animate={fade.animate}
           transition={fade.transition}
         >
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-card px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-            Software Engineer • Data &amp; FinTech Enthusiast
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          </span>
           <h1 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
-            Chaitanya Singh
+            Hi, I&apos;m <span className="text-accent">Chaitanya Singh</span>
           </h1>
-          <p className="max-w-2xl text-lg text-muted sm:text-xl">
-            CS junior at Arizona State University building data-rich, secure, and cloud-native
-            products. I bridge backend systems, analytics, and fintech to ship tools that feel fast,
-            intentional, and reliable.
+          <p className="max-w-xl text-base text-muted sm:text-lg">
+            I build data-driven web products and cloud-ready systems that feel fast and intentional.
           </p>
+          <div className="flex flex-wrap gap-2 pt-2">
+            {focusTags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-muted transition hover:border-accent hover:text-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
             <Link
               href="/projects"
@@ -72,18 +85,33 @@ export function Hero() {
               <Download className="h-4 w-4" />
             </Link>
           </div>
-          <div className="flex flex-wrap gap-3 text-sm text-muted">
-            <span className="rounded-full bg-card px-3 py-2">
-              Red Hat Certified — RHCSA, RHCE, Container Specialist
-            </span>
-            <span className="rounded-full bg-card px-3 py-2">
-              Building across data, backend, cloud, security, fintech
-            </span>
-            <span className="rounded-full bg-card px-3 py-2">Phoenix, AZ · Open to internships</span>
-          </div>
         </motion.div>
 
-        <SkillDeck />
+        <motion.div
+          className="relative flex items-center justify-center lg:justify-end"
+          initial={fade.initial}
+          animate={fade.animate}
+          transition={fade.transition}
+        >
+          <div className="relative">
+            <div className="relative h-56 w-56 rounded-full bg-card/40 p-2 sm:h-64 sm:w-64 lg:h-80 lg:w-80">
+              <div className="h-full w-full overflow-hidden rounded-full bg-background/80">
+                {photoError ? (
+                  <div className="flex h-full w-full items-center justify-center text-[0.65rem] uppercase tracking-[0.2em] text-muted">
+                    Add /public/profile.jpg
+                  </div>
+                ) : (
+                  <img
+                    src="/profile.png"
+                    alt="Chaitanya Singh"
+                    className="h-full w-full object-cover"
+                    onError={() => setPhotoError(true)}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
