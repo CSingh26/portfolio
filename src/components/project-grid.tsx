@@ -9,8 +9,8 @@ export function ProjectGrid() {
     <SectionShell
       id="projects"
       eyebrow="Projects"
-      title="Projects across web platforms and thoughtful UX."
-      description="Quiz, journaling, and design-centric builds focused on clean interfaces and reliable backends."
+      title="Projects across web, AI, and data science."
+      description="A mix of UI-driven apps and ML experiments, with each repo documented and linked."
     >
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {projects.map((project) => (

@@ -9,7 +9,7 @@ const size = 680
 const center = size / 2
 const radius = 240
 const labelOffset = 32
-const labelFont = "text-[12px] sm:text-[13px] font-semibold fill-foreground"
+const labelFont = "text-[13px] sm:text-[14px] font-semibold fill-[var(--color-radar-text)]"
 
 function toRadians(deg: number) {
   return (deg * Math.PI) / 180
@@ -59,7 +59,7 @@ export function SkillRadar() {
               key={cat.id}
               onClick={() => setActiveId(cat.id)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-semibold transition",
+                "rounded-full px-4 py-2 text-sm font-semibold transition sm:text-base",
                 activeId === cat.id
                   ? "bg-foreground text-background shadow-soft"
                   : "text-muted hover:text-foreground",
@@ -74,39 +74,55 @@ export function SkillRadar() {
       </div>
 
       <div className="mt-8 flex flex-col items-center justify-center">
-        <div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center">
+        <div className="relative mx-auto flex w-full max-w-[680px] items-center justify-center">
           <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="var(--color-text)" stopOpacity="0.08" />
-                <stop offset="100%" stopColor="var(--color-text)" stopOpacity="0.22" />
+                <stop offset="0%" stopColor="var(--color-radar-fill)" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="var(--color-radar-fill)" stopOpacity="0.8" />
               </linearGradient>
             </defs>
             <g>
-              <circle cx={center} cy={center} r={radius} fill="none" stroke="var(--color-border)" strokeWidth="1" />
+              <circle cx={center} cy={center} r={radius} fill="none" stroke="var(--color-radar-line)" strokeWidth="1" />
               <circle
                 cx={center}
                 cy={center}
                 r={(radius * 2) / 3}
                 fill="none"
-                stroke="var(--color-border)"
+                stroke="var(--color-radar-line)"
                 strokeWidth="1"
               />
-              <circle cx={center} cy={center} r={radius / 3} fill="none" stroke="var(--color-border)" strokeWidth="1" />
+              <circle
+                cx={center}
+                cy={center}
+                r={radius / 3}
+                fill="none"
+                stroke="var(--color-radar-line)"
+                strokeWidth="1"
+              />
               {active.skills.map((_, idx) => {
                 const angle = toRadians(-90 + (360 / active.skills.length) * idx)
                 const x = center + radius * Math.cos(angle)
                 const y = center + radius * Math.sin(angle)
-                return <line key={idx} x1={center} y1={center} x2={x} y2={y} stroke="var(--color-border)" strokeWidth="1" />
+                return (
+                  <line
+                    key={idx}
+                    x1={center}
+                    y1={center}
+                    x2={x}
+                    y2={y}
+                    stroke="var(--color-radar-line)"
+                    strokeWidth="1"
+                  />
+                )
               })}
-              <polygon points={guidePoints} fill="none" stroke="var(--color-border)" strokeWidth="1" />
+              <polygon points={guidePoints} fill="none" stroke="var(--color-radar-line)" strokeWidth="1" />
               <AnimatePresence mode="wait">
                 <motion.polygon
                   key={activeId}
                   points={polygon}
                   fill="url(#radarFill)"
-                  stroke="var(--color-text)"
-                  strokeOpacity="0.75"
+                  stroke="var(--color-radar-text)"
                   strokeWidth="2"
                   initial={{ opacity: 0, scale: 0.92 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -141,9 +157,9 @@ export function SkillRadar() {
             </g>
           </svg>
         </div>
-        <div className="mt-4 flex items-center gap-2 text-xs text-muted">
-          <span className="h-3 w-3 rounded-sm bg-foreground" />
-          <span>Skill Level</span>
+        <div className="mt-4 flex items-center gap-2 text-sm text-muted">
+          <span className="h-3 w-3 rounded-sm bg-[var(--color-radar-text)]" />
+          <span className="text-[var(--color-radar-text)]">Skill Level</span>
         </div>
       </div>
     </div>

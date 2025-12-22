@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Github } from "lucide-react"
 import { SectionShell } from "./section-shell"
 import { projects } from "@/data/projects"
 
@@ -10,7 +10,7 @@ export function HomeProjects() {
     <SectionShell
       eyebrow="Featured"
       title="Recent projects at a glance."
-      description="Recent web projects ranging from quiz platforms to journaling and design sites."
+      description="Featured builds spanning UI work, AI tooling, and data-driven apps."
       className="pb-24"
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -26,13 +26,26 @@ export function HomeProjects() {
               </span>
             </div>
             <p className="mt-3 text-sm text-muted">{project.description}</p>
-            <Link
-              href="/projects"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent transition group-hover:text-foreground"
-            >
-              View details
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <div className="mt-auto flex items-center justify-between pt-4">
+              <Link
+                href={`/projects/${project.slug}`}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition group-hover:text-foreground"
+              >
+                View details
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              {project.links?.github ? (
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.title} on GitHub`}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted transition hover:border-accent hover:text-accent"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+              ) : null}
+            </div>
           </div>
         ))}
       </div>

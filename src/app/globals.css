@@ -12,6 +12,9 @@
   --color-card: rgba(255, 255, 255, 0.72);
   --color-border: rgba(16, 55, 92, 0.15);
   --color-border-strong: rgba(16, 55, 92, 0.22);
+  --color-radar-line: rgba(16, 55, 92, 0.25);
+  --color-radar-fill: rgba(16, 55, 92, 0.18);
+  --color-radar-text: var(--color-text);
   --shadow-color: 0 10px 45px rgba(16, 55, 92, 0.12);
   --gradient: radial-gradient(circle at 10% 20%, rgba(243, 198, 35, 0.28), transparent 28%),
     radial-gradient(circle at 80% 0%, rgba(235, 131, 23, 0.22), transparent 24%),
@@ -27,6 +30,9 @@
   --color-card: rgba(12, 15, 10, 0.6);
   --color-border: rgba(251, 255, 18, 0.12);
   --color-border-strong: rgba(251, 255, 18, 0.2);
+  --color-radar-line: rgba(251, 255, 18, 0.25);
+  --color-radar-fill: rgba(251, 255, 18, 0.18);
+  --color-radar-text: var(--color-text);
   --shadow-color: 0 10px 45px rgba(0, 0, 0, 0.35);
   --gradient: radial-gradient(circle at 15% 20%, rgba(51, 102, 153, 0.4), transparent 24%),
     radial-gradient(circle at 75% 0%, rgba(112, 160, 175, 0.35), transparent 22%),
