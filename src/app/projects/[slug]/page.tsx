@@ -15,10 +15,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = projects.find((item) => item.slug === slug)
-  if (!project) return { title: "Projects | Chaitanya Singh" }
+  if (!project) return { title: "Projects | Chaitanya" }
 
   return {
-    title: `${project.title} | Chaitanya Singh`,
+    title: `${project.title} | Chaitanya`,
     description: project.description,
   }
 }

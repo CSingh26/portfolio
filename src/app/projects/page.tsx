@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { ProjectGrid } from "@/components/project-grid"
 
 export const metadata: Metadata = {
-  title: "Projects | Chaitanya Singh",
+  title: "Projects | Chaitanya",
   description: "Project gallery spanning web apps, AI tooling, and data-driven experiments.",
 }
 

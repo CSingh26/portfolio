@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { WritingSection } from "@/components/writing-section"
 
 export const metadata: Metadata = {
-  title: "Writing | Chaitanya Singh",
+  title: "Writing | Chaitanya",
   description: "Notes and articles on fintech, cloud, systems, and security engineering.",
 }
 

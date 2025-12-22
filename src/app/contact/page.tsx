@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { ContactForm } from "@/components/contact-form"
 
 export const metadata: Metadata = {
-  title: "Contact | Chaitanya Singh",
+  title: "Contact | Chaitanya",
   description: "Get in touch for fintech, data, backend, and security collaborations or roles.",
 }
 

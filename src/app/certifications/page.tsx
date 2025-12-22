@@ -30,7 +30,7 @@ const certifications = [
 ]
 
 export const metadata: Metadata = {
-  title: "Certifications | Chaitanya Singh",
+  title: "Certifications | Chaitanya",
   description: "Highlighted certifications including RHCSA, RHCE, and Red Hat container specialist.",
 }
 

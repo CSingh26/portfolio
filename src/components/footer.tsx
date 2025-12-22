@@ -30,7 +30,7 @@ export function Footer() {
             </span>
             Online
           </div>
-          <p className="text-sm text-muted">© {year} Chaitanya Singh. All rights reserved.</p>
+          <p className="text-sm text-muted">© {year} Chaitanya. All rights reserved.</p>
         </div>
         <div className="flex items-center gap-3">
           {socials.map(({ href, label, icon: Icon }) => (

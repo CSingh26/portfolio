@@ -54,7 +54,7 @@ export function Hero() {
           transition={fade.transition}
         >
           <h1 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
-            Hi, I&apos;m <span className="text-accent">Chaitanya Singh</span>
+            Hi, I&apos;m <span className="text-accent">Chaitanya</span>
           </h1>
           <p className="max-w-xl text-base text-muted sm:text-lg">
             I build data-driven web products and cloud-ready systems that feel fast and intentional.
@@ -103,7 +103,7 @@ export function Hero() {
                 ) : (
                   <img
                     src="/profile.png"
-                    alt="Chaitanya Singh"
+                    alt="Chaitanya"
                     className="h-full w-full object-cover"
                     onError={() => setPhotoError(true)}
                   />

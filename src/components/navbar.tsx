@@ -9,23 +9,24 @@ import { ThemeToggle } from "./theme-toggle"
 import { cn } from "@/lib/utils"
 
 const NAV_ITEMS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/certifications", label: "Certifications" },
-  { href: "/skills", label: "Skills" },
-  { href: "/writing", label: "Writing" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "home" },
+  { href: "/projects", label: "projects" },
+  { href: "/experience", label: "work" },
+  { href: "/skills", label: "skills" },
+  { href: "/certifications", label: "certifications" },
+  { href: "/writing", label: "thoughts" },
+  { href: "/contact", label: "contact" },
 ]
 
 const NAME_TRANSLATIONS = [
-  "Chaitanya Singh",
-  "चैतन्य सिंह",
-  "تشايتانيا سينغ",
-  "Чайтанья Сингх",
-  "チャイタンヤ・シン",
-  "Chaitanya Sing",
+  "Chaitanya",
+  "चैतन्य",
+  "চৈতন্য",
+  "ચૈતન્ય",
+  "Чайтанья",
+  "チャイタンヤ",
+  "تشايتانيا",
+  "柴坦亚",
 ]
 
 export function Navbar() {
@@ -46,21 +47,20 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-gradient-to-b from-background/90 via-background/75 to-transparent" />
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-xl">
       <motion.nav
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="container relative flex items-center justify-between rounded-full bg-card/80 px-4 py-3 shadow-soft backdrop-blur-lg"
+        className="container flex items-center justify-between py-4"
       >
         <Link
-          className="flex items-center gap-3 rounded-full px-3 py-2 font-display text-lg tracking-tight transition hover:scale-[1.02] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex items-center gap-3 font-display text-base tracking-tight text-foreground transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-lg"
           href="/"
           onClick={() => setOpen(false)}
           aria-label="Go to home"
         >
-          <span className="relative hidden sm:block min-w-[9ch]">
+          <span className="relative min-w-[9ch]">
             <AnimatePresence mode="wait">
               <motion.span
                 key={nameIdx}
@@ -83,18 +83,11 @@ export function Navbar() {
               href={item.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "relative px-2 py-1 text-sm font-medium uppercase tracking-[0.18em] text-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "px-2 py-1 text-[0.7rem] font-medium lowercase tracking-[0.14em] text-muted transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-xs lg:text-sm",
                 isActive(item.href) && "text-foreground",
               )}
             >
               {item.label}
-              {isActive(item.href) ? (
-                <motion.span
-                  layoutId="nav-active"
-                  className="absolute inset-x-0 -bottom-1 h-[2px] origin-center rounded-full bg-accent"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              ) : null}
             </Link>
           ))}
           <ThemeToggle />
@@ -128,7 +121,7 @@ export function Navbar() {
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "flex items-center justify-between px-5 py-4 text-base font-medium transition hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    "flex items-center justify-between px-5 py-4 text-sm font-medium lowercase tracking-[0.14em] transition hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     isActive(item.href) && "text-accent",
                   )}
                 >
