@@ -1,13 +1,14 @@
  "use client"
 
-import { Github, Linkedin, Mail, Twitter, ArrowUp } from "lucide-react"
+import { Github, Instagram, Linkedin, Mail, Twitter, ArrowUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const socials = [
-  { href: "https://github.com/chaitanyasingh", label: "GitHub", icon: Github },
-  { href: "https://www.linkedin.com/in/chaitanya-singh-tech", label: "LinkedIn", icon: Linkedin },
-  { href: "https://twitter.com", label: "Twitter", icon: Twitter },
-  { href: "mailto:csingh.tech@asu.edu", label: "Email", icon: Mail },
+  { href: "https://github.com/CSingh26", label: "GitHub", icon: Github },
+  { href: "https://www.linkedin.com/in/chaitanya-singh-10065a213/", label: "LinkedIn", icon: Linkedin },
+  { href: "https://twitter.com/csingh04", label: "Twitter", icon: Twitter },
+  { href: "https://www.instagram.com/chaitanya.singh4", label: "Instagram", icon: Instagram },
+  { href: "mailto:singh.chaittanya@gmail.com", label: "Email", icon: Mail },
 ]
 
 export function Footer() {
