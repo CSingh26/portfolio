@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CursorGlow } from "@/components/cursor-glow"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body className="antialiased bg-background text-foreground">
         <ThemeProvider>
           <div className="noise" aria-hidden />
+          <CursorGlow />
           <div className="pointer-events-none fixed inset-0 -z-10">
             <div className="absolute left-[-10%] top-[-10%] h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
             <div className="absolute right-[-8%] top-[10%] h-72 w-72 rounded-full bg-foreground/10 blur-3xl" />
