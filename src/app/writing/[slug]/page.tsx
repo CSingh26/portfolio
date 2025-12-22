@@ -56,8 +56,11 @@ export default async function WritingDetail({ params }: Props) {
         </p>
         <p>
           Want an early preview or have feedback? Reach out at{" "}
-          <a href="mailto:csingh.tech@asu.edu" className="font-semibold text-accent underline-offset-4 hover:underline">
-            csingh.tech@asu.edu
+          <a
+            href="mailto:singh.chaittanya@gmail.com"
+            className="font-semibold text-accent underline-offset-4 hover:underline"
+          >
+            singh.chaittanya@gmail.com
           </a>
           .
         </p>
