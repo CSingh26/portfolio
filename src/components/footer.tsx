@@ -1,5 +1,6 @@
- "use client"
+"use client"
 
+import { useEffect, useState } from "react"
 import { Github, Instagram, Linkedin, Mail, Twitter, ArrowUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -13,6 +14,28 @@ const socials = [
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const [visitorCount, setVisitorCount] = useState<number | null>(null)
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const loadCount = async () => {
+      try {
+        const response = await fetch("/api/analytics/visit", { signal: controller.signal })
+        if (!response.ok) return
+        const data = await response.json()
+        if (typeof data?.count === "number") {
+          setVisitorCount(data.count)
+        }
+      } catch {
+        // Ignore analytics failures
+      }
+    }
+
+    loadCount()
+
+    return () => controller.abort()
+  }, [])
   const scrollTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" })
@@ -22,7 +45,7 @@ export function Footer() {
   return (
     <footer className="relative z-10 border-t border-border/70 bg-background/80 backdrop-blur-xl">
       <div className="container flex flex-col gap-6 py-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-sm font-semibold text-foreground">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
@@ -30,6 +53,11 @@ export function Footer() {
             </span>
             Online
           </div>
+          {typeof visitorCount === "number" ? (
+            <div className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              Visitors {visitorCount.toLocaleString()}
+            </div>
+          ) : null}
           <p className="text-sm text-muted">© {year} Chaitanya. All rights reserved.</p>
         </div>
         <div className="flex items-center gap-3">

@@ -7,15 +7,18 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Chaitanya | Data, Cloud & FinTech Engineer",
+  title: "Chaitanya | Portfolio",
   description:
-    "Portfolio of Chaitanya, CS junior at Arizona State University building data, backend, cloud, fintech, and security projects.",
-  metadataBase: new URL("https://chaitanya-singh.dev"),
+    "Portfolio of Chaitanya, CS senior at Arizona State University building data, backend, cloud, fintech, and security projects.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  metadataBase: new URL("https://chaitanyasingh.org"),
   openGraph: {
     title: "Chaitanya | Data, Cloud & FinTech Engineer",
     description:
       "CS senior at Arizona State University shipping data-driven, secure, cloud-native products.",
-    url: "https://chaitanya-singh.dev",
+    url: "https://chaitanyasingh.org",
     siteName: "Chaitanya",
     locale: "en_US",
     type: "website",
