@@ -44,7 +44,11 @@ export default function Home() {
                 autoPlay
                 loop
                 muted
-                className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+                playsInline
+                preload="auto"
+                disablePictureInPicture
+                aria-hidden="true"
+                className="absolute top-0 left-0 w-full h-full object-cover -z-10 pointer-events-none"
             >
                 <source
                     src="/Background.mp4"
