@@ -27,6 +27,8 @@ export default async function WritingDetail({ params }: Props) {
   const post = writing.find((item) => item.slug === slug)
   if (!post) notFound()
 
+  const dateStamp = post.date ? `${post.date} · ${post.readingTime}` : post.readingTime
+
   return (
     <div className="container min-h-screen pt-28 pb-16">
       <div className="mb-8 flex items-center justify-between">
@@ -37,7 +39,7 @@ export default async function WritingDetail({ params }: Props) {
           ← Back to writing
         </Link>
         <span className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-muted">
-          {post.readingTime}
+          {dateStamp}
         </span>
       </div>
       <h1 className="font-display text-3xl sm:text-4xl">{post.title}</h1>
@@ -50,20 +52,14 @@ export default async function WritingDetail({ params }: Props) {
         ))}
       </div>
       <div className="mt-8 space-y-4 text-base text-muted">
-        <p>
-          Full post coming soon. Expect architecture diagrams, code snippets, and operational checklists that
-          mirror how I actually ship these systems.
-        </p>
-        <p>
-          Want an early preview or have feedback? Reach out at{" "}
-          <a
-            href="mailto:singh.chaittanya@gmail.com"
-            className="font-semibold text-accent underline-offset-4 hover:underline"
-          >
-            singh.chaittanya@gmail.com
-          </a>
-          .
-        </p>
+        {post.content?.length ? (
+          post.content.map((paragraph, index) => <p key={`${post.slug}-p-${index}`}>{paragraph}</p>)
+        ) : (
+          <p>
+            Full post coming soon. Expect architecture diagrams, code snippets, and operational checklists that
+            mirror how I actually ship these systems.
+          </p>
+        )}
       </div>
     </div>
   )

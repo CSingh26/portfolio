@@ -21,7 +21,9 @@ export function WritingSection() {
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ type: "spring", stiffness: 240, damping: 22 }}
           >
-            <p className="text-sm uppercase tracking-[0.16em] text-muted">{post.readingTime}</p>
+            <p className="text-sm uppercase tracking-[0.16em] text-muted">
+              {post.date} · {post.readingTime}
+            </p>
             <h3 className="mt-1 font-display text-xl text-foreground">{post.title}</h3>
             <p className="mt-2 text-sm text-muted">{post.description}</p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">

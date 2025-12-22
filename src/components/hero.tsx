@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Download } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 const fade = {
@@ -95,17 +96,20 @@ export function Hero() {
         >
           <div className="relative">
             <div className="relative h-56 w-56 rounded-full bg-card/40 p-2 sm:h-64 sm:w-64 lg:h-80 lg:w-80">
-              <div className="h-full w-full overflow-hidden rounded-full bg-background/80">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-background/80">
                 {photoError ? (
                   <div className="flex h-full w-full items-center justify-center text-[0.65rem] uppercase tracking-[0.2em] text-muted">
-                    Add /public/profile.jpg
+                    Add /public/profile.png
                   </div>
                 ) : (
-                  <img
+                  <Image
                     src="/profile.png"
                     alt="Chaitanya"
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 14rem"
+                    className="object-cover"
                     onError={() => setPhotoError(true)}
+                    priority
                   />
                 )}
               </div>

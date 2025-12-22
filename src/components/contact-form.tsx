@@ -65,7 +65,7 @@ export function ContactForm() {
       setStatus("success")
       setStatusMessage("Thanks! I will reply shortly.")
       setForm({ name: "", email: "", subject: "", message: "" })
-    } catch (error) {
+    } catch {
       setStatus("error")
       setStatusMessage("Unable to send right now. Please try again soon.")
     }
