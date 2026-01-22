@@ -48,7 +48,9 @@ export default async function ProjectDetail({ params }: Props) {
                 ? "rounded-full bg-foreground px-3 py-1 text-xs font-semibold text-background"
                 : project.status === "In Progress"
                   ? "rounded-full border border-accent/60 px-3 py-1 text-xs font-semibold text-accent"
-                  : "rounded-full border border-border px-3 py-1 text-xs font-semibold text-muted"
+                  : project.status === "Completed"
+                    ? "rounded-full border border-border px-3 py-1 text-xs font-semibold text-foreground"
+                    : "rounded-full border border-border px-3 py-1 text-xs font-semibold text-muted"
             }
           >
             {project.status}

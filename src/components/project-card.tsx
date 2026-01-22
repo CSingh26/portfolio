@@ -53,7 +53,9 @@ export function ProjectCard({ project }: Props) {
               ? "bg-foreground text-background"
               : project.status === "In Progress"
                 ? "border border-accent/60 text-accent"
-                : "border border-border text-muted",
+                : project.status === "Completed"
+                  ? "border border-border text-foreground"
+                  : "border border-border text-muted",
           )}
         >
           {project.status}

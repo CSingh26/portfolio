@@ -1,4 +1,4 @@
-export type ProjectStatus = "Live" | "In Progress" | "Research"
+export type ProjectStatus = "Live" | "In Progress" | "Completed" | "Research"
 
 export type ProjectDetail = {
   overview: string
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     slug: "careerpath-ai",
     description:
       "FastAPI backend that ingests a student profile (courses, GPA trend, projects, certifications) and returns top role recommendations with model scores using a serialized ML model.",
-    status: "Completed",
+    status: "In Progress",
     tags: ["Python", "FastAPI", "ML", "LightGBM"],
     links: {
       github: "https://github.com/CSingh26/CarrerPath-AI",
