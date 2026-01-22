@@ -50,7 +50,7 @@ export const projects: Project[] = [
     slug: "careerpath-ai",
     description:
       "FastAPI backend that ingests a student profile (courses, GPA trend, projects, certifications) and returns top role recommendations with model scores using a serialized ML model.",
-    status: "In Progress",
+    status: "Completed",
     tags: ["Python", "FastAPI", "ML", "LightGBM"],
     links: {
       github: "https://github.com/CSingh26/CarrerPath-AI",
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     slug: "quiz-app",
     description:
       "Full-stack quiz platform for instructors and students with room creation, test module uploads, timers, and live leaderboards backed by AWS S3 and MongoDB.",
-    status: "In Progress",
+    status: "Completed",
     tags: ["Node.js", "Express.js", "MongoDB", "AWS"],
     links: {
       github: "https://github.com/CSingh26/quiz-app",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     slug: "algorithm-visualizer",
     description:
       "Interactive algorithm visualizer with a browser UI plus a Java app, showcasing animated sorting and pathfinding demos.",
-    status: "In Progress",
+    status: "Completed",
     tags: ["JavaScript", "Visualization", "Java"],
     links: {
       github: "https://github.com/CSingh26/AlgorithmVisualizer",
