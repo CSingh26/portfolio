@@ -256,4 +256,143 @@ export const projects: Project[] = [
       stack: ["Python", "NLP"],
     },
   },
+  {
+    title: "StudyOS",
+    slug: "studyos",
+    description:
+      "iOS-only study organizer focused on offline-first planning with Canvas sync, iCal imports, focus sessions, and a privacy-first vault.",
+    status: "In Progress",
+    tags: ["Swift", "iOS", "SwiftData", "Canvas", "Offline First"],
+    links: {
+      github: "https://github.com/CSingh26/StudyOS",
+    },
+    details: {
+      overview:
+        "Offline-first iOS study organizer that syncs Canvas data, imports iCal schedules, and supports smart planning and focus tooling. It caches data with SwiftData, offers a demo mode, and keeps privacy controls like biometric app lock and local data export.",
+      highlights: [
+        "Canvas OAuth sync for courses, assignments, grades, and events.",
+        "Offline-first cache with background refresh and demo mode.",
+        "Smart planning with priority scoring and routine constraints.",
+        "Focus sessions with Live Activities and widgets.",
+        "Vault for files, scans (OCR), and global search.",
+        "Share extension plus biometric app lock and data export.",
+      ],
+      stack: ["Swift", "iOS 17", "SwiftData", "Canvas API", "iCal", "WidgetKit", "CloudKit"],
+    },
+  },
+  {
+    title: "Habitum",
+    slug: "habit-app",
+    description:
+      "Offline-first habit tracker for iOS and Android with schedules, streaks, journaling, analytics, and a companion system built with Expo Router.",
+    status: "Completed",
+    tags: ["Expo", "React Native", "TypeScript", "SQLite", "Mobile"],
+    links: {
+      github: "https://github.com/CSingh26/habit-app",
+    },
+    details: {
+      overview:
+        "Production-quality habit tracker with SQLite persistence, a streak engine, reflective journaling, achievements, and a virtual companion experience. Designed for polished interactions and full offline capability without a backend.",
+      highlights: [
+        "Habit CRUD with schedules, targets, icons, and color palettes.",
+        "Streak engine with heatmap visualizations, XP, and achievements.",
+        "Journal with mood/energy sliders and habit-linked reflections.",
+        "Challenge mode with invite codes, QR, leaderboards, and share cards.",
+        "Local notifications, haptics, and accessible theming support.",
+      ],
+      stack: ["Expo", "React Native", "TypeScript", "expo-router", "SQLite", "Zod", "Jest"],
+    },
+  },
+  {
+    title: "PortfolioPilot",
+    slug: "portfolio-pilot",
+    description:
+      "Quant portfolio optimizer and backtesting lab with a Next.js analytics dashboard and live market data integrations.",
+    status: "Completed",
+    tags: ["Python", "Quant", "Next.js", "Backtesting", "Finance"],
+    links: {
+      github: "https://github.com/CSingh26/PortfolioPilot",
+    },
+    details: {
+      overview:
+        "Portfolio optimization and backtesting workspace combining a Python quant engine with a Next.js dashboard. Includes multiple optimizers, vectorized backtests with costs, and live quote monitoring via Finnhub with Redis caching.",
+      highlights: [
+        "Mean-variance, risk parity, CVaR, and volatility targeting optimizers.",
+        "Vectorized backtesting with turnover, costs, and rolling analytics.",
+        "Fama-French factor regression plus FRED risk-free integration.",
+        "Live quotes pipeline with Finnhub and Redis caching.",
+        "Dashboard sections for optimizer runs, risk views, and run history.",
+      ],
+      stack: ["Python", "FastAPI", "Next.js", "TypeScript", "Redis", "Finnhub", "FRED"],
+    },
+  },
+  {
+    title: "Regulus",
+    slug: "regulus",
+    description:
+      "Codebase intelligence platform with RAG, AST dependency graphs, blast-radius forecasting, and security scanning.",
+    status: "Completed",
+    tags: ["Next.js", "FastAPI", "RAG", "Graph", "Security"],
+    links: {
+      github: "https://github.com/CSingh26/Regulus",
+    },
+    details: {
+      overview:
+        "Repo intelligence system that indexes codebases, builds AST dependency graphs, and powers a dashboard for architecture, ownership, hotspots, and security. Includes RAG explanations, diff summaries, and blast-radius forecasting.",
+      highlights: [
+        "AST dependency graphs with an interactive architecture map.",
+        "RAG search with module explanations and citations.",
+        "Diff summaries with risk heuristics and blast-radius scoring.",
+        "Ownership and hotspot analytics using churn, LOC, and centrality.",
+        "Security scanning via Semgrep, pip-audit, and npm audit.",
+      ],
+      stack: ["Next.js", "FastAPI", "Postgres", "pgvector", "Redis", "RQ", "Semgrep"],
+    },
+  },
+  {
+    title: "CreditLens",
+    slug: "credit-lens",
+    description:
+      "Demo credit default risk scoring platform with explainability, fairness diagnostics, and an underwriter dashboard.",
+    status: "Completed",
+    tags: ["Next.js", "FastAPI", "Fairness", "ML", "Python"],
+    links: {
+      github: "https://github.com/CSingh26/CreditLens",
+    },
+    details: {
+      overview:
+        "Loan risk scoring demo featuring a FastAPI model service, a Next.js underwriter dashboard, and explainability plus fairness reporting. Trains on the UCI credit default dataset and serves model metrics, cards, and applicant scoring.",
+      highlights: [
+        "Training pipeline with logistic regression and random forest models.",
+        "Probability calibration and metrics dashboards.",
+        "Fairness report and model card endpoints.",
+        "Underwriter UI for applicants, monitoring, and model details.",
+        "Docker and Makefile helpers plus one-command run script.",
+      ],
+      stack: ["Python", "FastAPI", "Next.js", "TypeScript", "SQLite", "UCI Dataset"],
+    },
+  },
+  {
+    title: "FraudPulse",
+    slug: "fraud-pulse",
+    description:
+      "Real-time fraud detection platform with a Next.js analyst dashboard, API/worker pipeline, and ML scoring service.",
+    status: "Completed",
+    tags: ["Next.js", "Express", "FastAPI", "Postgres", "Redis"],
+    links: {
+      github: "https://github.com/CSingh26/FraudPulse",
+    },
+    details: {
+      overview:
+        "Production-ready monorepo for fraud detection with transaction ingestion, background scoring workers, a FastAPI model service, and a Next.js analyst dashboard. Includes simulator tooling, metrics, and alert workflows.",
+      highlights: [
+        "Express + Prisma API for transactions and alerts with BullMQ workers.",
+        "FastAPI ML service for scoring, training, and metadata.",
+        "Next.js dashboard for alerts, metrics, and investigations.",
+        "Docker compose infra for Postgres, Redis, and Adminer.",
+        "Simulator to stream synthetic transactions for testing.",
+      ],
+      stack: ["Next.js", "TypeScript", "Express", "Prisma", "BullMQ", "FastAPI", "Postgres", "Redis"],
+    },
+  },
 ]
