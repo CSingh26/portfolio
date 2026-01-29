@@ -80,7 +80,7 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
       </div>
 
-      <h1 className="font-display text-3xl sm:text-4xl">{project.title}</h1>
+      <h1 className="break-words font-display text-3xl sm:text-4xl">{project.title}</h1>
       <p className="mt-3 max-w-3xl text-lg text-muted">{project.description}</p>
       <div className="mt-4 flex flex-wrap gap-2 text-xs">
         {project.tags.map((tag) => (

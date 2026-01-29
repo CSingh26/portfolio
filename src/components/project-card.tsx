@@ -41,10 +41,10 @@ export function ProjectCard({ project }: Props) {
       <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-foreground/10" />
       </div>
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm uppercase tracking-[0.16em] text-muted">{project.slug}</p>
-          <h3 className="font-display text-xl text-foreground">{project.title}</h3>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <p className="break-words text-sm uppercase tracking-[0.16em] text-muted">{project.slug}</p>
+          <h3 className="break-words font-display text-xl text-foreground">{project.title}</h3>
         </div>
         <span
           className={cn(
@@ -72,7 +72,7 @@ export function ProjectCard({ project }: Props) {
           </span>
         ))}
       </div>
-      <div className="mt-auto flex items-center justify-between gap-2 pt-4 text-sm font-semibold">
+      <div className="mt-auto flex flex-wrap items-center justify-start gap-2 pt-4 text-sm font-semibold sm:justify-between">
         {project.links?.github ? (
           <a
             href={project.links.github}
@@ -84,7 +84,7 @@ export function ProjectCard({ project }: Props) {
             <Github className="h-5 w-5" />
           </a>
         ) : (
-          <span />
+          <span className="hidden sm:inline-flex" />
         )}
         {project.links?.live ? (
           <a
