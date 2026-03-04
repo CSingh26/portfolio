@@ -22,6 +22,38 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "ReliScore",
+    slug: "reli-score",
+    description:
+      "Cloud-native storage risk operations platform that predicts hard-drive failures 30 days ahead using SMART telemetry, ML scoring, and fleet-level analytics dashboards.",
+    status: "Completed",
+    tags: ["Next.js", "NestJS", "FastAPI", "Postgres", "Machine Learning"],
+    links: {
+      github: "https://github.com/CSingh26/ReliScore",
+    },
+    details: {
+      overview:
+        "ReliScore is a monorepo platform for predictive storage failure monitoring. It combines a Next.js dashboard, a NestJS platform API, and a FastAPI model service to ingest telemetry, generate features, run scoring, and surface explainable risk insights per drive and across the fleet.",
+      highlights: [
+        "Monorepo architecture spanning apps/web, services/api, services/model, and ml/training pipelines.",
+        "End-to-end scoring flow from daily telemetry ingestion to feature generation and batch predictions.",
+        "Fleet overview, drive filters, and drilldowns with explainable top-reason insights.",
+        "Docker Compose local stack with seeded demo data and one-command startup.",
+        "Versioned model artifacts with metrics, model cards, and active-model switching.",
+      ],
+      stack: [
+        "Next.js",
+        "TypeScript",
+        "NestJS",
+        "FastAPI",
+        "Python",
+        "Prisma",
+        "Postgres",
+        "Docker",
+      ],
+    },
+  },
+  {
     title: "Grid Design Website",
     slug: "grid-design-website",
     description:
@@ -261,7 +293,7 @@ export const projects: Project[] = [
     slug: "studyos",
     description:
       "iOS-only study organizer focused on offline-first planning with Canvas sync, iCal imports, focus sessions, and a privacy-first vault.",
-    status: "In Progress",
+    status: "Completed",
     tags: ["Swift", "iOS", "SwiftData", "Canvas", "Offline First"],
     links: {
       github: "https://github.com/CSingh26/StudyOS",
