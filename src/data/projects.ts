@@ -22,6 +22,38 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Synaxis",
+    slug: "synaxis",
+    description:
+      "24-hour hackathon build created by a team of three, combining personal finance tracking with AI-assisted insurance policy analysis and what-if scenario planning in a mobile app.",
+    status: "Completed",
+    tags: ["Expo", "React Native", "JavaScript", "Fintech", "AI"],
+    links: {
+      github: "https://github.com/CSingh26/MoneyMatters",
+    },
+    details: {
+      overview:
+        "Synaxis is a mobile app built during a 24-hour hackathon with a three-person team. The product combines two connected workflows: a finance tracker for income, expenses, assets, savings, and goals, plus an AI-assisted insurance workspace for uploading policy PDFs, reviewing coverage summaries, spotting asset-vs-coverage gaps, and running scenario simulations.",
+      highlights: [
+        "Shipped a multi-screen Expo app in 24 hours with authentication, theming, and native navigation flows.",
+        "Financial tracker covers income, expenses, savings, assets, goals, and visual summaries in one mobile dashboard.",
+        "Policy workflow supports PDF uploads, parsed policy summaries, and coverage-gap review against tracked assets.",
+        "Scenario simulator answers what-if questions and compares potential outcomes for major insurance and financial events.",
+        "GitHub repo is currently named MoneyMatters, while the product itself is branded and presented as Synaxis.",
+      ],
+      stack: [
+        "Expo",
+        "React Native",
+        "JavaScript",
+        "React Navigation",
+        "Expo Secure Store",
+        "react-native-gifted-charts",
+        "Document Picker",
+        "REST APIs",
+      ],
+    },
+  },
+  {
     title: "ReliScore",
     slug: "reli-score",
     description:
