@@ -1,9 +1,37 @@
 export type ProjectStatus = "Live" | "In Progress" | "Completed" | "Research"
 
+export type ProjectMedia = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption?: string
+}
+
+export type ProjectSection = {
+  title: string
+  body?: string[]
+  bullets?: string[]
+}
+
+export type ProjectFact = {
+  label: string
+  value: string
+}
+
+export type ProjectContributor = {
+  name: string
+  github: string
+}
+
 export type ProjectDetail = {
   overview: string
   highlights: string[]
   stack: string[]
+  media?: ProjectMedia
+  facts?: ProjectFact[]
+  sections?: ProjectSection[]
+  contributors?: ProjectContributor[]
 }
 
 export type Project = {
@@ -22,34 +50,105 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Synaxis",
+    title: "Synaxis (MoneyMatters)",
     slug: "synaxis",
     description:
-      "24-hour hackathon build created by a team of three, combining personal finance tracking with AI-assisted insurance policy analysis and what-if scenario planning in a mobile app.",
+      "24-hour hackathon platform that combines personal finance management with AI-powered insurance policy analysis, coverage-gap detection, and scenario simulation.",
     status: "Completed",
-    tags: ["Expo", "React Native", "JavaScript", "Fintech", "AI"],
+    tags: ["Expo", "React Native", "TypeScript", "PostgreSQL", "AWS"],
     links: {
       github: "https://github.com/CSingh26/MoneyMatters",
     },
     details: {
       overview:
-        "Synaxis is a mobile app built during a 24-hour hackathon with a three-person team. The product combines two connected workflows: a finance tracker for income, expenses, assets, savings, and goals, plus an AI-assisted insurance workspace for uploading policy PDFs, reviewing coverage summaries, spotting asset-vs-coverage gaps, and running scenario simulations.",
+        "Synaxis, documented in the MoneyMatters repository, is a personal finance and insurance management platform built around two connected experiences: a full financial tracker and an AI-assisted policy analysis workspace. The Expo client is backed by five Express microservices, PostgreSQL via Prisma, Anthropic-powered AI workflows, and an AWS deployment model fronted by Nginx.",
       highlights: [
-        "Shipped a multi-screen Expo app in 24 hours with authentication, theming, and native navigation flows.",
-        "Financial tracker covers income, expenses, savings, assets, goals, and visual summaries in one mobile dashboard.",
-        "Policy workflow supports PDF uploads, parsed policy summaries, and coverage-gap review against tracked assets.",
-        "Scenario simulator answers what-if questions and compares potential outcomes for major insurance and financial events.",
-        "GitHub repo is currently named MoneyMatters, while the product itself is branded and presented as Synaxis.",
+        "Built as a 24-hour hackathon project with an Expo mobile client and a 5-service backend routed through Nginx.",
+        "Financial tracker supports CRUD flows for income, fixed and variable expenses, savings accounts, goals, and personal assets.",
+        "Insurance workflow handles PDF uploads, AI-based policy parsing, gap analysis, and coverage review against tracked assets.",
+        "Scenario simulator generates 12-month what-if projections comparing a status-quo path against a proposed event or decision.",
+        "Security layers include JWT auth, refresh rotation, bcrypt hashing, AES-256-GCM field encryption, Helmet, and rate limiting.",
       ],
       stack: [
-        "Expo",
+        "Expo SDK 54",
         "React Native",
-        "JavaScript",
         "React Navigation",
+        "Node.js",
+        "TypeScript",
+        "Express.js",
+        "Prisma",
+        "PostgreSQL",
+        "Anthropic Claude Sonnet",
+        "JWT",
+        "Zod",
         "Expo Secure Store",
-        "react-native-gifted-charts",
-        "Document Picker",
-        "REST APIs",
+        "AsyncStorage",
+        "React Native Gifted Charts",
+        "Multer",
+        "pdf-parse",
+        "AWS EC2",
+        "AWS RDS",
+        "Nginx",
+      ],
+      media: {
+        src: "/projects/moneymatters-hackathon.jpg",
+        alt: "MoneyMatters team photo from the hackathon",
+        width: 4898,
+        height: 3265,
+        caption: "Innovation Hack team photo for Synaxis / MoneyMatters.",
+      },
+      facts: [
+        { label: "Build window", value: "24-hour hackathon" },
+        { label: "Frontend", value: "Expo / React Native" },
+        { label: "Backend", value: "5 Express services" },
+        { label: "Deployment", value: "AWS EC2 + RDS" },
+      ],
+      sections: [
+        {
+          title: "Architecture Overview",
+          body: [
+            "The app uses an Expo-based React Native frontend for iOS, Android, and web, while Nginx routes traffic across dedicated auth, finance, policy, AI, and dashboard services.",
+            "A dashboard aggregator service pulls data from the other services in parallel so the client can render a unified financial and insurance overview without extra round-trips.",
+          ],
+          bullets: [
+            "Auth service handles registration, login, token refresh, and profile data.",
+            "Finance service manages income, expenses, savings, goals, assets, and summary scoring.",
+            "Policy service owns PDF uploads, policy records, and parse-state lifecycle.",
+            "AI service powers policy parsing, watchdog analysis, orchestration, and scenario simulations.",
+          ],
+        },
+        {
+          title: "App Screens & Product Surface",
+          bullets: [
+            "Two-step authentication flow with account creation, password-strength validation, and demographic personalization.",
+            "Hub screen with quick stats, theme toggle, profile badge, and navigation into finance and AI workflows.",
+            "Financial tracker with searchable transactions, paginated records, savings accounts, goals, assets, and chart-driven summaries.",
+            "Policy workspace with PDF uploads, coverage cards, exclusions, risk scoring, and expandable gap analysis.",
+            "Scenario chat interface for what-if prompts such as job loss, major purchases, or policy changes.",
+          ],
+        },
+        {
+          title: "Backend Services & AI Agents",
+          bullets: [
+            "REST APIs cover auth, finance, policies, AI operations, and dashboard aggregation.",
+            "AI agents include a policy parser, financial watchdog, orchestration layer, and a 12-month scenario simulator.",
+            "Service-to-service communication uses Axios plus internal service authentication keys.",
+            "Deployment notes in the README point to containerized backend services on AWS EC2 with PostgreSQL in AWS RDS.",
+          ],
+        },
+        {
+          title: "Security, Analytics & Visualization",
+          bullets: [
+            "JWT access and refresh tokens with bcrypt password hashing and secure client storage.",
+            "AES-256-GCM field-level encryption for monetary values and Helmet-based security headers.",
+            "Rate limiting, Zod validation, PDF type/size checks, and CORS configuration across services.",
+            "Interactive line, bar, and pie charts plus progress bars and summary cards for finance reporting.",
+          ],
+        },
+      ],
+      contributors: [
+        { name: "Shreyl Arya", github: "https://github.com/Sherylarya" },
+        { name: "Harsh Bhanushali", github: "https://github.com/hbhanus2" },
       ],
     },
   },
