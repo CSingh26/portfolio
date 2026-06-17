@@ -9,7 +9,7 @@ import { Footer } from "@/components/footer"
 export const metadata: Metadata = {
   title: "Chaitanya | Portfolio",
   description:
-    "Portfolio of Chaitanya, CS senior at Arizona State University building data, backend, cloud, fintech, and security projects.",
+    "Portfolio of Chaitanya, ASU computer science graduate and incoming finance master's student building data, backend, cloud, fintech, and security projects.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Chaitanya | Data, Cloud & FinTech Engineer",
     description:
-      "CS senior at Arizona State University shipping data-driven, secure, cloud-native products.",
+      "ASU computer science graduate and incoming finance master's student shipping data-driven, secure, cloud-native products.",
     url: "https://chaitanyasingh.org",
     siteName: "Chaitanya",
     locale: "en_US",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Chaitanya | Data, Cloud & FinTech Engineer",
     description:
-      "CS senior at ASU with a focus on data analytics, backend systems, cloud, and fintech security.",
+      "ASU computer science graduate focused on data analytics, backend systems, cloud, and fintech security.",
   },
 }
 

@@ -17,13 +17,26 @@ const focus = [
   "Security-first engineering from kernel modules to APIs",
 ]
 
+const education = [
+  {
+    degree: "Master's in Finance",
+    school: "W. P. Carey School of Business, Arizona State University",
+    period: "Aug 2026 - May 2027",
+  },
+  {
+    degree: "Bachelor's in Computer Science",
+    school: "Ira A. Fulton Schools of Engineering, Arizona State University",
+    period: "Aug 2022 - May 2026",
+  },
+]
+
 export function AboutSection() {
   return (
     <SectionShell
       id="about"
       eyebrow="About"
       title="Systems-minded engineer blending data, cloud, and fintech."
-      description="ASU senior combining rigorous systems training with a bias for shipping real products—quiz platforms, budgeting apps, fraud detection engines, and healthtech."
+      description="ASU computer science graduate and incoming finance master's student combining rigorous systems training with a bias for shipping real products—quiz platforms, budgeting apps, fraud detection engines, and healthtech."
     >
       <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
         <div className="space-y-4 text-lg text-muted">
@@ -49,8 +62,23 @@ export function AboutSection() {
               ))}
             </ul>
           </div>
+          <div>
+            <h3 className="font-display text-xl text-foreground">Education</h3>
+            <div className="mt-3 space-y-3">
+              {education.map((item) => (
+                <div
+                  key={item.degree}
+                  className="glass rounded-2xl border border-border/70 p-4 shadow-soft"
+                >
+                  <p className="text-sm uppercase tracking-[0.18em] text-muted">{item.period}</p>
+                  <p className="mt-2 font-display text-lg text-foreground">{item.degree}</p>
+                  <p className="text-sm text-muted">{item.school}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid self-start gap-4 sm:grid-cols-2">
           {stats.map((stat) => (
             <motion.div
               key={stat.label}

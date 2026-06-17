@@ -21,13 +21,7 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 const getPreferredTheme = (): Theme => {
-  if (typeof window === "undefined") return "light"
-
-  const stored = window.localStorage.getItem("theme") as Theme | null
-  if (stored === "light" || stored === "dark") return stored
-
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-  return prefersDark ? "dark" : "light"
+  return "light"
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
