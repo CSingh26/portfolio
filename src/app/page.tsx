@@ -1,18 +1,15 @@
 import { Hero } from "@/components/hero"
-import { CurrentSignal } from "@/components/current-signal"
+import { AboutSection } from "@/components/about-section"
 import { HomeProjects } from "@/components/home-projects"
-import { MindMap } from "@/components/mind-map"
-import { PageTransition } from "@/components/motion-primitives"
+import { SkillsSection } from "@/components/skills-section"
 
 export default function Home() {
   return (
-    <PageTransition>
-      <main>
-        <Hero />
-        <MindMap />
-        <HomeProjects />
-        <CurrentSignal />
-      </main>
-    </PageTransition>
+    <div className="relative">
+      <Hero />
+      <AboutSection />
+      <HomeProjects />
+      <SkillsSection />
+    </div>
   )
 }

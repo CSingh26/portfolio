@@ -1,10 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowUp } from "lucide-react"
-import Link from "next/link"
+import { Github, Instagram, Linkedin, Mail, Twitter, ArrowUp } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { profile, socialLinks } from "@/data/profile"
+
+const socials = [
+  { href: "https://github.com/CSingh26", label: "GitHub", icon: Github },
+  { href: "https://www.linkedin.com/in/chaitanya-singh-10065a213/", label: "LinkedIn", icon: Linkedin },
+  { href: "https://twitter.com/csingh04", label: "Twitter", icon: Twitter },
+  { href: "https://www.instagram.com/chaitanya.singh4", label: "Instagram", icon: Instagram },
+  { href: "mailto:singh.chaittanya@gmail.com", label: "Email", icon: Mail },
+]
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -37,35 +43,30 @@ export function Footer() {
   }
 
   return (
-    <footer className="relative z-10 border-t border-border/70 bg-background/85 backdrop-blur-xl">
-      <div className="container flex flex-col gap-6 py-7 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-col gap-3">
-          <Link href="/" className="font-display text-lg font-semibold text-foreground">
-            {profile.name}
-          </Link>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-sm font-semibold text-foreground">
+    <footer className="relative z-10 border-t border-border/70 bg-background/80 backdrop-blur-xl">
+      <div className="container flex flex-col gap-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-sm font-semibold text-foreground">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
             Online
-            </div>
-            {typeof visitorCount === "number" ? (
-              <div className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted">
-                Visitors {visitorCount.toLocaleString()}
-              </div>
-            ) : null}
-            <p className="text-sm text-muted">(c) {year} Chaitanya. All rights reserved.</p>
           </div>
+          {typeof visitorCount === "number" ? (
+            <div className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              Visitors {visitorCount.toLocaleString()}
+            </div>
+          ) : null}
+          <p className="text-sm text-muted">© {year} Chaitanya. All rights reserved.</p>
         </div>
         <div className="flex items-center gap-3">
-          {socialLinks.map(({ href, label, icon: Icon }) => (
+          {socials.map(({ href, label, icon: Icon }) => (
             <a
               key={label}
               href={href}
-              target={href.startsWith("mailto:") ? undefined : "_blank"}
-              rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
+              target="_blank"
+              rel="noreferrer"
               className={cn(
                 "flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition",
                 "hover:-translate-y-1 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

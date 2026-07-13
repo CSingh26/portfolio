@@ -9,8 +9,8 @@ export function ExperienceSection() {
     <SectionShell
       id="experience"
       eyebrow="Experience"
-      title="Education, credentials, internships, and technical growth as one timeline."
-      description="A vertical view of the path: computer science, finance, Linux certifications, cloud practice, internships, and the projects that keep tying the threads together."
+      title="Learning through internships and collaboration."
+      description="Experience spanning marketing operations, web development, and data analysis."
     >
       <Timeline items={experience} />
     </SectionShell>

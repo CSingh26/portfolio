@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import type { Project } from "@/data/projects"
 import { cn } from "@/lib/utils"
 
@@ -12,53 +12,67 @@ type Props = {
 
 export function ProjectCard({ project }: Props) {
   const reduceMotion = useReducedMotion()
+  const router = useRouter()
+
+  const handleNavigate = () => {
+    router.push(`/projects/${project.slug}`)
+  }
 
   return (
     <motion.article
-      className="spotlight-card group flex h-full flex-col rounded-xl border border-border p-5 shadow-soft"
-      whileHover={reduceMotion ? undefined : { y: -5 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card/80 p-5 shadow-soft backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      whileHover={reduceMotion ? undefined : { y: -6, rotate: 0.3, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      onClick={(event) => {
+        if ((event.target as HTMLElement).closest("a")) return
+        handleNavigate()
+      }}
+      onKeyDown={(event) => {
+        if ((event.target as HTMLElement).closest("a")) return
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault()
+          handleNavigate()
+        }
+      }}
+      role="link"
+      tabIndex={0}
+      aria-label={`View ${project.title} details`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold text-accent">{project.field}</p>
-          <h3 className="mt-2 font-display text-2xl font-semibold text-foreground">
-            {project.title}
-          </h3>
+      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-foreground/10" />
+      </div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <p className="break-words text-sm uppercase tracking-[0.16em] text-muted">{project.slug}</p>
+          <h3 className="break-words font-display text-xl text-foreground">{project.title}</h3>
         </div>
         <span
           className={cn(
-            "shrink-0 rounded-full border px-3 py-1 text-xs font-semibold",
+            "rounded-full px-3 py-1 text-xs font-semibold",
             project.status === "Live"
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-background/60 text-muted",
+              ? "bg-foreground text-background"
+              : project.status === "In Progress"
+                ? "border border-accent/60 text-accent"
+                : project.status === "Completed"
+                  ? "border border-border text-foreground"
+                  : "border border-border text-muted",
           )}
         >
           {project.status}
         </span>
       </div>
-      <p className="mt-4 text-sm leading-7 text-muted">{project.description}</p>
-      <p className="mt-4 border-l border-accent/50 pl-4 text-sm leading-7 text-foreground">
-        {project.thinking}
-      </p>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {project.tags.slice(0, 6).map((tag) => (
+      <p className="mt-3 text-sm text-muted">{project.description}</p>
+      <div className="mt-4 flex flex-wrap gap-2 text-xs">
+        {project.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-semibold text-muted"
+            className="rounded-full border border-border bg-background px-3 py-1 font-semibold text-muted transition group-hover:border-accent group-hover:text-foreground"
           >
             {tag}
           </span>
         ))}
       </div>
-      <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-        <Link
-          href={`/projects/${project.slug}`}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent"
-        >
-          Details
-          <ArrowUpRight className="h-4 w-4" />
-        </Link>
+      <div className="mt-auto flex flex-wrap items-center justify-start gap-2 pt-4 text-sm font-semibold sm:justify-between">
         {project.links?.github ? (
           <a
             href={project.links.github}
@@ -69,15 +83,26 @@ export function ProjectCard({ project }: Props) {
           >
             <Github className="h-5 w-5" />
           </a>
-        ) : null}
+        ) : (
+          <span className="hidden sm:inline-flex" />
+        )}
         {project.links?.live ? (
           <a
             href={project.links.live}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent"
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground px-3 py-2 text-background transition hover:-translate-y-0.5 hover:shadow-glow"
           >
             Live
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        ) : null}
+        {project.links?.caseStudy ? (
+          <a
+            href={project.links.caseStudy}
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-2 transition hover:border-accent hover:text-accent"
+          >
+            Case Study
             <ArrowUpRight className="h-4 w-4" />
           </a>
         ) : null}

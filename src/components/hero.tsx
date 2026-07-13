@@ -1,114 +1,117 @@
 "use client"
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { useState } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Download } from "lucide-react"
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { MagneticButton, TextReveal } from "@/components/motion-primitives"
-import { profile } from "@/data/profile"
+import Link from "next/link"
 
-const signals = ["code", "finance", "AI", "cloud", "data", "security", "product"]
+const fade = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+}
 
 export function Hero() {
   const reduceMotion = useReducedMotion()
-  const [roleIndex, setRoleIndex] = useState(0)
   const [photoError, setPhotoError] = useState(false)
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setRoleIndex((current) => (current + 1) % profile.roles.length)
-    }, 2600)
-
-    return () => window.clearInterval(id)
-  }, [])
+  const focusTags = [
+    "Software Development",
+    "Data Analysis",
+    "Web Development",
+    "Cloud",
+    "Cybersecurity",
+    "AI",
+  ]
 
   return (
-    <section className="relative min-h-[92vh] overflow-hidden pt-28 sm:pt-32">
-      <div className="container relative grid gap-12 pb-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-        <div className="relative z-10">
-          <motion.p
-            className="chapter-label"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Chapter 01 - Signal
-          </motion.p>
-          <h1 className="text-balance mt-5 max-w-4xl font-display text-5xl font-semibold leading-[0.98] sm:text-6xl lg:text-7xl">
-            <TextReveal text={profile.heroLine} />
+    <section className="relative overflow-hidden pb-14 pt-28 sm:pt-32">
+      <div className="pointer-events-none absolute inset-0 blur-3xl">
+        <motion.div
+          className="absolute right-[5%] top-[8%] h-48 w-48 rounded-full bg-accent/30"
+          animate={
+            reduceMotion
+              ? undefined
+              : { y: [0, -12, 0], x: [0, 6, 0], opacity: [0.8, 1, 0.85] }
+          }
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-[12%] bottom-[5%] h-56 w-56 rounded-full bg-foreground/10"
+          animate={
+            reduceMotion
+              ? undefined
+              : { y: [0, 10, 0], x: [0, -8, 0], opacity: [0.7, 0.9, 0.75] }
+          }
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      <div className="container relative grid gap-10 md:gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <motion.div
+          className="flex flex-col gap-4"
+          initial={fade.initial}
+          animate={fade.animate}
+          transition={fade.transition}
+        >
+          <h1 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            Hi, I&apos;m <span className="text-accent">Chaitanya</span>
           </h1>
-          <div className="mt-6 h-8 overflow-hidden text-lg font-semibold text-accent sm:text-xl">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={profile.roles[roleIndex]}
-                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -18 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="block"
-              >
-                {profile.roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-muted sm:text-lg">
-            I like systems that turn ambiguity into signal: clean backend contracts, calm product
-            surfaces, cloud-aware infrastructure, and financial workflows that make risk visible.
+          <p className="max-w-xl text-base text-muted sm:text-lg">
+            I build data-driven web products and cloud-ready systems that feel fast and intentional.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <MagneticButton href="/projects">
-              View Projects
-              <ArrowUpRight className="h-4 w-4" />
-            </MagneticButton>
-            <MagneticButton href={profile.resumePath} variant="secondary">
-              Download Resume
-              <Download className="h-4 w-4" />
-            </MagneticButton>
-          </div>
-          <div className="mt-10 flex flex-wrap gap-2">
-            {signals.map((signal) => (
+          <div className="flex flex-wrap gap-2 pt-2">
+            {focusTags.map((tag) => (
               <span
-                key={signal}
-                className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-muted"
+                key={tag}
+                className="rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-semibold text-muted transition hover:border-accent hover:text-foreground"
               >
-                {signal}
+                {tag}
               </span>
             ))}
           </div>
-        </div>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 font-semibold text-background shadow-soft transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              View Projects
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/Chaitanya_Singh_Resume.pdf"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-5 py-3 font-semibold text-foreground shadow-soft transition hover:-translate-y-0.5 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Download Resume
+              <Download className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
 
         <motion.div
-          className="relative mx-auto w-full max-w-[440px] lg:ml-auto"
-          initial={reduceMotion ? false : { opacity: 0, y: 26 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative flex items-center justify-center lg:justify-end"
+          initial={fade.initial}
+          animate={fade.animate}
+          transition={fade.transition}
         >
-          <div className="surface relative overflow-hidden rounded-xl p-4">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-elevated">
-              {photoError ? (
-                <div className="flex h-full items-center justify-center px-8 text-center text-sm text-muted">
-                  Add /public/profile.png
-                </div>
-              ) : (
-                <Image
-                  src={profile.profileImage}
-                  alt={profile.name}
-                  fill
-                  sizes="(min-width: 1024px) 420px, 90vw"
-                  className="object-cover"
-                  priority
-                  onError={() => setPhotoError(true)}
-                />
-              )}
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-border bg-background/55 p-4">
-                <p className="text-sm font-semibold text-foreground">Current path</p>
-                <p className="mt-1 text-sm leading-6 text-muted">CS into finance, AI, and cloud systems.</p>
-              </div>
-              <div className="rounded-xl border border-border bg-background/55 p-4">
-                <p className="text-sm font-semibold text-foreground">Operating mode</p>
-                <p className="mt-1 text-sm leading-6 text-muted">Structured, curious, calm under complexity.</p>
+          <div className="relative">
+            <div className="relative h-56 w-56 rounded-full bg-card/40 p-2 sm:h-64 sm:w-64 lg:h-80 lg:w-80">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-background/80">
+                {photoError ? (
+                  <div className="flex h-full w-full items-center justify-center text-[0.65rem] uppercase tracking-[0.2em] text-muted">
+                    Add /public/profile.png
+                  </div>
+                ) : (
+                  <Image
+                    src="/profile.png"
+                    alt="Chaitanya"
+                    fill
+                    sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 14rem"
+                    className="object-cover"
+                    onError={() => setPhotoError(true)}
+                    priority
+                  />
+                )}
               </div>
             </div>
           </div>

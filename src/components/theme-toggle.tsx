@@ -14,7 +14,8 @@ export function ThemeToggle() {
       aria-label="Toggle theme"
       onClick={toggleTheme}
       className={cn(
-        "relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card shadow-soft backdrop-blur-md transition hover:-translate-y-0.5 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "relative inline-flex h-10 w-10 items-center justify-center rounded-full border shadow-soft backdrop-blur-md transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        theme === "light" ? "border-foreground/20 bg-white/90" : "border-border bg-card/70",
       )}
     >
       {mounted ? (

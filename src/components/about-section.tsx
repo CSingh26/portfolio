@@ -3,22 +3,30 @@
 import { motion } from "framer-motion"
 import { SectionShell } from "./section-shell"
 
-const principles = [
+const stats = [
+  { label: "Years coding", value: "4+", detail: "Hands-on across backend, data, and infra" },
+  { label: "Red Hat certs", value: "3", detail: "RHCSA, RHCE, Container Specialist" },
+  { label: "Projects shipped", value: "20+", detail: "Hackathons, capstones, and solo builds" },
+  { label: "Domains", value: "Data / Cloud / FinTech / Security", detail: "" },
+]
+
+const focus = [
+  "Real-time fraud detection in tokenized settlement systems",
+  "Cloud-native backend patterns with AWS + containerization",
+  "Quant-inspired data workflows for consumer fintech apps",
+  "Security-first engineering from kernel modules to APIs",
+]
+
+const education = [
   {
-    label: "Analytical",
-    body: "I like breaking vague problems into flows, data shapes, contracts, and failure modes.",
+    degree: "Master's in Finance",
+    school: "W. P. Carey School of Business, Arizona State University",
+    period: "Aug 2026 - May 2027",
   },
   {
-    label: "Curious",
-    body: "I move between domains because the strongest ideas usually sit between them.",
-  },
-  {
-    label: "Grounded",
-    body: "Ambition only matters when it turns into shipped, inspectable work.",
-  },
-  {
-    label: "Systems-oriented",
-    body: "I care about how product, infrastructure, security, and users affect each other.",
+    degree: "Bachelor's in Computer Science",
+    school: "Ira A. Fulton Schools of Engineering, Arizona State University",
+    period: "Aug 2022 - May 2026",
   },
 ]
 
@@ -26,41 +34,61 @@ export function AboutSection() {
   return (
     <SectionShell
       id="about"
-      eyebrow="Origin Story"
-      title="I started with computer science, then kept following the edges of the system."
-      description="Backend systems led me into Linux, containers, cloud infrastructure, data pipelines, AI, and eventually finance, because each layer explained a different part of how software becomes useful in the real world."
+      eyebrow="About"
+      title="Systems-minded engineer blending data, cloud, and fintech."
+      description="ASU computer science graduate and incoming finance master's student combining rigorous systems training with a bias for shipping real products—quiz platforms, budgeting apps, fraud detection engines, and healthtech."
     >
-      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="space-y-5 text-base leading-8 text-muted sm:text-lg">
+      <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+        <div className="space-y-4 text-lg text-muted">
           <p>
-            My foundation is computer science: algorithms, data structures, operating systems, and
-            the patient discipline of making software behave. But the work that held my attention
-            was rarely isolated code. It was the full chain from idea to interface to backend to
-            deployment.
+            I enjoy building infrastructure that never gets in the way of product velocity: clean APIs,
+            strong observability, and secure defaults. My toolbox spans Node.js/TypeScript, Python for
+            data, PostgreSQL, containerization, and AWS + OCI to deploy resilient services.
           </p>
           <p>
-            That pushed me toward backend and cloud systems. I wanted to understand why APIs become
-            fragile, how Linux and containers shape deployments, how data moves through a product,
-            and why security cannot be a final checklist item.
+            Recent work includes QuizBee on AWS (EC2, ALB, S3, Route53), a MoneyMind budgeting suite
+            with automated insights, and FraudGuard, a streaming anomaly detector for digital payments.
+            I also explore reverse engineering, cryptography, and kernel modules to understand systems
+            end-to-end.
           </p>
-          <p>
-            Finance sharpened the story. It adds risk, incentives, timing, trust, and accountability.
-            The systems have to be clear because the consequences are real. That is the kind of work
-            I want to grow into: technical, interdisciplinary, and useful under pressure.
-          </p>
+          <div>
+            <h3 className="font-display text-xl text-foreground">Current focus</h3>
+            <ul className="mt-3 space-y-2 text-base">
+              {focus.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-display text-xl text-foreground">Education</h3>
+            <div className="mt-3 space-y-3">
+              {education.map((item) => (
+                <div
+                  key={item.degree}
+                  className="glass rounded-2xl border border-border/70 p-4 shadow-soft"
+                >
+                  <p className="text-sm uppercase tracking-[0.18em] text-muted">{item.period}</p>
+                  <p className="mt-2 font-display text-lg text-foreground">{item.degree}</p>
+                  <p className="text-sm text-muted">{item.school}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {principles.map((item, index) => (
+        <div className="grid self-start gap-4 sm:grid-cols-2">
+          {stats.map((stat) => (
             <motion.div
-              key={item.label}
-              className="surface rounded-xl p-5"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: 0.55, delay: index * 0.05 }}
+              key={stat.label}
+              className="glass rounded-2xl border border-border/70 p-5 shadow-soft"
+              whileHover={{ y: -6, scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >
-              <p className="text-lg font-semibold text-foreground">{item.label}</p>
-              <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+              <p className="text-sm uppercase tracking-[0.18em] text-muted">{stat.label}</p>
+              <p className="mt-2 text-3xl font-semibold text-foreground">{stat.value}</p>
+              {stat.detail ? <p className="mt-1 text-sm text-muted">{stat.detail}</p> : null}
             </motion.div>
           ))}
         </div>

@@ -10,73 +10,115 @@ export type Writing = {
 
 export const writing: Writing[] = [
   {
-    title: "Why I am combining CS and finance",
-    slug: "combining-cs-and-finance",
+    title: "Learning by Shipping: Why Small Projects Matter",
+    slug: "learning-by-shipping",
     description:
-      "Finance gives software sharper consequences: risk, incentives, trust, and timing all become part of the system design problem.",
-    tags: ["Finance", "Computer Science", "Systems"],
+      "Small projects taught me speed, iteration, and the habit of finishing. Shipping them keeps my learning honest and builds momentum.",
+    tags: ["Learning", "Shipping", "Projects"],
     readingTime: "5 min read",
-    date: "Jan 2026",
+    date: "Aug 2025",
     content: [
-      "Computer science taught me how to reason about systems. Finance keeps reminding me that systems are never just technical. They sit inside incentives, constraints, uncertainty, and trust.",
-      "That combination is what pulls me in. A payment workflow, risk model, or portfolio tool is not only a set of screens and APIs. It is a decision environment where latency, explainability, data quality, and human behavior all matter.",
-      "I want to build at that intersection because it rewards disciplined thinking. The best financial software is calm, precise, auditable, and useful under pressure.",
+      "I used to think only big projects were worth showing. The truth is the small builds taught me faster, because each one forced a specific problem to the surface: a messy API, a shaky data cleaning step, or a UI decision that made things worse.",
+      "Shipping small projects made me honest. When something breaks, there is nowhere to hide. Either I understand it or I do not. It also gave me the habit of finishing, which is rarer than it should be.",
+      "Those small wins stack. Each ship made the next one easier to start. I keep them visible not as trophies, but as proof that progress comes from stacked steps, not skipped ones.",
     ],
   },
   {
-    title: "Learning finance from a CS background",
-    slug: "learning-finance-from-cs",
+    title: "From Coursework to Real Systems",
+    slug: "coursework-to-real-systems",
     description:
-      "I approach finance like a new system: define the primitives, trace the flows, learn the failure modes, then build intuition through examples.",
-    tags: ["Learning", "Finance", "Mental Models"],
+      "Coursework built foundations, but real systems demanded ownership. That shift changed how I design, debug, and measure success.",
+    tags: ["Systems", "Ownership", "Engineering"],
+    readingTime: "6 min read",
+    date: "Sep 2025",
+    content: [
+      "Coursework gave me fundamentals, but real systems gave me responsibility. In class, inputs are clean and success is defined for you. In production, ambiguity is the default.",
+      "When I started deploying apps, the questions changed. Auth failures, performance bottlenecks, and bad data pipelines were no longer theoretical. I had to ask what breaks first, how I observe it, and how I recover.",
+      "That shift made me think holistically. Logging, monitoring, and defensive design stopped being extras. Ownership made me a better engineer, even in academic projects.",
+    ],
+  },
+  {
+    title: "Why FinTech Keeps Pulling Me In",
+    slug: "why-fintech-keeps-pulling-me-in",
+    description:
+      "FinTech sits where data, systems, and human behavior collide. The impact is real, and the engineering bar is high.",
+    tags: ["FinTech", "Systems", "Data"],
+    readingTime: "5 min read",
+    date: "Oct 2025",
+    content: [
+      "FinTech sits right where data, systems, and human behavior collide. Small technical choices can change pricing, risk, or fraud outcomes, and that scale of impact keeps me locked in.",
+      "The domain demands rigor. Models need to be explainable, systems reliable, and errors expensive enough to hurt. It pushes me toward correctness and clarity over cleverness.",
+      "I also like the interdisciplinary thinking. You cannot treat it as just code or just data. You have to understand incentives and constraints, and that makes the work feel meaningful.",
+    ],
+  },
+  {
+    title: "What AI Projects Taught Me About Uncertainty",
+    slug: "ai-projects-taught-me-uncertainty",
+    description:
+      "AI work made me comfortable with ambiguity and more disciplined about evaluation. Accuracy is only part of the story.",
+    tags: ["AI", "ML", "Uncertainty"],
+    readingTime: "6 min read",
+    date: "Nov 2025",
+    content: [
+      "AI projects taught me that uncertainty is the real problem, not a bug. Models rarely give clean answers. They give probabilities, and those probabilities need context.",
+      "Early on I chased accuracy. Now I care more about where the model fails and why. Most issues come from data, assumptions, or features, not the algorithm.",
+      "Building AI made me more disciplined about evaluation and more honest about communicating uncertainty. It shaped how I design pipelines and how I talk about results.",
+    ],
+  },
+  {
+    title: "Systems Thinking Changed How I Write Code",
+    slug: "systems-thinking-changed-how-i-code",
+    description:
+      "Learning networking, concurrency, and deployment pushed me to think about reliability, failure modes, and downstream effects.",
+    tags: ["Systems", "Reliability", "Engineering"],
+    readingTime: "5 min read",
+    date: "Dec 2025",
+    content: [
+      "Learning networking, concurrency, and deployment changed how I write even simple code. I stopped thinking only about my laptop and started thinking about environments, latency, and failure.",
+      "That mindset pushed me toward clearer interfaces, better error handling, and fewer surprises downstream. It also made debugging easier because I trace flows instead of guessing.",
+      "Systems thinking makes my code more intentional. Even small tools feel sturdier when they are built with the bigger picture in mind.",
+    ],
+  },
+  {
+    title: "Explainability Is a Design Habit",
+    slug: "explainability-is-a-design-habit",
+    description:
+      "If I cannot explain a system simply, I probably do not understand it well enough. Clarity is a quality check.",
+    tags: ["Explainability", "Design", "Clarity"],
+    readingTime: "4 min read",
+    date: "Jan 2026",
+    content: [
+      "Explainability is not just for AI models. If I cannot explain a system, I probably do not understand it well enough.",
+      "Clear explanations surface flaws early. That is why I optimize for clarity in docs, abstractions, and how I present work.",
+      "In teams, explainability builds trust. It makes systems easier to extend, debug, and maintain, and it keeps me honest about what I actually know.",
+    ],
+  },
+  {
+    title: "Building in Public as a Learning Strategy",
+    slug: "building-in-public-as-learning",
+    description:
+      "Sharing unfinished work created accountability and feedback loops that sped up my learning and made progress visible.",
+    tags: ["Learning", "Community", "Process"],
     readingTime: "4 min read",
     date: "Feb 2026",
     content: [
-      "Coming from computer science, I like to learn a domain by finding its primitives. In finance, those primitives are cash flows, risk, time, incentives, information, and constraints.",
-      "Once the primitives are visible, the field becomes less intimidating. A valuation model is a structured argument. A portfolio is a risk allocation system. A market is an information network with real consequences.",
-      "That does not make finance easy, but it gives me a path. I can connect abstract concepts to systems I already understand: queues, latency, observability, model drift, and failure recovery.",
+      "Sharing unfinished work felt uncomfortable at first. Building in public forced me to be accountable and to clean up the edges of my work.",
+      "Feedback loops helped me notice gaps I would have missed alone. Even small questions made me rethink assumptions and improve clarity.",
+      "It reframed learning as a process, not a performance. Progress became visible, and that keeps me moving.",
     ],
   },
   {
-    title: "How I think about backend systems",
-    slug: "thinking-about-backend-systems",
+    title: "How Projects Shape Career Direction",
+    slug: "projects-shape-career-direction",
     description:
-      "A backend is a contract with the rest of the product. It should make the right thing easy, the wrong thing visible, and failure survivable.",
-    tags: ["Backend", "Cloud", "Reliability"],
-    readingTime: "6 min read",
+      "Projects act like experiments that reveal what I want to build next. Patterns show up when you keep shipping.",
+    tags: ["Career", "Projects", "Direction"],
+    readingTime: "5 min read",
     date: "Mar 2026",
     content: [
-      "I think of backend systems as the product's nervous system. They move information, enforce rules, coordinate state, and decide what gets trusted.",
-      "Good backend work is often quiet. It shows up as clear APIs, predictable errors, careful validation, useful logs, and data models that do not fight the product six months later.",
-      "The question I keep asking is simple: if this fails, can we understand it, recover from it, and protect the user while doing so?",
-    ],
-  },
-  {
-    title: "AI agents in financial workflows",
-    slug: "ai-agents-in-financial-workflows",
-    description:
-      "Useful financial agents need boundaries: retrieval discipline, audit trails, confidence signals, and human checkpoints.",
-    tags: ["AI", "FinTech", "Agents"],
-    readingTime: "5 min read",
-    date: "Apr 2026",
-    content: [
-      "AI agents are interesting in finance because the workflow is full of context switching: documents, numbers, policies, rules, exceptions, and decisions.",
-      "But the bar is higher than convenience. A financial agent should show sources, expose uncertainty, log decisions, and know when it is not allowed to act.",
-      "The strongest use cases feel like decision support rather than magic. They reduce cognitive load while preserving accountability.",
-    ],
-  },
-  {
-    title: "Systems thinking and product execution",
-    slug: "systems-thinking-and-product-execution",
-    description:
-      "Execution improves when product choices are treated as system choices: every shortcut changes the behavior of the whole machine.",
-    tags: ["Product", "Execution", "Systems"],
-    readingTime: "5 min read",
-    date: "May 2026",
-    content: [
-      "Systems thinking has changed how I build products. A feature is never isolated. It changes data shape, operational load, user expectations, and future maintenance.",
-      "That perspective helps me avoid treating design, engineering, and strategy as separate lanes. The product is the sum of all those decisions interacting.",
-      "The goal is not to make everything complex. The goal is to see complexity early enough to make calm, deliberate choices.",
+      "I did not pick my interests first and then build projects. It happened the other way around.",
+      "Each project was an experiment that tested both the idea and my own fit. Some work energized me, some did not, and that signal is valuable.",
+      "Over time patterns show up. Projects are not just resume lines for me; they are conversations with my future self about the work I want to do.",
     ],
   },
 ]
