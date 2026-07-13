@@ -21,8 +21,10 @@ const config: Config = {
         background: "var(--color-bg)",
         foreground: "var(--color-text)",
         accent: "var(--color-accent)",
+        signal: "var(--color-signal)",
         muted: "var(--color-muted)",
         card: "var(--color-card)",
+        elevated: "var(--color-elevated)",
         border: "var(--color-border)",
         ring: "var(--color-border-strong)",
       },
@@ -35,8 +37,8 @@ const config: Config = {
         glow: "0 15px 40px rgba(112,160,175,0.45)",
       },
       borderRadius: {
-        xl: "18px",
-        "2xl": "28px",
+        xl: "8px",
+        "2xl": "8px",
       },
       keyframes: {
         float: {

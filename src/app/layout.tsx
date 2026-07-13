@@ -7,27 +7,30 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Chaitanya | Portfolio",
+  title: {
+    default: "Chaitanya Singh | Intelligent Systems Portfolio",
+    template: "%s | Chaitanya Singh",
+  },
   description:
-    "Portfolio of Chaitanya, ASU computer science graduate and incoming finance master's student building data, backend, cloud, fintech, and security projects.",
+    "Storytelling portfolio for Chaitanya Singh, a computer science builder connecting backend systems, cloud, data, AI, finance, security, and product execution.",
   icons: {
     icon: "/favicon.ico",
   },
   metadataBase: new URL("https://chaitanyasingh.org"),
   openGraph: {
-    title: "Chaitanya | Data, Cloud & FinTech Engineer",
+    title: "Chaitanya Singh | Intelligent Systems Portfolio",
     description:
-      "ASU computer science graduate and incoming finance master's student shipping data-driven, secure, cloud-native products.",
+      "A premium portfolio about software, finance, cloud infrastructure, data, AI, security, and systems thinking.",
     url: "https://chaitanyasingh.org",
-    siteName: "Chaitanya",
+    siteName: "Chaitanya Singh",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chaitanya | Data, Cloud & FinTech Engineer",
+    title: "Chaitanya Singh | Intelligent Systems Portfolio",
     description:
-      "ASU computer science graduate focused on data analytics, backend systems, cloud, and fintech security.",
+      "A storytelling portfolio for a builder working across backend, cloud, data, AI, finance, and security.",
   },
 }
 
@@ -42,13 +45,8 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="noise" aria-hidden />
           <CursorGlow />
-          <div className="pointer-events-none fixed inset-0 -z-10">
-            <div className="absolute left-[-10%] top-[-10%] h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
-            <div className="absolute right-[-8%] top-[10%] h-72 w-72 rounded-full bg-foreground/10 blur-3xl" />
-            <div className="absolute bottom-[-12%] right-[15%] h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
-          </div>
           <Navbar />
-          <main className="relative z-10 min-h-screen pb-10">{children}</main>
+          <div className="relative z-10 min-h-screen pb-10">{children}</div>
           <Footer />
         </ThemeProvider>
       </body>

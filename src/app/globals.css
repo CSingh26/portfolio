@@ -5,60 +5,66 @@
 :root {
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --color-bg: #f4f6ff;
-  --color-text: #10375c;
-  --color-muted: #6b7a99;
-  --color-accent: #f3c623;
+  --color-bg: #f7f5ef;
+  --color-text: #07111f;
+  --color-muted: #59657a;
+  --color-accent: #2457f5;
+  --color-signal: #9b7438;
   --color-card: rgba(255, 255, 255, 0.72);
-  --color-border: rgba(16, 55, 92, 0.15);
-  --color-border-strong: rgba(16, 55, 92, 0.22);
-  --color-radar-line: rgba(16, 55, 92, 0.25);
-  --color-radar-fill: rgba(16, 55, 92, 0.18);
+  --color-elevated: rgba(255, 255, 255, 0.9);
+  --color-border: rgba(7, 17, 31, 0.12);
+  --color-border-strong: rgba(36, 87, 245, 0.28);
+  --color-radar-line: rgba(7, 17, 31, 0.16);
+  --color-radar-fill: rgba(36, 87, 245, 0.12);
   --color-radar-text: var(--color-text);
-  --shadow-color: 0 10px 45px rgba(16, 55, 92, 0.12);
+  --shadow-color: 0 18px 60px rgba(7, 17, 31, 0.12);
   --cursor-x: 50%;
   --cursor-y: 50%;
   --cursor-glow: radial-gradient(
       320px circle at var(--cursor-x) var(--cursor-y),
-      rgba(243, 198, 35, 0.45),
+      rgba(36, 87, 245, 0.2),
       transparent 65%
     ),
     radial-gradient(
       560px circle at var(--cursor-x) var(--cursor-y),
-      rgba(16, 55, 92, 0.22),
+      rgba(155, 116, 56, 0.14),
       transparent 72%
     );
-  --gradient: radial-gradient(circle at 10% 20%, rgba(243, 198, 35, 0.28), transparent 28%),
-    radial-gradient(circle at 80% 0%, rgba(235, 131, 23, 0.22), transparent 24%),
-    radial-gradient(circle at 50% 90%, rgba(16, 55, 92, 0.22), transparent 28%);
+  --page-grid: linear-gradient(rgba(7, 17, 31, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 17, 31, 0.06) 1px, transparent 1px);
+  --page-sheen: linear-gradient(135deg, rgba(36, 87, 245, 0.12), transparent 36%),
+    linear-gradient(315deg, rgba(155, 116, 56, 0.12), transparent 34%);
   color-scheme: light;
 }
 
 .dark {
-  --color-bg: #0c0f0a;
-  --color-text: #fbff12;
-  --color-muted: rgba(160, 193, 185, 0.7);
-  --color-accent: #336699;
-  --color-card: rgba(12, 15, 10, 0.6);
-  --color-border: rgba(251, 255, 18, 0.12);
-  --color-border-strong: rgba(251, 255, 18, 0.2);
-  --color-radar-line: rgba(251, 255, 18, 0.25);
-  --color-radar-fill: rgba(251, 255, 18, 0.18);
+  --color-bg: #07111f;
+  --color-text: #f7faff;
+  --color-muted: #aebbd0;
+  --color-accent: #4e8cff;
+  --color-signal: #d6b56d;
+  --color-card: rgba(14, 27, 45, 0.72);
+  --color-elevated: rgba(12, 24, 41, 0.92);
+  --color-border: rgba(247, 250, 255, 0.12);
+  --color-border-strong: rgba(78, 140, 255, 0.34);
+  --color-radar-line: rgba(247, 250, 255, 0.18);
+  --color-radar-fill: rgba(78, 140, 255, 0.14);
   --color-radar-text: var(--color-text);
-  --shadow-color: 0 10px 45px rgba(0, 0, 0, 0.35);
+  --shadow-color: 0 18px 70px rgba(0, 0, 0, 0.32);
   --cursor-glow: radial-gradient(
       320px circle at var(--cursor-x) var(--cursor-y),
-      rgba(51, 102, 153, 0.6),
+      rgba(78, 140, 255, 0.28),
       transparent 65%
     ),
     radial-gradient(
       560px circle at var(--cursor-x) var(--cursor-y),
-      rgba(112, 160, 175, 0.35),
+      rgba(214, 181, 109, 0.12),
       transparent 72%
     );
-  --gradient: radial-gradient(circle at 15% 20%, rgba(51, 102, 153, 0.4), transparent 24%),
-    radial-gradient(circle at 75% 0%, rgba(112, 160, 175, 0.35), transparent 22%),
-    radial-gradient(circle at 30% 75%, rgba(21, 94, 117, 0.4), transparent 26%);
+  --page-grid: linear-gradient(rgba(247, 250, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 250, 255, 0.055) 1px, transparent 1px);
+  --page-sheen: linear-gradient(135deg, rgba(78, 140, 255, 0.16), transparent 35%),
+    linear-gradient(315deg, rgba(214, 181, 109, 0.1), transparent 32%);
   color-scheme: dark;
 }
 
@@ -71,7 +77,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
-  background-image: var(--gradient);
+  background-image: var(--page-sheen), var(--page-grid);
+  background-size: auto, 48px 48px;
   background-attachment: fixed;
 }
 
@@ -85,13 +92,13 @@ a {
 }
 
 ::selection {
-  background: rgba(112, 160, 175, 0.35);
+  background: rgba(36, 87, 245, 0.22);
   color: var(--color-text);
 }
 
 .dark ::selection {
-  background: rgba(112, 160, 175, 0.45);
-  color: #fbff12;
+  background: rgba(78, 140, 255, 0.34);
+  color: #f7faff;
 }
 
 .noise {
@@ -122,7 +129,37 @@ a {
   background: var(--color-card);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-color);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(18px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.chapter-label {
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.surface {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-color);
+}
+
+.spotlight-card {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  background:
+    radial-gradient(
+      420px circle at var(--spotlight-x) var(--spotlight-y),
+      rgba(78, 140, 255, 0.16),
+      transparent 42%
+    ),
+    var(--color-card);
 }
 
 @media (hover: none), (pointer: coarse) {

@@ -26,25 +26,25 @@ export function SectionShell({
       <div className="container">
         {(eyebrow || title) && (
           <motion.div
-            className="mb-10 flex flex-col gap-3"
+            className="mb-10 flex max-w-3xl flex-col gap-3"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             {eyebrow ? (
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-muted">
+              <span className="chapter-label inline-flex w-fit items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {eyebrow}
               </span>
             ) : null}
             {title ? (
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.6rem]">
+              <h2 className="text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-[2.6rem]">
                 {title}
               </h2>
             ) : null}
             {description ? (
-              <p className="max-w-2xl text-lg text-muted">{description}</p>
+              <p className="max-w-2xl text-base leading-8 text-muted sm:text-lg">{description}</p>
             ) : null}
           </motion.div>
         )}

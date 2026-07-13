@@ -1,40 +1,50 @@
-export type SkillCategory = {
-  category: string
-  items: string[]
+export type SkillCluster = {
+  title: string
+  signal: string
+  tools: string[]
+  proof: string
 }
 
-export const skills: SkillCategory[] = [
+export const skillClusters: SkillCluster[] = [
   {
-    category: "Languages",
-    items: [
-      "Python",
-      "R",
-      "Java",
-      "C",
-      "C++",
-      "SQL",
-      "JavaScript",
-      "Swift",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "Shell Scripting",
-    ],
+    title: "Frontend systems",
+    signal: "Interfaces that feel fast, readable, and intentional.",
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    proof: "Component architecture, responsive layouts, motion systems, forms, and production pages.",
   },
   {
-    category: "Frameworks & Libraries",
-    items: ["React", "Next.js", "Express.js", "Flask", "Tailwind CSS", "Framer Motion"],
+    title: "Backend systems",
+    signal: "APIs and services with clear contracts and secure defaults.",
+    tools: ["Node.js", "Express", "FastAPI", "REST APIs", "Prisma", "JWT"],
+    proof: "Auth flows, service boundaries, validation, data models, and multi-service app backends.",
   },
   {
-    category: "Databases",
-    items: ["MySQL", "PostgreSQL", "DynamoDB", "MongoDB"],
+    title: "Cloud / Linux / DevOps",
+    signal: "Deployment thinking grounded in Linux and containers.",
+    tools: ["Linux", "Docker", "Kubernetes", "AWS EC2", "AWS S3", "AWS RDS", "Nginx"],
+    proof: "RHCSA, RHCE, Red Hat container specialist, containerized services, and AWS deployments.",
   },
   {
-    category: "Cloud & DevOps",
-    items: ["AWS (EC2, S3, Lambda, RDS, CloudFormation)", "Docker", "Kubernetes", "CI/CD Basics"],
+    title: "Data / AI",
+    signal: "Pipelines that move from messy inputs to explainable outputs.",
+    tools: ["Python", "SQL", "Pandas", "Scikit-learn", "LightGBM", "LLM APIs"],
+    proof: "EDA, recommendation services, AI-assisted parsing, model scoring, and dashboard-ready outputs.",
   },
   {
-    category: "Tools",
-    items: ["Git", "GitHub", "VS Code", "Postman", "Jupyter Notebook", "Excel", "Linux", "RESTful APIs"],
+    title: "Finance / analytics",
+    signal: "Financial systems as a blend of behavior, risk, and infrastructure.",
+    tools: ["FinTech", "Scenario modeling", "Risk scoring", "Forecasting", "Portfolio thinking"],
+    proof: "Personal finance workflows, insurance analysis, fraud/risk experiments, and finance study.",
+  },
+  {
+    title: "Security / infrastructure",
+    signal: "Reliability, privacy, and threat models treated as product constraints.",
+    tools: ["Encryption", "Rate limiting", "Token auth", "Hardening", "Network basics", "SELinux"],
+    proof: "Secure auth flows, encrypted fields, Linux hardening practice, and security-conscious API design.",
   },
 ]
+
+export const skills = skillClusters.map((cluster) => ({
+  category: cluster.title,
+  items: cluster.tools,
+}))

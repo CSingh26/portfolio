@@ -9,13 +9,13 @@ import { ThemeToggle } from "./theme-toggle"
 import { cn } from "@/lib/utils"
 
 const NAV_ITEMS = [
-  { href: "/", label: "home" },
-  { href: "/projects", label: "projects" },
-  { href: "/experience", label: "work" },
-  { href: "/skills", label: "skills" },
-  { href: "/certifications", label: "certifications" },
-  { href: "/writing", label: "thoughts" },
-  { href: "/contact", label: "contact" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+  { href: "/skills", label: "Skills" },
+  { href: "/thinking", label: "Thinking" },
+  { href: "/contact", label: "Contact" },
 ]
 
 const NAME_TRANSLATIONS = [
@@ -47,7 +47,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/82 backdrop-blur-xl">
       <motion.nav
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export function Navbar() {
         className="container flex items-center justify-between py-4"
       >
         <Link
-          className="flex items-center gap-3 font-display text-base tracking-tight text-foreground transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-lg"
+          className="flex items-center gap-3 font-display text-base font-semibold text-foreground transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-lg"
           href="/"
           onClick={() => setOpen(false)}
           aria-label="Go to home"
@@ -83,7 +83,7 @@ export function Navbar() {
               href={item.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "px-2 py-1 text-[0.7rem] font-medium lowercase tracking-[0.14em] text-muted transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-xs lg:text-sm",
+                "rounded-full px-3 py-2 text-sm font-medium text-muted transition hover:bg-card hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isActive(item.href) && "text-foreground",
               )}
             >
@@ -96,7 +96,7 @@ export function Navbar() {
         <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card shadow-soft transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card shadow-soft transition hover:-translate-y-0.5 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             onClick={() => setOpen((prev) => !prev)}
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           >
@@ -112,7 +112,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.28 }}
-            className="mx-auto mt-3 w-[92%] overflow-hidden rounded-2xl border border-border bg-card/95 shadow-soft backdrop-blur-xl md:hidden"
+            className="mx-auto mt-3 w-[92%] overflow-hidden rounded-xl border border-border bg-elevated shadow-soft backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col divide-y divide-border">
               {NAV_ITEMS.map((item) => (
@@ -121,7 +121,7 @@ export function Navbar() {
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "flex items-center justify-between px-5 py-4 text-sm font-medium lowercase tracking-[0.14em] transition hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    "flex items-center justify-between px-5 py-4 text-sm font-medium transition hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     isActive(item.href) && "text-accent",
                   )}
                 >

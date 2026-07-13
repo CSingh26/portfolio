@@ -14,10 +14,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = writing.find((item) => item.slug === slug)
-  if (!post) return { title: "Writing | Chaitanya" }
+  if (!post) return { title: "Thinking" }
 
   return {
-    title: `${post.title} | Chaitanya`,
+    title: post.title,
     description: post.description,
   }
 }
@@ -27,23 +27,25 @@ export default async function WritingDetail({ params }: Props) {
   const post = writing.find((item) => item.slug === slug)
   if (!post) notFound()
 
-  const dateStamp = post.date ? `${post.date} · ${post.readingTime}` : post.readingTime
+  const dateStamp = post.date ? `${post.date} - ${post.readingTime}` : post.readingTime
 
   return (
     <div className="container min-h-screen pt-28 pb-16">
       <div className="mb-8 flex items-center justify-between">
         <Link
-          href="/writing"
+          href="/thinking"
           className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-muted transition hover:border-accent hover:text-accent"
         >
-          ← Back to writing
+          Back to thinking
         </Link>
-        <span className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-muted">
+        <span className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted">
           {dateStamp}
         </span>
       </div>
-      <h1 className="font-display text-3xl sm:text-4xl">{post.title}</h1>
-      <p className="mt-3 max-w-3xl text-lg text-muted">{post.description}</p>
+      <h1 className="text-balance font-display text-4xl font-semibold leading-tight sm:text-5xl">
+        {post.title}
+      </h1>
+      <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">{post.description}</p>
       <div className="mt-4 flex flex-wrap gap-2 text-xs">
         {post.tags.map((tag) => (
           <span key={tag} className="rounded-full border border-border bg-card px-3 py-1 font-semibold text-muted">
@@ -51,7 +53,7 @@ export default async function WritingDetail({ params }: Props) {
           </span>
         ))}
       </div>
-      <div className="mt-8 space-y-4 text-base text-muted">
+      <div className="mt-10 max-w-3xl space-y-5 text-base leading-8 text-muted">
         {post.content?.length ? (
           post.content.map((paragraph, index) => <p key={`${post.slug}-p-${index}`}>{paragraph}</p>)
         ) : (

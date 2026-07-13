@@ -21,11 +21,14 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 const getPreferredTheme = (): Theme => {
-  return "light"
+  if (typeof window === "undefined") return "dark"
+  const stored = window.localStorage.getItem("theme")
+  if (stored === "light" || stored === "dark") return stored
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light")
+  const [theme, setTheme] = useState<Theme>("dark")
   const [mounted, setMounted] = useState(false)
 
   /* eslint-disable react-hooks/set-state-in-effect */
