@@ -1,5 +1,14 @@
 export type ProjectStatus = "Live" | "In Progress" | "Completed" | "Research"
 
+export type ProjectField =
+  | "AI & Intelligent Systems"
+  | "Data Science & Analytics"
+  | "Web & Full-Stack"
+  | "Mobile Applications"
+  | "Finance & Fintech"
+  | "Cloud & Infrastructure"
+  | "Developer Tools & Security"
+
 export type ProjectMedia = {
   src: string
   alt: string
@@ -39,6 +48,7 @@ export type Project = {
   slug: string
   description: string
   status: ProjectStatus
+  field: ProjectField
   tags: string[]
   links?: {
     github?: string
@@ -48,6 +58,16 @@ export type Project = {
   details?: ProjectDetail
 }
 
+export const projectFields: ProjectField[] = [
+  "AI & Intelligent Systems",
+  "Data Science & Analytics",
+  "Web & Full-Stack",
+  "Mobile Applications",
+  "Finance & Fintech",
+  "Cloud & Infrastructure",
+  "Developer Tools & Security",
+]
+
 export const projects: Project[] = [
   {
     title: "Synaxis (MoneyMatters)",
@@ -55,6 +75,7 @@ export const projects: Project[] = [
     description:
       "24-hour hackathon platform that combines personal finance management with AI-powered insurance policy analysis, coverage-gap detection, and scenario simulation.",
     status: "Completed",
+    field: "Finance & Fintech",
     tags: ["Expo", "React Native", "TypeScript", "PostgreSQL", "AWS"],
     links: {
       github: "https://github.com/CSingh26/MoneyMatters",
@@ -153,11 +174,153 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Hybrid Token-Efficient Routing Agent",
+    slug: "hybrid-token-efficient-routing-agent",
+    description:
+      "AMD Developer Hackathon agent that solves provable tasks deterministically, accepts gated local-model answers, and escalates difficult work to cloud models.",
+    status: "Completed",
+    field: "AI & Intelligent Systems",
+    tags: ["Python", "LLM Routing", "Qwen", "llama.cpp", "Fireworks API", "Docker"],
+    links: {
+      github: "https://github.com/aroramrinaal/hybrid-token-efficient-routing-agent",
+    },
+    details: {
+      overview:
+        "Built for Track 1 of the AMD Developer Hackathon ACT II, this agent routes natural-language tasks through a dependable escalation ladder. Conservative deterministic solvers answer only what they can prove, category-specific gates validate eligible local Qwen outputs, and cloud batching handles the remaining work while preserving a strict JSON output contract.",
+      highlights: [
+        "Uses deterministic solvers for zero-token answers when an independent proof path succeeds.",
+        "Runs eligible tasks through a local Qwen 3.5 2B model with category-specific validation gates.",
+        "Escalates rejected or ineligible work to configured cloud models instead of silently accepting weak answers.",
+        "Supports eight task families: factual Q&A, math, logic, sentiment, summarization, entities, debugging, and code generation.",
+        "Includes 282 passing regression tests and a 1,000-record synthetic evaluation dataset.",
+      ],
+      stack: [
+        "Python 3.12",
+        "Qwen 3.5 2B",
+        "llama.cpp",
+        "Fireworks API",
+        "Docker",
+        "unittest",
+      ],
+      facts: [
+        { label: "Hackathon", value: "AMD Developer Hackathon ACT II" },
+        { label: "Track", value: "Track 1" },
+        { label: "Task families", value: "8" },
+        { label: "Regression tests", value: "282 passing" },
+      ],
+      sections: [
+        {
+          title: "Routing Architecture",
+          body: [
+            "Every task passes schema validation and an ordered classifier before entering a three-tier resolution ladder. Each tier has an explicit acceptance boundary, so an unproven answer moves upward instead of being treated as correct.",
+          ],
+          bullets: [
+            "Deterministic solvers handle arithmetic, logic, extraction, and other provable patterns without model tokens.",
+            "The local tier is category-scoped and accepts an answer only after its proof or contract gate passes.",
+            "Cloud requests are batched and retried using runtime-configured providers and allowed models.",
+            "A last-resort placeholder is reserved for genuine provider exhaustion or offline runs with no safe answer.",
+          ],
+        },
+        {
+          title: "Task Coverage & Validation",
+          bullets: [
+            "Passage-aware factual extraction and validated model fallback.",
+            "Safe arithmetic with an independent proof path plus deterministic ordering and constraint solving.",
+            "Constraint-aware summarization, named-entity span completeness, and conservative sentiment classification.",
+            "AST-aware debugging repairs and contract-aware code generation that abstain on ambiguous inputs.",
+          ],
+        },
+        {
+          title: "Local Model & Container Runtime",
+          bullets: [
+            "The Docker image pins llama.cpp and packages the Qwen 3.5 2B local model for the grading environment.",
+            "Environment settings control the local model, eligible categories, cloud endpoint, and allowed model list.",
+            "The CLI reads a JSON task list and always writes one strict task_id/answer object per input task.",
+          ],
+        },
+        {
+          title: "Evaluation & Reliability",
+          bullets: [
+            "A 1,000-record synthetic dataset provides 125 deterministic examples for each supported task family.",
+            "Diagnostic evaluation records the actual resolving tier without changing the submission output contract.",
+            "Crash-safe output handling keeps results.json valid even when an upstream component fails.",
+            "The design prioritizes accuracy before token minimization and never relies on hidden evaluation data.",
+          ],
+        },
+      ],
+      contributors: [
+        { name: "Mrinaal Arora", github: "https://github.com/aroramrinaal" },
+      ],
+    },
+  },
+  {
+    title: "CineJaal",
+    slug: "cinejaal",
+    description:
+      "Interactive cultural archive for exploring the interconnected universe of Hindi cinema across films, artists, studios, music, and franchises.",
+    status: "Live",
+    field: "Data Science & Analytics",
+    tags: ["Next.js", "TypeScript", "Graph Visualization", "Python", "Wikidata"],
+    links: {
+      github: "https://github.com/CSingh26/CineJaal",
+      live: "https://cinejaal-hindi-cinema.vercel.app",
+    },
+    details: {
+      overview:
+        "CineJaal is a browser-based Hindi cinema archive connecting films, actors, directors, music directors, singers, production houses, and franchises. Its progressive force-directed canvas stays synchronized with a 1970–2026 timeline, supports shortest-path exploration, and pairs sourced relationship data with an original deterministic poster system.",
+      highlights: [
+        "Archives 500 real Hindi-language films released between 1970 and 2026.",
+        "Connects 2,096 deduplicated entities through 4,953 sourced relationships.",
+        "Combines a progressive force-directed canvas with a synchronized historical timeline.",
+        "Supports shortest-path exploration between people, films, studios, and franchises.",
+        "Runs from bundled JSON at runtime, avoiding upstream availability and latency dependencies.",
+      ],
+      stack: ["Next.js", "React", "TypeScript", "Python", "Wikidata", "IMDb datasets"],
+      facts: [
+        { label: "Films", value: "500" },
+        { label: "Entities", value: "2,096" },
+        { label: "Relationships", value: "4,953" },
+        { label: "Timeline", value: "1970–2026" },
+      ],
+      sections: [
+        {
+          title: "Archive & Graph Experience",
+          body: [
+            "The archive presents Hindi cinema as a connected network rather than a catalog of isolated titles. Visitors can move through a force-directed canvas while the synchronized timeline grounds each discovery in its release era.",
+          ],
+          bullets: [
+            "Covers films, performers, directors, music directors, singers, production houses, and source-backed franchises.",
+            "Progressively reveals the graph so a large network stays navigable in the browser.",
+            "Shortest-path exploration explains how any two entities are connected.",
+          ],
+        },
+        {
+          title: "Data Pipeline & Provenance",
+          bullets: [
+            "Build scripts can reuse cached sources, reproduce the committed snapshot offline, or refresh upstream inputs.",
+            "The deployed application reads bundled JSON and makes no upstream data calls at runtime.",
+            "Wikidata supplies CC0 structured data while IMDb fields follow its non-commercial dataset terms.",
+            "Validation scripts check the generated archive before it is shipped.",
+          ],
+        },
+        {
+          title: "Original Visual System",
+          bullets: [
+            "Deterministic CSS geometry creates a consistent poster identity from factual movie metadata.",
+            "No theatrical posters, film stills, celebrity likenesses, or third-party images are bundled.",
+            "The visual language keeps the archive expressive while respecting source and licensing boundaries.",
+          ],
+        },
+      ],
+    },
+  },
+  {
     title: "ReliScore",
     slug: "reli-score",
     description:
       "Cloud-native storage risk operations platform that predicts hard-drive failures 30 days ahead using SMART telemetry, ML scoring, and fleet-level analytics dashboards.",
     status: "Completed",
+    field: "Cloud & Infrastructure",
     tags: ["Next.js", "NestJS", "FastAPI", "Postgres", "Machine Learning"],
     links: {
       github: "https://github.com/CSingh26/ReliScore",
@@ -190,6 +353,7 @@ export const projects: Project[] = [
     description:
       "Next.js agency site with dedicated Home/About/Services/Contact pages, JSON-driven content blocks, and reusable sections for testimonials, services, and contact forms.",
     status: "Live",
+    field: "Web & Full-Stack",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     links: {
       github: "https://github.com/CSingh26/Gridesign",
@@ -214,6 +378,7 @@ export const projects: Project[] = [
     description:
       "FastAPI backend that ingests a student profile (courses, GPA trend, projects, certifications) and returns top role recommendations with model scores using a serialized ML model.",
     status: "In Progress",
+    field: "AI & Intelligent Systems",
     tags: ["Python", "FastAPI", "ML", "LightGBM"],
     links: {
       github: "https://github.com/CSingh26/CarrerPath-AI",
@@ -237,6 +402,7 @@ export const projects: Project[] = [
     description:
       "Full-stack quiz platform for instructors and students with room creation, test module uploads, timers, and live leaderboards backed by AWS S3 and MongoDB.",
     status: "Completed",
+    field: "Web & Full-Stack",
     tags: ["Node.js", "Express.js", "MongoDB", "AWS"],
     links: {
       github: "https://github.com/CSingh26/quiz-app",
@@ -269,6 +435,7 @@ export const projects: Project[] = [
     slug: "hedgefund-ai-agent",
     description: "Agent workflow exploring hedge-fund style research, data ingestion, and signal summaries.",
     status: "Research",
+    field: "Finance & Fintech",
     tags: ["Python", "Agents", "Finance", "LLM"],
     links: {
       github: "https://github.com/CSingh26/HedgeFundAIAgent",
@@ -289,6 +456,7 @@ export const projects: Project[] = [
     description:
       "Interactive algorithm visualizer with a browser UI plus a Java app, showcasing animated sorting and pathfinding demos.",
     status: "Completed",
+    field: "Developer Tools & Security",
     tags: ["JavaScript", "Visualization", "Java"],
     links: {
       github: "https://github.com/CSingh26/AlgorithmVisualizer",
@@ -312,6 +480,7 @@ export const projects: Project[] = [
     description:
       "Used-car price prediction pipeline with feature engineering, multiple regressors, and neural networks plus Keras Tuner hyperparameter search.",
     status: "Research",
+    field: "Data Science & Analytics",
     tags: ["Python", "Regression", "XGBoost", "Keras"],
     links: {
       github: "https://github.com/CSingh26/UsedCarPricePrediction",
@@ -334,6 +503,7 @@ export const projects: Project[] = [
     description:
       "Stock prediction and analysis toolkit covering EDA, RSI calculation, time-series visualizations, and ML models for classification and regression.",
     status: "Research",
+    field: "Finance & Fintech",
     tags: ["Python", "Time Series", "EDA", "ML"],
     links: {
       github: "https://github.com/CSingh26/Project-1-StockMarketPredictions",
@@ -357,6 +527,7 @@ export const projects: Project[] = [
     description:
       "Breast cancer diagnosis pipeline on the Wisconsin dataset with preprocessing, feature selection, and model comparisons evaluated with precision and recall.",
     status: "Research",
+    field: "Data Science & Analytics",
     tags: ["Python", "Classification", "Scikit-learn"],
     links: {
       github: "https://github.com/CSingh26/Project-2-BreastCancerPrediction",
@@ -380,6 +551,7 @@ export const projects: Project[] = [
     description:
       "Twitter sentiment analysis pipeline with text cleaning, EDA, MLP modeling, hyperparameter tuning, cross-validation, and interpretability.",
     status: "Research",
+    field: "AI & Intelligent Systems",
     tags: ["Python", "NLP", "Keras", "EDA"],
     links: {
       github: "https://github.com/CSingh26/Project3-SentimentAnalysis",
@@ -404,6 +576,7 @@ export const projects: Project[] = [
     description:
       "Movie genre classifier with separate training and prediction scripts for running inference on plot summaries.",
     status: "Research",
+    field: "AI & Intelligent Systems",
     tags: ["Python", "NLP", "Classification"],
     links: {
       github: "https://github.com/CSingh26/MovieGenreNLP",
@@ -425,6 +598,7 @@ export const projects: Project[] = [
     description:
       "iOS-only study organizer focused on offline-first planning with Canvas sync, iCal imports, focus sessions, and a privacy-first vault.",
     status: "Completed",
+    field: "Mobile Applications",
     tags: ["Swift", "iOS", "SwiftData", "Canvas", "Offline First"],
     links: {
       github: "https://github.com/CSingh26/StudyOS",
@@ -449,6 +623,7 @@ export const projects: Project[] = [
     description:
       "Offline-first habit tracker for iOS and Android with schedules, streaks, journaling, analytics, and a companion system built with Expo Router.",
     status: "Completed",
+    field: "Mobile Applications",
     tags: ["Expo", "React Native", "TypeScript", "SQLite", "Mobile"],
     links: {
       github: "https://github.com/CSingh26/habit-app",
@@ -472,6 +647,7 @@ export const projects: Project[] = [
     description:
       "Quant portfolio optimizer and backtesting lab with a Next.js analytics dashboard and live market data integrations.",
     status: "Completed",
+    field: "Finance & Fintech",
     tags: ["Python", "Quant", "Next.js", "Backtesting", "Finance"],
     links: {
       github: "https://github.com/CSingh26/PortfolioPilot",
@@ -495,6 +671,7 @@ export const projects: Project[] = [
     description:
       "Codebase intelligence platform with RAG, AST dependency graphs, blast-radius forecasting, and security scanning.",
     status: "Completed",
+    field: "Developer Tools & Security",
     tags: ["Next.js", "FastAPI", "RAG", "Graph", "Security"],
     links: {
       github: "https://github.com/CSingh26/Regulus",
@@ -518,6 +695,7 @@ export const projects: Project[] = [
     description:
       "Demo credit default risk scoring platform with explainability, fairness diagnostics, and an underwriter dashboard.",
     status: "Completed",
+    field: "Finance & Fintech",
     tags: ["Next.js", "FastAPI", "Fairness", "ML", "Python"],
     links: {
       github: "https://github.com/CSingh26/CreditLens",
@@ -541,6 +719,7 @@ export const projects: Project[] = [
     description:
       "Real-time fraud detection platform with a Next.js analyst dashboard, API/worker pipeline, and ML scoring service.",
     status: "Completed",
+    field: "Finance & Fintech",
     tags: ["Next.js", "Express", "FastAPI", "Postgres", "Redis"],
     links: {
       github: "https://github.com/CSingh26/FraudPulse",

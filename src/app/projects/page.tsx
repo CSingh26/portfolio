@@ -3,7 +3,7 @@ import { ProjectGrid } from "@/components/project-grid"
 
 export const metadata: Metadata = {
   title: "Projects | Chaitanya",
-  description: "Project gallery spanning web apps, AI tooling, and data-driven experiments.",
+  description: "Project gallery organized across AI, data, web, mobile, finance, cloud, and developer systems.",
 }
 
 export default function ProjectsPage() {

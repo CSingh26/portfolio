@@ -43,7 +43,7 @@ export function ProjectCard({ project }: Props) {
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <p className="break-words text-sm uppercase tracking-[0.16em] text-muted">{project.slug}</p>
+          <p className="break-words text-sm uppercase tracking-[0.16em] text-muted">{project.field}</p>
           <h3 className="break-words font-display text-xl text-foreground">{project.title}</h3>
         </div>
         <span
