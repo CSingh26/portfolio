@@ -1,5 +1,3 @@
-"use client"
-
 import { SectionShell } from "./section-shell"
 import { ProjectCard } from "./project-card"
 import { projectFields, projects, type ProjectField } from "@/data/projects"
@@ -14,6 +12,14 @@ const fieldDescriptions: Record<ProjectField, string> = {
   "Developer Tools & Security": "Engineering tools, code intelligence, visualization, and safer systems.",
 }
 
+function fieldId(field: ProjectField) {
+  return `field-${field
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}`
+}
+
 export function ProjectGrid() {
   return (
     <SectionShell
@@ -26,13 +32,14 @@ export function ProjectGrid() {
         {projectFields.map((field) => {
           const fieldProjects = projects.filter((project) => project.field === field)
           if (!fieldProjects.length) return null
+          const sectionId = fieldId(field)
 
           return (
-            <section key={field} aria-labelledby={`field-${field.replaceAll(" ", "-").toLowerCase()}`}>
+            <section key={field} aria-labelledby={sectionId}>
               <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
                 <div>
                   <h2
-                    id={`field-${field.replaceAll(" ", "-").toLowerCase()}`}
+                    id={sectionId}
                     className="font-display text-2xl text-foreground sm:text-3xl"
                   >
                     {field}
