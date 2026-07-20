@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/apex-arena",
+      "destination": "https://apex-arena-two.vercel.app/apex-arena"
+    },
+    {
       "source": "/apex-arena/:path*",
       "destination": "https://apex-arena-two.vercel.app/apex-arena/:path*"
     }
