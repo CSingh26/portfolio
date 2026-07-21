@@ -70,6 +70,103 @@ export const projectFields: ProjectField[] = [
 
 export const projects: Project[] = [
   {
+    title: "Apex Arena",
+    slug: "apex-arena",
+    description:
+      "Live Formula racing fan experience where five specialist AI agents debate strategy, telemetry, racecraft, and history using evidence-linked session data.",
+    status: "Live",
+    field: "Web & Full-Stack",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "OpenF1", "Railway"],
+    links: {
+      github: "https://github.com/CSingh26/Apex-Arena",
+      live: "https://chaitanyasingh.org/apex-arena",
+    },
+    details: {
+      overview:
+        "Apex Arena is a public 2026-season Formula racing experience that turns live and historical race data into a structured, evidence-linked conversation. The platform combines a Next.js frontend, FastAPI backend, PostgreSQL event archive, Redis event bus, and provider integrations from OpenF1 and Jolpica so visitors can follow a session as an editorial debate instead of a raw timing screen.",
+      highlights: [
+        "Built around five specialist agents covering strategy, telemetry, racecraft, championship history, and moderation.",
+        "Supports live and replay Race Rooms with grounded discussion, evidence drawers, room timelines, and session-aware playback controls.",
+        "Uses deterministic normalization, ordering, and deduplication so the interface never sounds more certain than the underlying data.",
+        "Publishes a 2026 season catalog with circuit intelligence, weather context, and resilient fallbacks when provider data is incomplete.",
+        "Runs in production beneath the portfolio domain at /apex-arena with Vercel rewrites, Railway backend services, Neon PostgreSQL, and Upstash Redis.",
+      ],
+      stack: [
+        "Next.js App Router",
+        "React",
+        "TypeScript",
+        "FastAPI",
+        "Pydantic",
+        "SQLAlchemy",
+        "PostgreSQL",
+        "Redis",
+        "Server-Sent Events",
+        "OpenF1 REST / MQTT",
+        "Jolpica F1",
+        "Railway",
+        "Vercel",
+      ],
+      media: {
+        src: "/projects/apex-arena-home.jpg",
+        alt: "Apex Arena landing page showing the race-room fan experience",
+        width: 952,
+        height: 998,
+        caption: "Apex Arena landing experience from the production project README.",
+      },
+      facts: [
+        { label: "Status", value: "Live at /apex-arena" },
+        { label: "Season focus", value: "2026 Formula calendar" },
+        { label: "Agent roster", value: "5 specialist voices" },
+        { label: "Streaming model", value: "SSE + Redis event flow" },
+      ],
+      sections: [
+        {
+          title: "Product Direction",
+          body: [
+            "Apex Arena treats a race weekend as a living argument instead of a static dashboard. Each session is framed as a moderated conversation where agent opinions stay distinct, explain their reasoning, and expose the evidence behind supported claims.",
+            "The experience is designed for both live sessions and replayable archives, so the same room model can cover active race weekends, completed events, and upcoming sessions without pretending unavailable telemetry already exists.",
+          ],
+          bullets: [
+            "Five analytical perspectives: strategy, telemetry, racecraft, history, and moderation.",
+            "Conversation map, track dossier, and weather context accompany the live message stream.",
+            "Clear data-quality labeling avoids inventing telemetry when providers are partial or offline.",
+          ],
+        },
+        {
+          title: "Data and Discussion Architecture",
+          body: [
+            "The backend ingests OpenF1 and calendar metadata, persists raw and normalized race events, and replays them through a race-state reducer plus a grounded discussion engine. Durable PostgreSQL records back messages and evidence, while Redis handles low-latency publication into browser streams.",
+          ],
+          bullets: [
+            "Normalization, stable ordering, and deduplication happen before any discussion logic runs.",
+            "Specialist messages are validated against supplied evidence keys and confidence rules.",
+            "Replay coordination persists playback state, lap progress, and room activity for reliable recovery.",
+          ],
+        },
+        {
+          title: "Race Room Experience",
+          bullets: [
+            "Scrollable multi-agent conversation with reply relationships, corrections, and room summaries.",
+            "Session catalog grouped by Grand Prix weekend, including live, completed, and upcoming events.",
+            "Circuit intelligence panels with venue records, historical context, and official guide links.",
+            "OpenF1 weather integration covering air and track temperature, rainfall, humidity, pressure, and wind.",
+          ],
+        },
+        {
+          title: "Operations and Deployment",
+          body: [
+            "Production deployment is routed through the portfolio domain so the browser always stays on chaitanyasingh.org/apex-arena while Vercel rewrites requests to the dedicated Apex Arena frontend. Server-side API proxying keeps backend infrastructure hostnames and proxy tokens out of the browser.",
+          ],
+          bullets: [
+            "Verified CI pipeline runs backend tests, frontend checks, production builds, Docker builds, and vulnerability scans.",
+            "Railway hosts the FastAPI backend, while the frontend uses a Next.js App Router deployment on Vercel.",
+            "Recent-session reconciliation and provider-aware fallbacks keep rooms honest during live data gaps.",
+          ],
+        },
+      ],
+    },
+  },
+  {
     title: "Synaxis (MoneyMatters)",
     slug: "synaxis",
     description:
