@@ -139,4 +139,17 @@ export const writing: Writing[] = [
       "For high-stakes medicine and finance, I prefer releases that increase authority gradually. Begin with read-only research, then proposal generation, then carefully bounded actions. Each expansion should be earned with evidence from the prior stage."
     ], citations: [sources.nist, sources.trism, sources.fda],
   },
+  {
+    title: "Apex Arena: Designing the Hybrid Token Optimization Problem",
+    slug: "apex-arena-hybrid-token-design",
+    description: "The first design note from Apex Arena: framing hybrid token allocation as a constrained, explainable optimization problem.",
+    tags: ["Apex Arena", "Optimization", "Tokens"], readingTime: "7 min read", date: "May 6, 2026",
+    hero: "/writing/apex-arena-home.jpg", architecture: "/writing/apex-flow.gif", visualAlt: "Apex Arena application interface",
+    content: [
+      "Apex Arena began with a simple constraint: token budgets are finite, while the quality of a multi-stage AI experience depends on where context is spent. I framed the work as hybrid token optimization—combining deterministic rules for safety and budget ceilings with adaptive allocation for tasks whose complexity is only visible at runtime.",
+      "The design separates fixed context, retrieved evidence, tool traces, and generated reasoning. This makes costs visible. Instead of asking a model to ‘use fewer tokens,’ the system assigns a budget to each component, measures actual use, and chooses whether to compress, retrieve, defer, or escalate.",
+      "The trade-off is intentionally explicit: lower context can reduce cost and latency but may weaken evidence coverage; more context can increase relevance but also duplicate or dilute useful information. The optimizer is therefore constrained by task success, quality checks, and operational limits—not only a raw token target.",
+      "This framing borrows from parameter-efficient adaptation: retain a strong shared base, then allocate small, task-specific increments where they produce value. LoRA demonstrates the underlying intuition at the model layer—small, structured updates can be effective when the large base remains stable (Hu et al.)."
+    ], citations: [sources.lora, sources.adapters, sources.nist],
+  },
 ]
