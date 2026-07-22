@@ -87,4 +87,17 @@ export const writing: Writing[] = [
       "The goal is not to ban complex methods. It is to ensure that a model’s increased complexity earns its place: it must improve a decision enough to justify the additional validation, explanation, and monitoring burden."
     ], citations: [sources.xaiCredit, sources.financeSurvey, sources.nist],
   },
+  {
+    title: "Backtesting Is an Argument About the Past",
+    slug: "backtesting-past-not-promise",
+    description: "How leakage, costs, and regime change turn a promising financial backtest into a fragile production strategy.",
+    tags: ["Quant", "Evaluation", "ML"], readingTime: "8 min read", date: "Feb 18, 2026",
+    hero: "/writing/ml-finance.png", architecture: "/writing/finance-flow.gif", visualAlt: "Market time-series and model illustration",
+    content: [
+      "A backtest is evidence about a historical simulation, not proof that a strategy will make money. This distinction keeps financial ML honest. Historical prices contain survivorship bias, changing constituents, revised data, and information that may not have been available when a decision would actually have been made.",
+      "The first defence is a walk-forward design: train only on data available before the evaluation period, then advance the window. The second is friction: include spreads, fees, market impact, execution delay, borrow constraints, and turnover. A strategy that survives only before those assumptions are added is not yet a strategy.",
+      "Reinforcement learning makes the issue more visible because it can exploit weaknesses in a simulated environment. FinRL frames trading as an environment with states, actions, rewards, and constraints; those components should be designed to reflect the decision process rather than to reward a convenient proxy (Liu et al.).",
+      "I would report a distribution of outcomes across regimes rather than a single headline return. Drawdowns, capacity, concentration, and sensitivity to small parameter changes tell a more credible story. The output should be a decision memo: what was tested, what could invalidate it, and what limits will apply if it moves into a paper-trading phase."
+    ], citations: [sources.finrl, sources.financeSurvey, sources.nist],
+  },
 ]
