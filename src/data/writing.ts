@@ -204,4 +204,17 @@ export const writing: Writing[] = [
       "The real decision table includes data sensitivity, deployment topology, rollback needs, evaluation cost, and who will own the model after release. A method is production-ready only when the organization can reproduce, assess, and retire it."
     ], citations: [sources.lora, sources.adapters, sources.loraPlus],
   },
+  {
+    title: "Fine-Tuning Is a Lifecycle, Not a Training Run",
+    slug: "fine-tuning-lifecycle",
+    description: "How to operate an adapted model with evaluation gates, versioning, monitoring, and a disciplined rollback path.",
+    tags: ["Fine-Tuning", "MLOps", "Governance"], readingTime: "8 min read", date: "Jul 8, 2026",
+    hero: "/writing/fine-tuning.png", architecture: "/writing/tuning-flow.gif", visualAlt: "Model lifecycle illustration",
+    content: [
+      "A fine-tuned model is a new production artifact, not a finished experiment. It needs a versioned base model, a versioned dataset, a declared training recipe, immutable evaluation results, and a rollback target. Without that chain, a surprising output cannot be traced back to a controllable change.",
+      "Before release, I would evaluate both capability and safety. Capability tests measure the specialized task. Safety tests measure policy compliance, privacy behavior, robustness to adversarial inputs, and behavior outside the training distribution. A held-out set must remain truly held out; otherwise it becomes an optimistic echo of the training data.",
+      "After release, monitor outcome quality, disagreement with reviewers, drift in request mix, latency, and cost. The NIST AI RMF treats risk management as continuous across the lifecycle, which is the right mental model for an adapted system that may encounter new data and incentives (Tabassi).",
+      "The final lesson is that fine-tuning should earn its complexity. When the task changes, revisit the data contract and the evaluation suite first. A smaller adapter update, an improved retrieval system, or a clearer workflow may be safer than another uncontrolled training run."
+    ], citations: [sources.nist, sources.lora, sources.loraPlus],
+  },
 ]
