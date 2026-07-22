@@ -152,4 +152,17 @@ export const writing: Writing[] = [
       "This framing borrows from parameter-efficient adaptation: retain a strong shared base, then allocate small, task-specific increments where they produce value. LoRA demonstrates the underlying intuition at the model layer—small, structured updates can be effective when the large base remains stable (Hu et al.)."
     ], citations: [sources.lora, sources.adapters, sources.nist],
   },
+  {
+    title: "Apex Arena: Measuring Quality Per Token",
+    slug: "apex-arena-quality-per-token",
+    description: "How I turned hybrid token optimization into a measurable product loop instead of a one-off prompt adjustment.",
+    tags: ["Apex Arena", "Evaluation", "Efficiency"], readingTime: "8 min read", date: "Jun 3, 2026",
+    hero: "/writing/apex-arena-home.jpg", architecture: "/writing/apex-flow.gif", visualAlt: "Apex Arena application interface",
+    content: [
+      "The middle of Apex Arena was about measurement. ‘Fewer tokens’ is not a success metric if it produces weaker outputs. I evaluated quality per token through task-specific rubrics: factual support, instruction compliance, answer usefulness, latency, and cost. The point was to find the smallest context configuration that still met a predefined quality floor.",
+      "I used a hybrid policy rather than a single compression setting. Stable instructions and repeated background move into compact templates. Evidence is retrieved only when it is needed. Long histories are summarized with provenance, and tasks that fail a confidence or coverage check receive a larger budget or a human review route.",
+      "This resembles the reason parameter-efficient tuning is compelling: adaptation should focus resources where they change downstream behavior. Adapter research found that compact task modules can achieve near-state-of-the-art results while preserving a shared base model (Houlsby et al.). That does not directly solve prompt budgeting, but it reinforces the product principle of targeted adaptation.",
+      "The important engineering outcome was observability. Each run captures the proposed budget, allocation, retrieved material, actual use, quality signals, and final route. That data makes optimization repeatable and allows a regression to be investigated rather than guessed at."
+    ], citations: [sources.adapters, sources.lora, sources.nist],
+  },
 ]
