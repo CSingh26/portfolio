@@ -191,4 +191,17 @@ export const writing: Writing[] = [
       "I would treat data quality as an engineering deliverable: version it, sample it manually, document transformation steps, and protect the held-out test set from prompt and training leakage. The model choice comes after that foundation."
     ], citations: [sources.lora, sources.adapters, sources.nist],
   },
+  {
+    title: "Choosing Full Fine-Tuning, Adapters, or LoRA",
+    slug: "choosing-tuning-method",
+    description: "A decision guide for selecting an adaptation strategy based on task shift, cost, inference constraints, and operational needs.",
+    tags: ["Fine-Tuning", "LoRA", "PEFT"], readingTime: "8 min read", date: "Jun 17, 2026",
+    hero: "/writing/fine-tuning.png", architecture: "/writing/tuning-flow.gif", visualAlt: "Low-rank model adaptation illustration",
+    content: [
+      "There is no universally best adaptation method. Full fine-tuning offers maximum flexibility but requires storing and serving a full model variant. Adapters add compact task modules. LoRA represents updates through low-rank matrices and can avoid added inference latency relative to adapter layers in the original formulation (Hu et al.).",
+      "My choice would begin with the task shift. If the base model already follows the desired instruction style and the missing knowledge can be retrieved, retrieval and prompt design may be enough. If behavior must become consistent across a narrow domain, parameter-efficient tuning is often a pragmatic first experiment. Full tuning is a later option when the evidence shows that smaller adaptations cannot meet the target.",
+      "Houlsby et al. showed that adapter modules can support many tasks while keeping shared base parameters fixed, which is operationally attractive when a team needs several specializations. LoRA+ further illustrates that even within one method, training dynamics and hyperparameters deserve empirical attention rather than default acceptance (Hayou, Ghosh, and Yu).",
+      "The real decision table includes data sensitivity, deployment topology, rollback needs, evaluation cost, and who will own the model after release. A method is production-ready only when the organization can reproduce, assess, and retire it."
+    ], citations: [sources.lora, sources.adapters, sources.loraPlus],
+  },
 ]
