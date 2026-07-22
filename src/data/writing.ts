@@ -165,4 +165,17 @@ export const writing: Writing[] = [
       "The important engineering outcome was observability. Each run captures the proposed budget, allocation, retrieved material, actual use, quality signals, and final route. That data makes optimization repeatable and allows a regression to be investigated rather than guessed at."
     ], citations: [sources.adapters, sources.lora, sources.nist],
   },
+  {
+    title: "Completing Apex Arena: What Hybrid Token Optimization Shipped",
+    slug: "apex-arena-completion",
+    description: "Apex Arena is complete: the final architecture, the guarded optimization loop, and the lessons I will carry forward.",
+    tags: ["Apex Arena", "Hybrid Tokens", "Project"], readingTime: "9 min read", date: "Jul 22, 2026",
+    hero: "/writing/apex-arena-home.jpg", architecture: "/writing/apex-flow.gif", visualAlt: "Apex Arena application interface",
+    content: [
+      "Today I completed Apex Arena. The finished project turns hybrid token optimization into a visible product loop: classify the task, allocate a constrained context budget, retrieve or compress selectively, evaluate the result, and record the evidence needed to improve the next run. The system is intentionally designed to expose trade-offs instead of hiding them behind a single ‘optimized’ label.",
+      "The final architecture keeps policy deterministic where it should be: maximum budgets, permission boundaries, sensitive-data handling, and fallback behavior. Adaptive components operate inside those boundaries. If a task does not have enough evidence or crosses a quality threshold, the loop expands its context within limits or sends the case to review rather than inventing certainty.",
+      "Completing the project clarified that optimization is a governance problem as much as an efficiency problem. NIST’s risk-management framing—govern, map, measure, manage—helped keep the work anchored in testable behavior and ownership rather than just lower usage numbers (Tabassi).",
+      "The project also strengthened my appreciation for targeted adaptation. LoRA and adapter methods show how focused, low-footprint changes can preserve a capable base while serving specific tasks (Hu et al.; Houlsby et al.). Apex Arena applies that same discipline at the orchestration layer: spend context deliberately, measure the result, and keep the route explainable."
+    ], citations: [sources.nist, sources.lora, sources.adapters],
+  },
 ]
