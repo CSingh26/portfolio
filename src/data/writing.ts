@@ -178,4 +178,17 @@ export const writing: Writing[] = [
       "The project also strengthened my appreciation for targeted adaptation. LoRA and adapter methods show how focused, low-footprint changes can preserve a capable base while serving specific tasks (Hu et al.; Houlsby et al.). Apex Arena applies that same discipline at the orchestration layer: spend context deliberately, measure the result, and keep the route explainable."
     ], citations: [sources.nist, sources.lora, sources.adapters],
   },
+  {
+    title: "Fine-Tuning Starts With a Data Contract",
+    slug: "fine-tuning-data-contract",
+    description: "Before choosing LoRA or full tuning, define the task, data lineage, quality thresholds, and non-goals.",
+    tags: ["Fine-Tuning", "Data", "LLMs"], readingTime: "8 min read", date: "May 20, 2026",
+    hero: "/writing/fine-tuning.png", architecture: "/writing/tuning-flow.gif", visualAlt: "Model adaptation illustration",
+    content: [
+      "Fine-tuning is often presented as a switch: bring data, train a model, get a specialist. In practice, the highest-leverage work happens before training. A data contract should state the intended task, eligible source material, annotation rules, exclusions, ownership, retention, evaluation set, and the behavior the system must not learn.",
+      "A model can only be adapted safely when the desired behavior is observable. For a support assistant, that may mean correct routing, grounded answers, and appropriate escalation—not merely a more confident tone. The evaluation set should include difficult examples, out-of-scope requests, and examples where the model is expected to abstain.",
+      "Parameter-efficient methods make iteration cheaper, but they do not repair a vague target. LoRA freezes the pre-trained weights and learns low-rank updates; the method reduces the training footprint while preserving a base model (Hu et al.). The data contract is what decides whether those updates encode useful specialization or noise.",
+      "I would treat data quality as an engineering deliverable: version it, sample it manually, document transformation steps, and protect the held-out test set from prompt and training leakage. The model choice comes after that foundation."
+    ], citations: [sources.lora, sources.adapters, sources.nist],
+  },
 ]
