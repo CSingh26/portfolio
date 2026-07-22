@@ -100,4 +100,17 @@ export const writing: Writing[] = [
       "I would report a distribution of outcomes across regimes rather than a single headline return. Drawdowns, capacity, concentration, and sensitivity to small parameter changes tell a more credible story. The output should be a decision memo: what was tested, what could invalidate it, and what limits will apply if it moves into a paper-trading phase."
     ], citations: [sources.finrl, sources.financeSurvey, sources.nist],
   },
+  {
+    title: "Agentic AI in Medicine: Autonomy Must Stop at the Right Boundary",
+    slug: "agentic-ai-medicine-boundaries",
+    description: "A safety-first view of agentic workflows for clinical support, where tools, approvals, and audit trails define usefulness.",
+    tags: ["Agentic AI", "Healthcare", "Safety"], readingTime: "9 min read", date: "Mar 4, 2026",
+    hero: "/writing/agentic-ai.png", architecture: "/writing/agent-flow.gif", visualAlt: "Secure agent architecture illustration",
+    content: [
+      "Agentic AI is not simply a chatbot with a longer prompt. It is a system that plans, invokes tools, retains task state, and adapts its next action to observations. In medicine, that capability is attractive for tasks such as assembling a chart summary, locating evidence, or coordinating administrative steps—but it also makes the action boundary the central design question.",
+      "For a clinical workflow, I would give an agent narrow, typed tools and a reviewable task plan. It may retrieve a policy, draft a summary, or prepare a proposed order set; it should not silently commit a high-stakes action. Agent architecture research describes planning, memory, tool use, and multi-agent coordination as distinct capabilities, which makes those boundaries possible to test (Liu et al.).",
+      "The FDA’s AI/ML software action plan calls for lifecycle oversight, good machine-learning practices, transparency, and real-world performance monitoring. Those ideas remain useful beyond regulated device software: performance must be monitored in context, and change must be controlled rather than assumed benign (U.S. Food and Drug Administration).",
+      "A helpful rule is to make the agent’s authority smaller than its apparent intelligence. A clinician should be able to see the sources, edit the draft, reject the proposal, and understand what was not checked. That is how an assistant becomes operationally trustworthy."
+    ], citations: [sources.agenticReview, sources.fda, sources.nist],
+  },
 ]
