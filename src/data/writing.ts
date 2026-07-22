@@ -74,4 +74,17 @@ export const writing: Writing[] = [
       "My takeaway is simple: finance teams should fund monitoring and governance alongside model development. A modest model with stable inputs, clear escalation paths, and drift checks can be more valuable than a clever model whose performance cannot be audited after market conditions change."
     ], citations: [sources.financeSurvey, sources.finrl, sources.nist],
   },
+  {
+    title: "Credit Models Need Reasons, Not Just Rankings",
+    slug: "credit-models-need-reasons",
+    description: "A practical framework for pairing predictive credit models with explanation, fairness review, and human judgment.",
+    tags: ["Credit Risk", "Explainability", "ML"], readingTime: "7 min read", date: "Jan 28, 2026",
+    hero: "/writing/ml-finance.png", architecture: "/writing/finance-flow.gif", visualAlt: "Financial analytics illustration",
+    content: [
+      "Credit scoring turns a model score into a consequential decision about access and price. That makes explanation a system requirement. An explanation should help an applicant, reviewer, and auditor understand the operational reason for a decision; it is not a decorative chart added after deployment.",
+      "A useful pattern separates three questions: does the model discriminate between outcomes, is it well calibrated for the population being served, and can its important drivers be reviewed for plausibility and disparate impact? Schmitt’s work on explainable AutoML for credit decisions highlights the value of pairing automated modelling with interpretable methods such as SHAP rather than treating automation as a substitute for accountability (Schmitt).",
+      "I would also preserve adverse-action-ready feature definitions, version every model and threshold, and test stability by cohort and time period. Proxy variables deserve particular scrutiny. A model may improve an aggregate metric while shifting errors toward a group that had less representation in the data.",
+      "The goal is not to ban complex methods. It is to ensure that a model’s increased complexity earns its place: it must improve a decision enough to justify the additional validation, explanation, and monitoring burden."
+    ], citations: [sources.xaiCredit, sources.financeSurvey, sources.nist],
+  },
 ]
