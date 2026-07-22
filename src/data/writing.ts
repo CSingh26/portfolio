@@ -1,3 +1,8 @@
+export type Citation = {
+  label: string
+  href: string
+}
+
 export type Writing = {
   title: string
   slug: string
@@ -5,120 +10,68 @@ export type Writing = {
   tags: string[]
   readingTime: string
   date: string
+  hero: string
+  architecture: string
+  visualAlt: string
   content: string[]
+  citations: Citation[]
+}
+
+const sources = {
+  financeSurvey: {
+    label: "Ozbayoglu, Murat, et al. “Deep Learning for Financial Applications: A Survey.” arXiv, 2020.",
+    href: "https://arxiv.org/abs/2002.05786",
+  },
+  finrl: {
+    label: "Liu, Xiao-Yang, et al. “FinRL: A Deep Reinforcement Learning Library for Automated Stock Trading.” arXiv, 2020.",
+    href: "https://arxiv.org/abs/2011.09607",
+  },
+  xaiCredit: {
+    label: "Schmitt, Marc. “Explainable Automated Machine Learning for Credit Decisions.” arXiv, 2024.",
+    href: "https://arxiv.org/abs/2402.03806",
+  },
+  agenticReview: {
+    label: "Liu, Yilun, et al. “AI Agents: Evolution, Architecture, and Real-World Applications.” arXiv, 2025.",
+    href: "https://arxiv.org/abs/2503.12687",
+  },
+  trism: {
+    label: "Agarwal, Shivam, et al. “TRiSM for Agentic AI.” arXiv, 2025.",
+    href: "https://arxiv.org/abs/2506.04133",
+  },
+  fda: {
+    label: "U.S. Food and Drug Administration. “Artificial Intelligence/Machine Learning-Based Software as a Medical Device Action Plan.” 2021.",
+    href: "https://www.fda.gov/media/145022/download",
+  },
+  nist: {
+    label: "Tabassi, Elham. Artificial Intelligence Risk Management Framework (AI RMF 1.0). National Institute of Standards and Technology, 2023.",
+    href: "https://doi.org/10.6028/NIST.AI.100-1",
+  },
+  lora: {
+    label: "Hu, Edward J., et al. “LoRA: Low-Rank Adaptation of Large Language Models.” arXiv, 2021.",
+    href: "https://arxiv.org/abs/2106.09685",
+  },
+  adapters: {
+    label: "Houlsby, Neil, et al. “Parameter-Efficient Transfer Learning for NLP.” arXiv, 2019.",
+    href: "https://arxiv.org/abs/1902.00751",
+  },
+  loraPlus: {
+    label: "Hayou, Soufiane, Nikhil Ghosh, and Bin Yu. “LoRA+: Efficient Low Rank Adaptation of Large Models.” arXiv, 2024.",
+    href: "https://arxiv.org/abs/2402.12354",
+  },
 }
 
 export const writing: Writing[] = [
   {
-    title: "Learning by Shipping: Why Small Projects Matter",
-    slug: "learning-by-shipping",
-    description:
-      "Small projects taught me speed, iteration, and the habit of finishing. Shipping them keeps my learning honest and builds momentum.",
-    tags: ["Learning", "Shipping", "Projects"],
-    readingTime: "5 min read",
-    date: "Aug 2025",
+    title: "ML in Finance: A Decision System, Not a Forecasting Contest",
+    slug: "ml-finance-decision-system",
+    description: "Why financial ML must be designed around decisions, uncertainty, and controls—not a single accuracy score.",
+    tags: ["ML", "Finance", "Risk"], readingTime: "8 min read", date: "Jan 7, 2026",
+    hero: "/writing/ml-finance.png", architecture: "/writing/finance-flow.gif", visualAlt: "Neural network and financial chart illustration",
     content: [
-      "I used to think only big projects were worth showing. The truth is the small builds taught me faster, because each one forced a specific problem to the surface: a messy API, a shaky data cleaning step, or a UI decision that made things worse.",
-      "Shipping small projects made me honest. When something breaks, there is nowhere to hide. Either I understand it or I do not. It also gave me the habit of finishing, which is rarer than it should be.",
-      "Those small wins stack. Each ship made the next one easier to start. I keep them visible not as trophies, but as proof that progress comes from stacked steps, not skipped ones.",
-    ],
-  },
-  {
-    title: "From Coursework to Real Systems",
-    slug: "coursework-to-real-systems",
-    description:
-      "Coursework built foundations, but real systems demanded ownership. That shift changed how I design, debug, and measure success.",
-    tags: ["Systems", "Ownership", "Engineering"],
-    readingTime: "6 min read",
-    date: "Sep 2025",
-    content: [
-      "Coursework gave me fundamentals, but real systems gave me responsibility. In class, inputs are clean and success is defined for you. In production, ambiguity is the default.",
-      "When I started deploying apps, the questions changed. Auth failures, performance bottlenecks, and bad data pipelines were no longer theoretical. I had to ask what breaks first, how I observe it, and how I recover.",
-      "That shift made me think holistically. Logging, monitoring, and defensive design stopped being extras. Ownership made me a better engineer, even in academic projects.",
-    ],
-  },
-  {
-    title: "Why FinTech Keeps Pulling Me In",
-    slug: "why-fintech-keeps-pulling-me-in",
-    description:
-      "FinTech sits where data, systems, and human behavior collide. The impact is real, and the engineering bar is high.",
-    tags: ["FinTech", "Systems", "Data"],
-    readingTime: "5 min read",
-    date: "Oct 2025",
-    content: [
-      "FinTech sits right where data, systems, and human behavior collide. Small technical choices can change pricing, risk, or fraud outcomes, and that scale of impact keeps me locked in.",
-      "The domain demands rigor. Models need to be explainable, systems reliable, and errors expensive enough to hurt. It pushes me toward correctness and clarity over cleverness.",
-      "I also like the interdisciplinary thinking. You cannot treat it as just code or just data. You have to understand incentives and constraints, and that makes the work feel meaningful.",
-    ],
-  },
-  {
-    title: "What AI Projects Taught Me About Uncertainty",
-    slug: "ai-projects-taught-me-uncertainty",
-    description:
-      "AI work made me comfortable with ambiguity and more disciplined about evaluation. Accuracy is only part of the story.",
-    tags: ["AI", "ML", "Uncertainty"],
-    readingTime: "6 min read",
-    date: "Nov 2025",
-    content: [
-      "AI projects taught me that uncertainty is the real problem, not a bug. Models rarely give clean answers. They give probabilities, and those probabilities need context.",
-      "Early on I chased accuracy. Now I care more about where the model fails and why. Most issues come from data, assumptions, or features, not the algorithm.",
-      "Building AI made me more disciplined about evaluation and more honest about communicating uncertainty. It shaped how I design pipelines and how I talk about results.",
-    ],
-  },
-  {
-    title: "Systems Thinking Changed How I Write Code",
-    slug: "systems-thinking-changed-how-i-code",
-    description:
-      "Learning networking, concurrency, and deployment pushed me to think about reliability, failure modes, and downstream effects.",
-    tags: ["Systems", "Reliability", "Engineering"],
-    readingTime: "5 min read",
-    date: "Dec 2025",
-    content: [
-      "Learning networking, concurrency, and deployment changed how I write even simple code. I stopped thinking only about my laptop and started thinking about environments, latency, and failure.",
-      "That mindset pushed me toward clearer interfaces, better error handling, and fewer surprises downstream. It also made debugging easier because I trace flows instead of guessing.",
-      "Systems thinking makes my code more intentional. Even small tools feel sturdier when they are built with the bigger picture in mind.",
-    ],
-  },
-  {
-    title: "Explainability Is a Design Habit",
-    slug: "explainability-is-a-design-habit",
-    description:
-      "If I cannot explain a system simply, I probably do not understand it well enough. Clarity is a quality check.",
-    tags: ["Explainability", "Design", "Clarity"],
-    readingTime: "4 min read",
-    date: "Jan 2026",
-    content: [
-      "Explainability is not just for AI models. If I cannot explain a system, I probably do not understand it well enough.",
-      "Clear explanations surface flaws early. That is why I optimize for clarity in docs, abstractions, and how I present work.",
-      "In teams, explainability builds trust. It makes systems easier to extend, debug, and maintain, and it keeps me honest about what I actually know.",
-    ],
-  },
-  {
-    title: "Building in Public as a Learning Strategy",
-    slug: "building-in-public-as-learning",
-    description:
-      "Sharing unfinished work created accountability and feedback loops that sped up my learning and made progress visible.",
-    tags: ["Learning", "Community", "Process"],
-    readingTime: "4 min read",
-    date: "Feb 2026",
-    content: [
-      "Sharing unfinished work felt uncomfortable at first. Building in public forced me to be accountable and to clean up the edges of my work.",
-      "Feedback loops helped me notice gaps I would have missed alone. Even small questions made me rethink assumptions and improve clarity.",
-      "It reframed learning as a process, not a performance. Progress became visible, and that keeps me moving.",
-    ],
-  },
-  {
-    title: "How Projects Shape Career Direction",
-    slug: "projects-shape-career-direction",
-    description:
-      "Projects act like experiments that reveal what I want to build next. Patterns show up when you keep shipping.",
-    tags: ["Career", "Projects", "Direction"],
-    readingTime: "5 min read",
-    date: "Mar 2026",
-    content: [
-      "I did not pick my interests first and then build projects. It happened the other way around.",
-      "Each project was an experiment that tested both the idea and my own fit. Some work energized me, some did not, and that signal is valuable.",
-      "Over time patterns show up. Projects are not just resume lines for me; they are conversations with my future self about the work I want to do.",
-    ],
+      "Machine learning in finance is most useful when it improves a bounded decision: whether to investigate a transaction, how to route an order, or which cases deserve a reviewer’s attention. Treating it as a contest to predict tomorrow’s price confuses an interesting model output with a deployable system. The finance literature spans trading, credit, portfolio allocation, fraud, and derivatives, each with different labels, latency limits, and costs of error (Ozbayoglu et al.).",
+      "I start with the decision and write down the asymmetry. A false negative in fraud can be expensive; a false positive can frustrate a legitimate customer. A model threshold is therefore a policy choice, not merely a mathematical setting. It should be paired with abstention rules, a human route for uncertain cases, and an evidence trail that explains the inputs available at decision time.",
+      "The practical discipline is temporal. Features must be point-in-time correct, splits must respect chronology, and back-tests must include costs, delays, and turnover. FinRL’s emphasis on a complete reinforcement-learning pipeline is a useful reminder that environment design, constraints, and evaluation can matter as much as the learner itself (Liu et al.).",
+      "My takeaway is simple: finance teams should fund monitoring and governance alongside model development. A modest model with stable inputs, clear escalation paths, and drift checks can be more valuable than a clever model whose performance cannot be audited after market conditions change."
+    ], citations: [sources.financeSurvey, sources.finrl, sources.nist],
   },
 ]

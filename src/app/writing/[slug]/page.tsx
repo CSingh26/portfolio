@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { writing } from "@/data/writing"
@@ -51,7 +52,20 @@ export default async function WritingDetail({ params }: Props) {
           </span>
         ))}
       </div>
-      <div className="mt-8 space-y-4 text-base text-muted">
+      <figure className="mt-8 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+        <Image
+          src={post.hero}
+          alt={post.visualAlt}
+          width={1600}
+          height={900}
+          priority
+          className="h-auto w-full object-cover"
+        />
+        <figcaption className="border-t border-border px-4 py-3 text-xs text-muted">
+          Original editorial visual for this article.
+        </figcaption>
+      </figure>
+      <div className="mt-8 space-y-4 text-base leading-8 text-muted">
         {post.content?.length ? (
           post.content.map((paragraph, index) => <p key={`${post.slug}-p-${index}`}>{paragraph}</p>)
         ) : (
@@ -61,6 +75,30 @@ export default async function WritingDetail({ params }: Props) {
           </p>
         )}
       </div>
+      <figure className="mt-10 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+        {/* GIFs provide a compact, accessible view of the controlled workflow described in each post. */}
+        <img src={post.architecture} alt={`Animated architecture flow for ${post.title}`} className="h-auto w-full" />
+        <figcaption className="border-t border-border px-4 py-3 text-xs text-muted">
+          Animated architecture flow. The highlighted stage advances through the controlled decision path.
+        </figcaption>
+      </figure>
+      <section className="mt-10 border-t border-border pt-8" aria-labelledby="works-cited">
+        <h2 id="works-cited" className="font-display text-2xl text-foreground">Works Cited</h2>
+        <ol className="mt-4 space-y-3 text-sm leading-6 text-muted">
+          {post.citations.map((citation) => (
+            <li key={citation.href} className="pl-6 -indent-6">
+              <a
+                href={citation.href}
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-accent/60 underline-offset-4 transition hover:text-accent"
+              >
+                {citation.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
     </div>
   )
 }
