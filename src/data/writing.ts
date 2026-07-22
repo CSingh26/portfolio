@@ -126,4 +126,17 @@ export const writing: Writing[] = [
       "NIST’s Govern, Map, Measure, and Manage functions offer a practical operating rhythm: map the decision and harms, measure model and system behavior, and manage residual risk continuously (Tabassi). In my view, that rhythm is more valuable than a dramatic demo because it survives contact with real operations."
     ], citations: [sources.trism, sources.nist, sources.agenticReview],
   },
+  {
+    title: "Evaluating Agents Means Testing the Whole Loop",
+    slug: "evaluating-agents-whole-loop",
+    description: "A test strategy for agentic systems that measures tool use, abstention, recovery, and reviewer experience—not only final answers.",
+    tags: ["Agentic AI", "Evaluation", "Reliability"], readingTime: "8 min read", date: "Apr 15, 2026",
+    hero: "/writing/agentic-ai.png", architecture: "/writing/agent-flow.gif", visualAlt: "Multi-step agent process illustration",
+    content: [
+      "An agent can produce a fluent final answer while taking unsafe intermediate actions. That is why evaluation must observe the loop: what it retrieved, which tools it selected, whether it respected authority boundaries, how it handled conflicting evidence, and whether it escalated when required.",
+      "I would build scenario suites around operational failures rather than only happy paths: a missing patient field, a stale market data snapshot, a malicious instruction embedded in a document, a tool timeout, and a task that exceeds the agent’s permission. The expected outcome may be a useful draft, a safe abstention, or a clear handoff—not always completion.",
+      "The NIST framework gives this work a vocabulary. Governance establishes ownership and risk tolerance; mapping identifies affected people and dependencies; measurement collects repeatable evidence; management acts on findings (Tabassi). The model’s benchmark score is one input to that larger system.",
+      "For high-stakes medicine and finance, I prefer releases that increase authority gradually. Begin with read-only research, then proposal generation, then carefully bounded actions. Each expansion should be earned with evidence from the prior stage."
+    ], citations: [sources.nist, sources.trism, sources.fda],
+  },
 ]
