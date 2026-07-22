@@ -113,4 +113,17 @@ export const writing: Writing[] = [
       "A helpful rule is to make the agent’s authority smaller than its apparent intelligence. A clinician should be able to see the sources, edit the draft, reject the proposal, and understand what was not checked. That is how an assistant becomes operationally trustworthy."
     ], citations: [sources.agenticReview, sources.fda, sources.nist],
   },
+  {
+    title: "A Safer Pattern for Financial Agents: Propose, Verify, Approve, Execute",
+    slug: "financial-agents-propose-verify-approve",
+    description: "Why financial agents should be built as controlled workflows with segregated duties and explicit approval gates.",
+    tags: ["Agentic AI", "Finance", "Governance"], readingTime: "8 min read", date: "Mar 25, 2026",
+    hero: "/writing/agentic-ai.png", architecture: "/writing/agent-flow.gif", visualAlt: "Agent workflow architecture",
+    content: [
+      "Financial workflows reward speed, but they also demand controls. The safest agent pattern is deliberately procedural: propose an action, verify it against authoritative data and policy, request the right approval, then execute through a least-privilege tool. The design makes the agent valuable without granting it unchecked discretion.",
+      "Segregation of duties matters here. A research agent can prepare an investment memo; a compliance agent can identify missing disclosures; an execution service can enforce amount and account limits. None should be able to both invent and execute a transfer. TRiSM research on agentic systems foregrounds trust, risk, and security management precisely because autonomous coordination expands the attack surface (Agarwal et al.).",
+      "Every tool call should be attributable to a task, user, policy version, and source snapshot. Retrieval should prefer approved documents; untrusted text must never be treated as a tool instruction. For money movement, include confirmation of beneficiary, amount, currency, and purpose as structured fields—not prose inferred by a model.",
+      "NIST’s Govern, Map, Measure, and Manage functions offer a practical operating rhythm: map the decision and harms, measure model and system behavior, and manage residual risk continuously (Tabassi). In my view, that rhythm is more valuable than a dramatic demo because it survives contact with real operations."
+    ], citations: [sources.trism, sources.nist, sources.agenticReview],
+  },
 ]
