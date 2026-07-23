@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { writing } from "@/data/writing"
+import { additionalResearch, writing } from "@/data/writing"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -29,6 +29,15 @@ export default async function WritingDetail({ params }: Props) {
   if (!post) notFound()
 
   const dateStamp = post.date ? `${post.date} · ${post.readingTime}` : post.readingTime
+  const paragraphs = [...post.content, ...(additionalResearch[post.slug] ?? [])]
+  const imageSource = post.hero.includes("apex")
+    ? { label: "Apex Arena repository", href: "https://github.com/CSingh26/Apex-Arena" }
+    : post.hero.includes("hybrid")
+      ? { label: "Hybrid Token-Efficient Routing Agent repository", href: "https://github.com/aroramrinaal/hybrid-token-efficient-routing-agent" }
+      : { label: "Unsplash research photography", href: "https://unsplash.com/" }
+  const architectureCaption = post.architecture.includes("hybrid-token")
+    ? "Token-versus-accuracy experiment animation from the Hybrid Token-Efficient Routing Agent repository."
+    : "Animated architecture flow. The highlighted stage advances through the controlled decision path."
 
   return (
     <div className="container min-h-screen pt-28 pb-16">
@@ -62,12 +71,15 @@ export default async function WritingDetail({ params }: Props) {
           className="h-auto w-full object-cover"
         />
         <figcaption className="border-t border-border px-4 py-3 text-xs text-muted">
-          Original editorial visual for this article.
+          Research image source: {" "}
+          <a href={imageSource.href} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-accent">
+            {imageSource.label}
+          </a>. Charts and diagrams below are generated from cited or project-provided data.
         </figcaption>
       </figure>
       <div className="mt-8 space-y-4 text-base leading-8 text-muted">
-        {post.content?.length ? (
-          post.content.map((paragraph, index) => <p key={`${post.slug}-p-${index}`}>{paragraph}</p>)
+        {paragraphs.length ? (
+          paragraphs.map((paragraph, index) => <p key={`${post.slug}-p-${index}`}>{paragraph}</p>)
         ) : (
           <p>
             Full post coming soon. Expect architecture diagrams, code snippets, and operational checklists that
@@ -75,11 +87,24 @@ export default async function WritingDetail({ params }: Props) {
           </p>
         )}
       </div>
+      {post.figures?.map((figure) => (
+        <figure key={figure.src} className="mt-8 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+          <Image src={figure.src} alt={figure.alt} width={1600} height={900} className="h-auto w-full object-contain" />
+          <figcaption className="border-t border-border px-4 py-3 text-xs text-muted">{figure.caption}</figcaption>
+        </figure>
+      ))}
       <figure className="mt-10 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
         {/* GIFs provide a compact, accessible view of the controlled workflow described in each post. */}
-        <img src={post.architecture} alt={`Animated architecture flow for ${post.title}`} className="h-auto w-full" />
+        <Image
+          src={post.architecture}
+          alt={`Animated architecture flow for ${post.title}`}
+          width={900}
+          height={260}
+          unoptimized
+          className="h-auto w-full"
+        />
         <figcaption className="border-t border-border px-4 py-3 text-xs text-muted">
-          Animated architecture flow. The highlighted stage advances through the controlled decision path.
+          {architectureCaption}
         </figcaption>
       </figure>
       <section className="mt-10 border-t border-border pt-8" aria-labelledby="works-cited">

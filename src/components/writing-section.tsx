@@ -21,9 +21,6 @@ export function WritingSection() {
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ type: "spring", stiffness: 240, damping: 22 }}
           >
-            <div className="mb-4 overflow-hidden rounded-xl border border-border bg-background">
-              <img src={post.hero} alt="" className="aspect-[16/7] w-full object-cover" />
-            </div>
             <p className="text-sm uppercase tracking-[0.16em] text-muted">
               {post.date} · {post.readingTime}
             </p>
