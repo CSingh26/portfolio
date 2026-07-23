@@ -9,13 +9,11 @@ import { ThemeToggle } from "./theme-toggle"
 import { cn } from "@/lib/utils"
 
 const NAV_ITEMS = [
-  { href: "/", label: "home" },
-  { href: "/projects", label: "projects" },
-  { href: "/experience", label: "work" },
-  { href: "/skills", label: "skills" },
-  { href: "/certifications", label: "certifications" },
-  { href: "/writing", label: "thoughts" },
-  { href: "/contact", label: "contact" },
+  { href: "/", label: "Index" },
+  { href: "/projects", label: "Work" },
+  { href: "/experience", label: "Journey" },
+  { href: "/writing", label: "Notes" },
+  { href: "/contact", label: "Hello" },
 ]
 
 const NAME_TRANSLATIONS = [
@@ -47,7 +45,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
       <motion.nav
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -55,11 +53,12 @@ export function Navbar() {
         className="container flex items-center justify-between py-4"
       >
         <Link
-          className="flex items-center gap-3 font-display text-base tracking-tight text-foreground transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-lg"
+          className="flex items-center gap-3 font-display text-base font-semibold tracking-[-0.04em] text-foreground transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-lg"
           href="/"
           onClick={() => setOpen(false)}
           aria-label="Go to home"
         >
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-xs font-bold tracking-normal text-background">CS</span>
           <span className="relative min-w-[9ch]">
             <AnimatePresence mode="wait">
               <motion.span
@@ -83,7 +82,7 @@ export function Navbar() {
               href={item.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "px-2 py-1 text-[0.7rem] font-medium lowercase tracking-[0.14em] text-muted transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-xs lg:text-sm",
+                "px-2 py-1 text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-xs",
                 isActive(item.href) && "text-foreground",
               )}
             >

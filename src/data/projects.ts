@@ -412,6 +412,37 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "F1 Heritage Explorer",
+    slug: "f1-heritage",
+    description:
+      "Interactive Formula 1 museum with a living timeline, searchable placards, driver comparisons, and generated 3D heritage rooms.",
+    status: "Live",
+    field: "Web & Full-Stack",
+    tags: ["Next.js", "TypeScript", "3D", "Data Visualization", "Formula 1"],
+    links: {
+      github: "https://github.com/CSingh26/F1-WallOfFame",
+      live: "https://f1-wall-of-fame.vercel.app/f1-heritage",
+    },
+    details: {
+      overview:
+        "F1 Heritage Explorer reframes more than seven decades of Formula 1 history as a digital museum. Visitors move through a chronological collection, search the archive, compare drivers and eras in a persistent dock, and enter generated 3D heritage rooms built for deeper exploration.",
+      highlights: [
+        "Museum-style timeline spanning Formula 1 history across teams, drivers, races, and defining moments.",
+        "Searchable heritage placards designed for quick discovery without flattening the larger story.",
+        "Persistent comparison dock for exploring careers, eras, and records side by side.",
+        "Generated 3D heritage rooms add a spatial layer to the traditional archive experience.",
+        "Documented data-source, asset-policy, and deployment practices support a production release.",
+      ],
+      stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "3D Web", "Vercel"],
+      facts: [
+        { label: "Format", value: "Interactive digital museum" },
+        { label: "Archive", value: "75+ years of Formula 1" },
+        { label: "Modes", value: "Timeline, compare, search, rooms" },
+        { label: "Status", value: "Live" },
+      ],
+    },
+  },
+  {
     title: "ReliScore",
     slug: "reli-score",
     description:
@@ -473,24 +504,24 @@ export const projects: Project[] = [
     title: "CareerPath-AI",
     slug: "careerpath-ai",
     description:
-      "FastAPI backend that ingests a student profile (courses, GPA trend, projects, certifications) and returns top role recommendations with model scores using a serialized ML model.",
-    status: "In Progress",
+      "Explainable career guidance product that turns transcripts and official course evidence into clear career-fit signals, strengths, gaps, and next steps.",
+    status: "Completed",
     field: "AI & Intelligent Systems",
-    tags: ["Python", "FastAPI", "ML", "LightGBM"],
+    tags: ["Next.js", "TypeScript", "OpenAI", "Explainable AI"],
     links: {
       github: "https://github.com/CSingh26/CarrerPath-AI",
     },
     details: {
       overview:
-        "CareerPath-AI is an in-progress recommendation service built around a FastAPI API. It accepts a StudentProfile schema (courses, GPA trend, projects, certifications, extracurriculars), converts it into feature vectors (counts plus GPA mean and slope), and scores roles using a joblib-loaded model stored at data/models/careerpath_lgb.pkl. The API exposes a health check and a /api/recommend-role endpoint that returns the top three roles with probability scores.",
+        "CareerPath AI is a transcript-to-guidance experience built as a single secure Next.js application. It extracts and validates academic records, enriches courses with official university evidence where available, infers skills, and produces deterministic, explainable career-domain fit scores with a clear account of strengths, gaps, and next steps.",
       highlights: [
-        "Pydantic schemas define StudentProfile inputs and RoleRecommendation outputs.",
-        "Feature engineering computes counts, GPA mean, and GPA trend slope.",
-        "Model loader uses joblib with label-aware probability mapping.",
-        "FastAPI router exposes /api/health and /api/recommend-role endpoints.",
-        "ML toolchain includes LightGBM, CatBoost, transformers, and SHAP for experimentation.",
+        "Accepts PDF and image transcripts with server-side extraction and a human review step.",
+        "Enriches courses from official university catalogs or syllabus sources using deterministic ranking and fallbacks.",
+        "Combines transparent deterministic fit scoring with AI-generated narrative guidance.",
+        "Surfaces evidence links, strengths, gaps, and next-step suggestions for every recommendation.",
+        "Keeps OpenAI calls and orchestration server-side while leaving the V1 workflow session-local.",
       ],
-      stack: ["Python", "FastAPI", "Pydantic", "LightGBM", "Scikit-learn", "Joblib"],
+      stack: ["Next.js", "React", "TypeScript", "OpenAI API", "Framer Motion", "Tailwind CSS"],
     },
   },
   {
@@ -503,6 +534,7 @@ export const projects: Project[] = [
     tags: ["Node.js", "Express.js", "MongoDB", "AWS"],
     links: {
       github: "https://github.com/CSingh26/quiz-app",
+      live: "https://quizbee.tech",
     },
     details: {
       overview:

@@ -21,6 +21,10 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 const getPreferredTheme = (): Theme => {
+  if (typeof window !== "undefined") {
+    const saved = window.localStorage.getItem("theme")
+    if (saved === "light" || saved === "dark") return saved
+  }
   return "light"
 }
 

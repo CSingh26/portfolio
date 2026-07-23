@@ -7,27 +7,36 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Chaitanya | Portfolio",
+  title: "Chaitanya Singh | Technology × Finance × Product",
   description:
-    "Portfolio of Chaitanya, ASU computer science graduate and incoming finance master's student building data, backend, cloud, fintech, and security projects.",
+    "Chaitanya Singh builds interactive products at the intersection of technology, finance, data, and strategy.",
   icons: {
     icon: "/favicon.ico",
   },
   metadataBase: new URL("https://chaitanyasingh.org"),
   openGraph: {
-    title: "Chaitanya | Data, Cloud & FinTech Engineer",
+    title: "Chaitanya Singh | Technology × Finance × Product",
     description:
-      "ASU computer science graduate and incoming finance master's student shipping data-driven, secure, cloud-native products.",
+      "Interactive products at the intersection of technology, finance, data, and strategy.",
     url: "https://chaitanyasingh.org",
     siteName: "Chaitanya",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og.png",
+        width: 1792,
+        height: 921,
+        alt: "Chaitanya Singh — Technology, Finance, Product",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chaitanya | Data, Cloud & FinTech Engineer",
+    title: "Chaitanya Singh | Technology × Finance × Product",
     description:
-      "ASU computer science graduate focused on data analytics, backend systems, cloud, and fintech security.",
+      "Interactive products at the intersection of technology, finance, data, and strategy.",
+    images: ["/og.png"],
   },
 }
 
@@ -40,7 +49,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased bg-background text-foreground">
         <ThemeProvider>
-          <div className="noise" aria-hidden />
           <CursorGlow />
           <div className="pointer-events-none fixed inset-0 -z-10">
             <div className="absolute left-[-10%] top-[-10%] h-64 w-64 rounded-full bg-accent/25 blur-3xl" />

@@ -58,7 +58,7 @@ export function Footer() {
               Visitors {visitorCount.toLocaleString()}
             </div>
           ) : null}
-          <p className="text-sm text-muted">© {year} Chaitanya. All rights reserved.</p>
+          <p className="text-sm text-muted">© {year} Chaitanya Singh · Built with curiosity.</p>
         </div>
         <div className="flex items-center gap-3">
           {socials.map(({ href, label, icon: Icon }) => (
