@@ -87,6 +87,11 @@ export default function RootLayout({
       className={`${display.variable} ${sans.variable} ${mono.variable} ${serif.variable}`}
     >
       <body className="antialiased bg-background text-foreground">
+        {/* The preloader ships in the server-rendered markup so it covers the
+            first paint. Without JS nothing would ever dismiss it, so hide it. */}
+        <noscript>
+          <style>{`.preloader { display: none !important; }`}</style>
+        </noscript>
         <ThemeProvider>
           <Preloader />
           <CursorField />

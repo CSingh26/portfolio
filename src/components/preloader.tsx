@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 
 /**
@@ -97,56 +97,57 @@ function buildCells(): Cell[] {
 }
 
 const HOLD_MS = 2100
-const SESSION_KEY = "cs-preloader-seen"
 
 /**
- * Cached on first read so the snapshot stays stable for the lifetime of the
- * page — `useSyncExternalStore` requires that, and it also means the flag we
- * write once the run starts cannot flip the answer mid-session.
+ * Runs on every full page load. The overlay is part of the server-rendered
+ * markup rather than something an effect switches on, so it covers the page
+ * from the very first paint instead of flashing the hero first. It survives
+ * client-side navigation untouched because the layout keeps this component
+ * mounted — only a real reload restarts it.
  */
-let firstVisitThisSession: boolean | null = null
-
-const subscribe = () => () => {}
-const getSnapshot = () => {
-  if (firstVisitThisSession === null) {
-    firstVisitThisSession = !sessionStorage.getItem(SESSION_KEY)
-  }
-  return firstVisitThisSession
-}
-/** The server never knows about the session, so it always renders nothing. */
-const getServerSnapshot = () => false
-
 export function Preloader() {
   const reduceMotion = useReducedMotion()
-  const isFirstVisit = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
   const [finished, setFinished] = useState(false)
   const [progress, setProgress] = useState(0)
   const cells = useMemo(() => buildCells(), [])
   const intervalRef = useRef(0)
 
-  const running = isFirstVisit && !reduceMotion && !finished
+  const running = !finished
 
   useEffect(() => {
     if (!running) return
 
-    sessionStorage.setItem(SESSION_KEY, "1")
+    // `useReducedMotion` resolves to null before hydration, so the decision has
+    // to happen here rather than in the render path — otherwise the server and
+    // client would disagree about whether the overlay exists.
+    // 1ms rather than 0 for the reduced-motion path: the first tick then
+    // finishes the run through the same callback, instead of a setState in the
+    // effect body that would cascade a render.
+    const hold = reduceMotion ? 1 : HOLD_MS
+
     document.body.style.overflow = "hidden"
-
     const start = Date.now()
-    // setInterval rather than rAF: the counter must keep advancing even if the
-    // tab is backgrounded, otherwise it can freeze at 000 behind the overlay.
-    intervalRef.current = window.setInterval(() => {
-      setProgress(Math.min(100, Math.round(((Date.now() - start) / HOLD_MS) * 100)))
-    }, 40)
 
-    const timer = window.setTimeout(() => setFinished(true), HOLD_MS)
+    // One clock drives both the counter and the dismissal, and both read wall
+    // time rather than counting ticks. A backgrounded tab throttles timers
+    // heavily, so a separate setTimeout for the exit can be starved while the
+    // overlay sits there; deriving the end from elapsed time means the very
+    // next tick after the tab wakes up finishes the run.
+    const tick = () => {
+      const elapsed = Date.now() - start
+      setProgress(Math.min(100, Math.round((elapsed / hold) * 100)))
+      if (elapsed >= hold) setFinished(true)
+    }
+
+    intervalRef.current = window.setInterval(tick, 40)
+    document.addEventListener("visibilitychange", tick)
 
     return () => {
       window.clearInterval(intervalRef.current)
-      window.clearTimeout(timer)
+      document.removeEventListener("visibilitychange", tick)
       document.body.style.overflow = ""
     }
-  }, [running])
+  }, [running, reduceMotion])
 
   const lastRank = cells.length ? cells[cells.length - 1].rank : 1
 
@@ -158,7 +159,7 @@ export function Preloader() {
           className="preloader"
           initial={{ opacity: 1 }}
           exit={{ y: "-100%" }}
-          transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden
         >
           <div className="preloader-grid" />
