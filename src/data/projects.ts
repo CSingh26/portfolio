@@ -412,37 +412,6 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "F1 Heritage Explorer",
-    slug: "f1-heritage",
-    description:
-      "Interactive Formula 1 museum with a living timeline, searchable placards, driver comparisons, and generated 3D heritage rooms.",
-    status: "Live",
-    field: "Web & Full-Stack",
-    tags: ["Next.js", "TypeScript", "3D", "Data Visualization", "Formula 1"],
-    links: {
-      github: "https://github.com/CSingh26/F1-WallOfFame",
-      live: "https://f1-wall-of-fame.vercel.app/f1-heritage",
-    },
-    details: {
-      overview:
-        "F1 Heritage Explorer reframes more than seven decades of Formula 1 history as a digital museum. Visitors move through a chronological collection, search the archive, compare drivers and eras in a persistent dock, and enter generated 3D heritage rooms built for deeper exploration.",
-      highlights: [
-        "Museum-style timeline spanning Formula 1 history across teams, drivers, races, and defining moments.",
-        "Searchable heritage placards designed for quick discovery without flattening the larger story.",
-        "Persistent comparison dock for exploring careers, eras, and records side by side.",
-        "Generated 3D heritage rooms add a spatial layer to the traditional archive experience.",
-        "Documented data-source, asset-policy, and deployment practices support a production release.",
-      ],
-      stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "3D Web", "Vercel"],
-      facts: [
-        { label: "Format", value: "Interactive digital museum" },
-        { label: "Archive", value: "75+ years of Formula 1" },
-        { label: "Modes", value: "Timeline, compare, search, rooms" },
-        { label: "Status", value: "Live" },
-      ],
-    },
-  },
-  {
     title: "ReliScore",
     slug: "reli-score",
     description:

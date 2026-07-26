@@ -13,6 +13,19 @@ import {
   Sparkles,
 } from "lucide-react"
 import { projects } from "@/data/projects"
+import { Marquee } from "@/components/marquee"
+import { Magnetic } from "@/components/magnetic"
+
+const FOCUS_AREAS = [
+  "AI",
+  "Finance",
+  "Data",
+  "Product",
+  "Cloud",
+  "Strategy",
+  "Systems",
+  "Research",
+] as const
 
 const lenses = {
   technology: {
@@ -43,7 +56,7 @@ type Lens = keyof typeof lenses
 const featuredSlugs = [
   "apex-arena",
   "cinejaal",
-  "f1-heritage",
+  "hybrid-token-efficient-routing-agent",
   "reli-score",
   "careerpath-ai",
   "synaxis",
@@ -54,7 +67,7 @@ const featuredSlugs = [
 const visualBySlug: Record<string, { number: string; tone: string; proof: string }> = {
   "apex-arena": { number: "5", tone: "race", proof: "AI voices · live race data" },
   cinejaal: { number: "4,953", tone: "cinema", proof: "sourced relationships" },
-  "f1-heritage": { number: "75+", tone: "heritage", proof: "years of racing history" },
+  "hybrid-token-efficient-routing-agent": { number: "282", tone: "routing", proof: "passing regression tests" },
   "reli-score": { number: "30d", tone: "signal", proof: "failure-risk horizon" },
   "careerpath-ai": { number: "AI", tone: "path", proof: "explainable career fit" },
   synaxis: { number: "24h", tone: "money", proof: "hackathon build" },
@@ -77,6 +90,21 @@ export function PortfolioHome() {
     () => featuredSlugs.map((slug) => projects.find((project) => project.slug === slug)).filter(Boolean),
     [],
   )
+
+  // Tiles read pointer position as a normalised -0.5..0.5 pair. The CSS uses
+  // it to drift the big stat against the card, so the number sits on its own
+  // plane instead of the whole tile tilting like every other card grid.
+  const handleTileMove = (event: MouseEvent<HTMLElement>) => {
+    if (reduceMotion) return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    event.currentTarget.style.setProperty("--px", `${(event.clientX - bounds.left) / bounds.width - 0.5}`)
+    event.currentTarget.style.setProperty("--py", `${(event.clientY - bounds.top) / bounds.height - 0.5}`)
+  }
+
+  const resetTile = (event: MouseEvent<HTMLElement>) => {
+    event.currentTarget.style.setProperty("--px", "0")
+    event.currentTarget.style.setProperty("--py", "0")
+  }
 
   const handlePortraitMove = (event: MouseEvent<HTMLDivElement>) => {
     if (reduceMotion) return
@@ -104,9 +132,9 @@ export function PortfolioHome() {
               <span className="h-px w-10 bg-border" />
               India ↔ USA
             </div>
-            <h1 className="hero-title max-w-4xl font-display text-[clamp(3.6rem,9vw,7.6rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
+            <h1 className="hero-title max-w-4xl font-display text-[clamp(2.9rem,7vw,6.2rem)] font-bold leading-[0.92] tracking-[-0.045em]">
               Tech mind.<br />
-              <span className="text-blue">Finance lens.</span><br />
+              <span className="font-serif-accent text-blue tracking-[-0.01em]">Finance lens.</span><br />
               <span className="scribble">Builder</span> energy.
             </h1>
             <div className="mt-8 flex max-w-2xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -114,12 +142,16 @@ export function PortfolioHome() {
                 I turn data, intelligence, and ambitious ideas into products people can explore.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link href="/projects" className="button-primary">
-                  Explore work <ArrowDownRight className="h-4 w-4" />
-                </Link>
-                <Link href="/Chaitanya_Singh_Resume.pdf" className="button-quiet">
-                  Résumé <Download className="h-4 w-4" />
-                </Link>
+                <Magnetic>
+                  <Link href="/projects" className="button-primary">
+                    Explore work <ArrowDownRight className="h-4 w-4" />
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link href="/Chaitanya_Singh_Resume.pdf" className="button-quiet">
+                    Résumé <Download className="h-4 w-4" />
+                  </Link>
+                </Magnetic>
               </div>
             </div>
           </motion.div>
@@ -156,15 +188,7 @@ export function PortfolioHome() {
             <div className="spark-mark" aria-hidden><Sparkles className="h-7 w-7" /></div>
           </motion.div>
         </div>
-        <div className="marquee" aria-label="Areas of focus">
-          <div className="marquee-track">
-            {Array.from({ length: 2 }).flatMap((_, copy) =>
-              ["AI", "FINANCE", "DATA", "PRODUCT", "CLOUD", "STRATEGY"].map((item) => (
-                <span key={`${copy}-${item}`}><i />{item}</span>
-              )),
-            )}
-          </div>
-        </div>
+        <Marquee items={FOCUS_AREAS} label="Areas of focus" duration={30} />
       </section>
 
       <section className="container py-24 sm:py-32" id="about">
@@ -245,6 +269,8 @@ export function PortfolioHome() {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ delay: Math.min(index * 0.05, 0.25), duration: 0.55 }}
                   className={`project-tile project-${visual.tone}`}
+                  onMouseMove={handleTileMove}
+                  onMouseLeave={resetTile}
                 >
                   <Link href={`/projects/${project.slug}`} className="project-tile-main" aria-label={`Read about ${project.title}`}>
                     <div className="project-tile-top">
