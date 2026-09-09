@@ -1,6 +1,7 @@
 # Project media
 
-The homepage uses the existing `/profile.png` portrait with a small chart overlay.
+The homepage uses the existing `/profile.png` portrait with a chart blended into
+its shaded lower edge, sharing one frame and leaving the face unobstructed.
 Space Grotesk headings, Manrope body text, and IBM Plex Mono labels share a blue,
 teal, and amber palette in both themes.
 

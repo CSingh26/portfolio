@@ -83,7 +83,7 @@ export function PortfolioHome() {
             </div>
           </motion.div>
 
-          <motion.div
+          <motion.figure
             initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: reduceMotion ? 0 : 0.12, duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -91,31 +91,35 @@ export function PortfolioHome() {
           >
             <div className="hero-photo-frame">
               <Image src="/profile.png" alt="Chaitanya Singh" fill priority sizes="(min-width: 1024px) 440px, (min-width: 640px) 480px, 90vw" className="hero-photo" />
-              <div className="hero-photo-label"><span>Chaitanya Singh</span><span>Finance + Computer Science</span></div>
+              <svg viewBox="0 0 560 180" className="hero-portrait-chart" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="portrait-signal" x1="0" x2="1">
+                    <stop stopColor="#85c7b9" stopOpacity="0" />
+                    <stop offset="0.25" stopColor="#85c7b9" stopOpacity="0.65" />
+                    <stop offset="0.7" stopColor="#94b1ee" stopOpacity="0.9" />
+                    <stop offset="1" stopColor="#94b1ee" stopOpacity="0.1" />
+                  </linearGradient>
+                  <linearGradient id="portrait-grid-fade" x1="0" y1="0" x2="0" y2="1">
+                    <stop stopColor="white" stopOpacity="0" />
+                    <stop offset="0.65" stopColor="white" stopOpacity="0.2" />
+                    <stop offset="1" stopColor="white" stopOpacity="0" />
+                  </linearGradient>
+                  <mask id="portrait-grid-mask"><rect width="560" height="180" fill="url(#portrait-grid-fade)" /></mask>
+                  <pattern id="portrait-grid" width="56" height="36" patternUnits="userSpaceOnUse">
+                    <path d="M56 0H0V36" fill="none" stroke="#c3d9d3" strokeWidth="0.5" />
+                  </pattern>
+                </defs>
+                <rect width="560" height="180" fill="url(#portrait-grid)" mask="url(#portrait-grid-mask)" />
+                <path d="M0 126 C55 127 72 132 113 112 S171 75 216 94 S277 136 325 109 S382 56 426 77 S500 108 560 40" fill="none" stroke="url(#portrait-signal)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+                <circle cx="426" cy="77" r="2.8" fill="#94b1ee" opacity="0.8" />
+              </svg>
+              <span className="hero-chart-caption" aria-hidden="true">Markets / Systems</span>
             </div>
-            <div className="hero-chart-panel" aria-hidden="true">
-            <svg viewBox="0 0 560 420" className="h-full w-full" preserveAspectRatio="none">
-              <defs>
-                <pattern id="instrument-grid" width="56" height="52.5" patternUnits="userSpaceOnUse">
-                  <path d="M 56 0 L 0 0 0 52.5" fill="none" stroke="var(--color-border)" strokeWidth="1" />
-                </pattern>
-              </defs>
-              <rect width="560" height="420" fill="url(#instrument-grid)" />
-              <path
-                d="M0 292 C44 278 74 300 112 260 S177 182 220 214 S283 326 326 260 S384 126 430 174 S496 248 560 112"
-                fill="none"
-                stroke="var(--color-accent)"
-                strokeWidth="1.6"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path d="M0 318 H560" stroke="var(--color-border-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-              <circle cx="430" cy="174" r="3" fill="var(--color-accent)" />
-              <text x="24" y="38" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="17" letterSpacing="1.4">MARKETS / SYSTEMS</text>
-              <text x="24" y="392" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="17" letterSpacing="1.4">A quantitative perspective</text>
-            </svg>
-            </div>
-            <p className="hero-location"><i aria-hidden />Based in Arizona · Building across disciplines</p>
-          </motion.div>
+            <figcaption className="hero-portrait-caption">
+              <div><span>Chaitanya Singh</span><span>Finance + Computer Science</span></div>
+              <p><i aria-hidden />Arizona</p>
+            </figcaption>
+          </motion.figure>
         </div>
         <Marquee items={focusAreas} label="Areas of focus" duration={56} />
       </section>
