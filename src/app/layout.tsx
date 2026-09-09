@@ -73,14 +73,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${sans.variable} ${mono.variable} ${display.variable}`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(sessionStorage.getItem('portfolio-preloader-seen'))document.documentElement.dataset.preloaderSeen='true'}catch(e){}",
-          }}
-        />
-      </head>
       <body className="antialiased bg-background text-foreground">
         {/* The preloader ships in the server-rendered markup so it covers the
             first paint. Without JS nothing would ever dismiss it, so hide it. */}

@@ -669,10 +669,6 @@ a {
   color: var(--color-paper);
 }
 
-html[data-preloader-seen="true"] .preloader {
-  display: none;
-}
-
 .preloader-grid {
   position: absolute;
   inset: 0;
