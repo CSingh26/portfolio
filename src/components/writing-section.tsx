@@ -1,50 +1,37 @@
-"use client"
-
-import { motion } from "framer-motion"
 import Link from "next/link"
-import { SectionShell } from "./section-shell"
-import { writing } from "@/data/writing"
+import { ArrowUpRight } from "lucide-react"
+import { getLatestWriting, writing } from "@/data/writing"
 
 export function WritingSection() {
+  const posts = getLatestWriting(writing.length)
+
   return (
-    <SectionShell
-      id="writing"
-      eyebrow="Writing"
-      title="Research notes on AI systems that matter."
-      description="Twelve research-backed essays on financial ML, agentic systems, Apex Arena, and model adaptation."
-    >
-      <div className="grid gap-4 md:grid-cols-2">
-        {writing.map((post) => (
-          <motion.article
-            key={post.slug}
-            className="glass h-full rounded-2xl border border-border p-5 shadow-soft"
-            whileHover={{ y: -4, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 240, damping: 22 }}
-          >
-            <p className="text-sm uppercase tracking-[0.16em] text-muted">
-              {post.date} · {post.readingTime}
-            </p>
-            <h3 className="mt-1 font-display text-xl text-foreground">{post.title}</h3>
-            <p className="mt-2 text-sm text-muted">{post.description}</p>
-            <div className="mt-3 flex flex-wrap gap-2 text-xs">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-border bg-background px-3 py-1 font-semibold text-muted"
-                >
-                  {tag}
-                </span>
-              ))}
+    <section id="writing" className="container">
+      <header className="max-w-4xl border-b border-border-strong pb-10">
+        <p className="section-kicker">Research notes</p>
+        <h1 className="section-title">Writing.</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted">
+          Notes on financial machine learning, quantitative methods, and building intelligent systems that people can trust.
+        </p>
+      </header>
+
+      <div className="mt-10 border-t border-border-strong">
+        {posts.map((post) => (
+          <article key={post.slug} className="grid gap-4 border-b border-border-strong py-6 lg:grid-cols-[9rem_1fr_auto] lg:items-center">
+            <p className="font-mono text-xs uppercase tracking-[0.1em] text-muted">{post.date}</p>
+            <div>
+              <h2 className="font-display text-2xl tracking-[-0.02em] sm:text-3xl">{post.title}</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{post.description}</p>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-muted">
+                {post.tags.map((tag) => <span key={tag}>{tag}</span>)}
+              </div>
             </div>
-            <Link
-              href={`/writing/${post.slug}`}
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:text-foreground"
-            >
-              Read more →
+            <Link href={`/writing/${post.slug}`} className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent transition hover:text-foreground">
+              Read note <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </motion.article>
+          </article>
         ))}
       </div>
-    </SectionShell>
+    </section>
   )
 }

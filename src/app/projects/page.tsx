@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { ProjectGrid } from "@/components/project-grid"
 
 export const metadata: Metadata = {
-  title: "Projects | Chaitanya",
-  description: "Project gallery organized across AI, data, web, mobile, finance, cloud, and developer systems.",
+  title: "Selected Work | Chaitanya Singh",
+  description: "Systems for markets and risk, intelligent tooling, and applied products built end to end.",
 }
 
 export default function ProjectsPage() {

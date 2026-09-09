@@ -33,7 +33,7 @@ export function SectionShell({
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             {eyebrow ? (
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-muted">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-card px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {eyebrow}
               </span>

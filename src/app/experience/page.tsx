@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { ExperienceSection } from "@/components/experience-section"
 
 export const metadata: Metadata = {
-  title: "Experience | Chaitanya",
+  title: "Journey | Chaitanya Singh",
   description:
-    "Internship experience across marketing operations, full-stack development, and data analysis.",
+    "Chaitanya Singh's journey from computer science and data systems into graduate finance and quantitative research.",
 }
 
 export default function ExperiencePage() {

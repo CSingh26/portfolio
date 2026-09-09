@@ -15,10 +15,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = writing.find((item) => item.slug === slug)
-  if (!post) return { title: "Writing | Chaitanya" }
+  if (!post) return { title: "Writing | Chaitanya Singh" }
 
   return {
-    title: `${post.title} | Chaitanya`,
+    title: `${post.title} | Chaitanya Singh`,
     description: post.description,
   }
 }
@@ -48,7 +48,7 @@ export default async function WritingDetail({ params }: Props) {
         >
           ← Back to writing
         </Link>
-        <span className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-muted">
+        <span className="rounded-full bg-card px-3 py-1 font-mono text-xs font-semibold text-muted">
           {dateStamp}
         </span>
       </div>

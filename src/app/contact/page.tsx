@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { ContactForm } from "@/components/contact-form"
 
 export const metadata: Metadata = {
-  title: "Contact | Chaitanya",
-  description: "Get in touch for fintech, data, backend, and security collaborations or roles.",
+  title: "Contact | Chaitanya Singh",
+  description: "Connect with Chaitanya Singh about markets, risk, quantitative research, and decision tools.",
 }
 
 export default function ContactPage() {

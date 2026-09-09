@@ -179,7 +179,7 @@ export const writing: Writing[] = [
   {
     title: "Hybrid Token-Efficient Routing: Spend Tokens Only When a Proof Fails",
     slug: "hybrid-token-efficient-routing",
-    description: "A separate project: a Python routing agent that uses deterministic solvers first, then gated local inference, then a cloud fallback.",
+    description: "A separate project: a Python routing agent that uses deterministic solvers first, then gated local inference, then a larger-model fallback.",
     tags: ["Hybrid Routing", "Token Efficiency", "Python"], readingTime: "12 min read", date: "Jun 3, 2026",
     hero: "/writing/hybrid-token-frontier.png", architecture: "/writing/hybrid-token-frontier.gif", visualAlt: "Token and accuracy frontier chart from the hybrid routing project",
     content: [

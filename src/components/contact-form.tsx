@@ -1,8 +1,7 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
-import { motion } from "framer-motion"
-import { Mail, MapPin, Phone, Send } from "lucide-react"
+import { Mail, MapPin, Send } from "lucide-react"
 
 const contactItems = [
   {
@@ -10,12 +9,6 @@ const contactItems = [
     value: "singh.chaittanya@gmail.com",
     href: "mailto:singh.chaittanya@gmail.com",
     icon: Mail,
-  },
-  {
-    label: "Phone",
-    value: "+1 (480)-742-8613",
-    href: "tel:+14807428613",
-    icon: Phone,
   },
   {
     label: "Location",
@@ -73,18 +66,18 @@ export function ContactForm() {
 
   return (
     <section id="contact" className="container">
-      <div className="text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted">Contact</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-5xl">Contact Me</h1>
-        <p className="mt-3 text-base text-muted">
-          Have a question or want to work together? Feel free to reach out!
+      <div className="max-w-4xl border-b border-border-strong pb-10">
+        <p className="section-kicker">Contact</p>
+        <h1 className="section-title">Get in touch.</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted">
+          I am interested in conversations with researchers, professors, founders, and finance professionals working on markets, risk, and decision tools.
         </p>
       </div>
 
       <div className="mt-12 grid items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="glass rounded-2xl border border-border p-6 shadow-soft">
-          <h2 className="text-lg font-semibold text-foreground">Contact Information</h2>
-          <p className="mt-1 text-sm text-muted">Here is how you can reach me</p>
+        <div className="border border-border bg-card p-6">
+          <h2 className="font-display text-3xl text-foreground">Contact information</h2>
+          <p className="mt-2 text-sm text-muted">Email or write from the form.</p>
           <div className="mt-6 space-y-4">
             {contactItems.map((item) => (
               <ContactItem key={item.label} {...item} />
@@ -92,9 +85,9 @@ export function ContactForm() {
           </div>
         </div>
 
-        <div className="glass rounded-2xl border border-border p-6 shadow-soft">
-          <h2 className="text-lg font-semibold text-foreground">Send a Message</h2>
-          <p className="mt-1 text-sm text-muted">Fill out the form below to get in touch</p>
+        <div className="border border-border bg-card p-6">
+          <h2 className="font-display text-3xl text-foreground">Send a message</h2>
+          <p className="mt-2 text-sm text-muted">Tell me what you are working on.</p>
           <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-semibold text-foreground" htmlFor="name">
@@ -155,15 +148,14 @@ export function ContactForm() {
                 required
               />
             </div>
-            <motion.button
+            <button
               type="submit"
-              whileHover={status === "sending" ? undefined : { y: -2, scale: 1.01 }}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background shadow-soft transition hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70"
               disabled={status === "sending"}
             >
               <Send className="h-4 w-4" />
               {status === "sending" ? "Sending..." : "Send Message"}
-            </motion.button>
+            </button>
             {statusMessage ? (
               <p
                 className={

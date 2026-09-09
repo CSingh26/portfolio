@@ -30,8 +30,8 @@ const certifications = [
 ]
 
 export const metadata: Metadata = {
-  title: "Certifications | Chaitanya",
-  description: "Highlighted certifications including RHCSA, RHCE, and Red Hat container specialist.",
+  title: "Certifications | Chaitanya Singh",
+  description: "Selected Red Hat certifications in Linux systems, automation, and containers.",
 }
 
 export default function CertificationsPage() {
@@ -58,12 +58,12 @@ export default function CertificationsPage() {
                     <p className="text-sm text-muted">{cert.issuer}</p>
                   </div>
                 </div>
-                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold text-foreground">
+                <span className="rounded-full border border-border bg-background px-3 py-1 font-mono text-xs font-semibold text-foreground">
                   {cert.status}
                 </span>
               </div>
               <p className="mt-3 text-sm text-muted">{cert.focus}</p>
-              <div className="mt-3 flex items-center justify-between text-xs text-muted">
+              <div className="mt-3 flex items-center justify-between font-mono text-xs text-muted">
                 <span>{cert.year}</span>
                 <a
                   href={cert.file}

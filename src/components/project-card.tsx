@@ -1,112 +1,56 @@
-"use client"
-
-import { motion, useReducedMotion } from "framer-motion"
+import Link from "next/link"
 import { ArrowUpRight, Github } from "lucide-react"
-import { useRouter } from "next/navigation"
 import type { Project } from "@/data/projects"
-import { cn } from "@/lib/utils"
 
 type Props = {
+  index: number
   project: Project
 }
 
-export function ProjectCard({ project }: Props) {
-  const reduceMotion = useReducedMotion()
-  const router = useRouter()
-
-  const handleNavigate = () => {
-    router.push(`/projects/${project.slug}`)
-  }
-
+export function ProjectCard({ index, project }: Props) {
   return (
-    <motion.article
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card/80 p-5 shadow-soft backdrop-blur-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      whileHover={reduceMotion ? undefined : { y: -6, rotate: 0.3, scale: 1.01 }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      onClick={(event) => {
-        if ((event.target as HTMLElement).closest("a")) return
-        handleNavigate()
-      }}
-      onKeyDown={(event) => {
-        if ((event.target as HTMLElement).closest("a")) return
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault()
-          handleNavigate()
-        }
-      }}
-      role="link"
-      tabIndex={0}
-      aria-label={`View ${project.title} details`}
-    >
-      <div className="absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-foreground/10" />
+    <article className="group flex h-full flex-col border border-border bg-card p-5 transition hover:border-accent sm:p-6">
+      <div className="flex items-center justify-between gap-4 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">
+        <span>{String(index).padStart(2, "0")}</span>
+        <span>{project.status}</span>
       </div>
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
-          <p className="break-words text-sm uppercase tracking-[0.16em] text-muted">{project.field}</p>
-          <h3 className="break-words font-display text-xl text-foreground">{project.title}</h3>
-        </div>
-        <span
-          className={cn(
-            "rounded-full px-3 py-1 text-xs font-semibold",
-            project.status === "Live"
-              ? "bg-foreground text-background"
-              : project.status === "In Progress"
-                ? "border border-accent/60 text-accent"
-                : project.status === "Completed"
-                  ? "border border-border text-foreground"
-                  : "border border-border text-muted",
-          )}
-        >
-          {project.status}
-        </span>
-      </div>
-      <p className="mt-3 text-sm text-muted">{project.description}</p>
-      <div className="mt-4 flex flex-wrap gap-2 text-xs">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-border bg-background px-3 py-1 font-semibold text-muted transition group-hover:border-accent group-hover:text-foreground"
-          >
-            {tag}
-          </span>
+
+      <h3 className="mt-7 break-words font-display text-3xl leading-none tracking-[-0.025em] text-foreground">
+        {project.title}
+      </h3>
+      <p className="mt-3 truncate text-sm text-muted" title={project.description}>{project.description}</p>
+
+      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-muted">
+        {project.tags.slice(0, 4).map((tag) => (
+          <span key={tag}>{tag}</span>
         ))}
       </div>
-      <div className="mt-auto flex flex-wrap items-center justify-start gap-2 pt-4 text-sm font-semibold sm:justify-between">
+
+      <div className="mt-auto flex flex-wrap items-center gap-4 border-t border-border pt-5 font-mono text-[0.66rem] uppercase tracking-[0.1em]">
+        <Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-1.5 text-accent transition hover:text-foreground">
+          Details <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
         {project.links?.github ? (
           <a
             href={project.links.github}
             target="_blank"
             rel="noreferrer"
-            aria-label={`Open ${project.title} on GitHub`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-muted transition hover:border-accent hover:text-accent"
+            className="inline-flex items-center gap-1.5 text-muted transition hover:text-accent"
           >
-            <Github className="h-5 w-5" />
+            <Github className="h-3.5 w-3.5" /> GitHub
           </a>
-        ) : (
-          <span className="hidden sm:inline-flex" />
-        )}
+        ) : null}
         {project.links?.live ? (
           <a
             href={project.links.live}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 rounded-full border border-border bg-foreground px-3 py-2 text-background transition hover:-translate-y-0.5 hover:shadow-glow"
+            className="inline-flex items-center gap-1.5 text-muted transition hover:text-accent"
           >
-            Live
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        ) : null}
-        {project.links?.caseStudy ? (
-          <a
-            href={project.links.caseStudy}
-            className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-2 transition hover:border-accent hover:text-accent"
-          >
-            Case Study
-            <ArrowUpRight className="h-4 w-4" />
+            Live <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         ) : null}
       </div>
-    </motion.article>
+    </article>
   )
 }

@@ -16,10 +16,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = projects.find((item) => item.slug === slug)
-  if (!project) return { title: "Projects | Chaitanya" }
+  if (!project) return { title: "Selected Work | Chaitanya Singh" }
 
   return {
-    title: `${project.title} | Chaitanya`,
+    title: `${project.title} | Chaitanya Singh`,
     description: project.description,
   }
 }
@@ -50,12 +50,12 @@ export default async function ProjectDetail({ params }: Props) {
           <span
             className={
               project.status === "Live"
-                ? "rounded-full bg-foreground px-3 py-1 text-xs font-semibold text-background"
+                ? "rounded-full bg-foreground px-3 py-1 font-mono text-xs font-semibold text-background"
                 : project.status === "In Progress"
-                  ? "rounded-full border border-accent/60 px-3 py-1 text-xs font-semibold text-accent"
+                  ? "rounded-full border border-accent/60 px-3 py-1 font-mono text-xs font-semibold text-accent"
                   : project.status === "Completed"
-                    ? "rounded-full border border-border px-3 py-1 text-xs font-semibold text-foreground"
-                    : "rounded-full border border-border px-3 py-1 text-xs font-semibold text-muted"
+                    ? "rounded-full border border-border px-3 py-1 font-mono text-xs font-semibold text-foreground"
+                    : "rounded-full border border-border px-3 py-1 font-mono text-xs font-semibold text-muted"
             }
           >
             {project.status}
@@ -85,7 +85,7 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
       </div>
 
-      <p className="text-sm uppercase tracking-[0.16em] text-muted">{project.field}</p>
+      <p className="font-mono text-sm uppercase tracking-[0.14em] text-muted">{project.field}</p>
       <h1 className="mt-2 break-words font-display text-3xl sm:text-4xl">{project.title}</h1>
       <p className="mt-3 max-w-3xl text-lg text-muted">{project.description}</p>
       <div className="mt-4 flex flex-wrap gap-2 text-xs">
@@ -161,12 +161,12 @@ export default async function ProjectDetail({ params }: Props) {
         <aside className="space-y-4 lg:sticky lg:top-28 lg:h-fit">
           {facts.length ? (
             <div className="glass rounded-2xl border border-border p-5 shadow-soft">
-              <p className="text-sm uppercase tracking-[0.16em] text-muted">Project Facts</p>
+              <p className="font-mono text-sm uppercase tracking-[0.14em] text-muted">Project Facts</p>
               <dl className="mt-4 space-y-3">
                 {facts.map((fact) => (
                   <div key={fact.label} className="flex items-start justify-between gap-4 border-b border-border/70 pb-3 last:border-b-0 last:pb-0">
-                    <dt className="text-sm text-muted">{fact.label}</dt>
-                    <dd className="text-right text-sm font-semibold text-foreground">{fact.value}</dd>
+                    <dt className="font-mono text-sm text-muted">{fact.label}</dt>
+                    <dd className="text-right font-mono text-sm font-semibold text-foreground">{fact.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -174,7 +174,7 @@ export default async function ProjectDetail({ params }: Props) {
           ) : null}
 
           <div className="glass rounded-2xl border border-border p-5 shadow-soft">
-            <p className="text-sm uppercase tracking-[0.16em] text-muted">Stack</p>
+            <p className="font-mono text-sm uppercase tracking-[0.14em] text-muted">Stack</p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               {stack.map((item) => (
                 <span
@@ -200,7 +200,7 @@ export default async function ProjectDetail({ params }: Props) {
 
           {contributors.length ? (
             <div className="glass rounded-2xl border border-border p-5 shadow-soft">
-              <p className="text-sm uppercase tracking-[0.16em] text-muted">Contributors</p>
+              <p className="font-mono text-sm uppercase tracking-[0.14em] text-muted">Contributors</p>
               <div className="mt-4 overflow-hidden rounded-xl border border-border">
                 <table className="w-full text-left text-sm">
                   <thead className="bg-background/70 text-muted">

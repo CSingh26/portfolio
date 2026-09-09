@@ -1,64 +1,90 @@
-import { SectionShell } from "./section-shell"
+"use client"
+
+import { useState } from "react"
+import { ChevronDown } from "lucide-react"
 import { ProjectCard } from "./project-card"
-import { projectFields, projects, type ProjectField } from "@/data/projects"
+import { projects, projectTiers, type ProjectTier } from "@/data/projects"
 
-const fieldDescriptions: Record<ProjectField, string> = {
-  "AI & Intelligent Systems": "Agents, language systems, recommendation engines, and applied machine learning.",
-  "Data Science & Analytics": "Data modeling, predictive analysis, visualization, and evidence-driven exploration.",
-  "Web & Full-Stack": "End-to-end browser products, APIs, and production websites.",
-  "Mobile Applications": "Native and cross-platform products designed around mobile workflows.",
-  "Finance & Fintech": "Financial decision tools, risk systems, and money-management products.",
-  "Cloud & Infrastructure": "Operational systems, deployment architecture, and cloud-native platforms.",
-  "Developer Tools & Security": "Engineering tools, code intelligence, visualization, and safer systems.",
-}
-
-function fieldId(field: ProjectField) {
-  return `field-${field
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")}`
+const tierDescriptions: Record<ProjectTier, string> = {
+  "Financial systems": "Research, models, and decision infrastructure for markets, portfolios, credit, and fraud.",
+  "Intelligent systems": "Applied machine learning and agent systems designed around evidence, efficiency, and explanation.",
+  "Applied products": "End-to-end products that turn complex workflows and datasets into usable experiences.",
+  Archive: "Earlier machine-learning studies and foundational experiments.",
 }
 
 export function ProjectGrid() {
-  return (
-    <SectionShell
-      id="projects"
-      eyebrow="Projects"
-      title="Projects organized by their primary field."
-      description="Each project appears once under the topic that best describes its central problem and contribution."
-    >
-      <div className="space-y-14">
-        {projectFields.map((field) => {
-          const fieldProjects = projects.filter((project) => project.field === field)
-          if (!fieldProjects.length) return null
-          const sectionId = fieldId(field)
+  const [archiveOpen, setArchiveOpen] = useState(false)
 
-          return (
-            <section key={field} aria-labelledby={sectionId}>
-              <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
-                <div>
-                  <h2
-                    id={sectionId}
-                    className="font-display text-2xl text-foreground sm:text-3xl"
-                  >
-                    {field}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-sm text-muted">{fieldDescriptions[field]}</p>
-                </div>
-                <span className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted">
-                  {fieldProjects.length} {fieldProjects.length === 1 ? "project" : "projects"}
-                </span>
-              </div>
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {fieldProjects.map((project) => (
-                  <ProjectCard key={project.slug} project={project} />
+  const renderTier = (tier: ProjectTier) => {
+    const tierProjects = projects.filter((project) => project.tier === tier)
+    const sectionId = `tier-${tier.toLowerCase().replace(/\s+/g, "-")}`
+
+    return (
+      <section key={tier} aria-labelledby={sectionId}>
+        <div className="mb-6 grid gap-4 border-b border-border-strong pb-5 md:grid-cols-[0.7fr_1.3fr] md:items-end">
+          <div>
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-accent">
+              {String(projectTiers.indexOf(tier) + 1).padStart(2, "0")} · {tierProjects.length} projects
+            </p>
+            <h2 id={sectionId} className="mt-2 font-display text-4xl tracking-[-0.025em] text-foreground sm:text-5xl">
+              {tier}
+            </h2>
+          </div>
+          <p className="max-w-2xl leading-relaxed text-muted md:justify-self-end">{tierDescriptions[tier]}</p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {tierProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} index={projects.indexOf(project) + 1} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  const primaryTiers = projectTiers.filter((tier) => tier !== "Archive")
+
+  return (
+    <section id="projects" className="container">
+      <header className="max-w-4xl border-b border-border-strong pb-10">
+        <p className="section-kicker">Portfolio</p>
+        <h1 className="section-title">Selected work.</h1>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+          Systems for markets and risk, intelligent tooling, and applied products built end to end.
+        </p>
+      </header>
+
+      <div className="mt-14 space-y-20">
+        {primaryTiers.map(renderTier)}
+
+        <section aria-labelledby="tier-archive">
+          <button
+            type="button"
+            onClick={() => setArchiveOpen((open) => !open)}
+            aria-expanded={archiveOpen}
+            aria-controls="archive-projects"
+            className="flex w-full items-center justify-between gap-4 border-y border-border-strong py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <span>
+              <span className="block font-mono text-[0.66rem] uppercase tracking-[0.14em] text-accent">04 · 4 projects</span>
+              <span id="tier-archive" className="mt-2 block font-display text-4xl tracking-[-0.025em] sm:text-5xl">Archive</span>
+            </span>
+            <span className="flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-muted">
+              {archiveOpen ? "Hide archive" : "Show archive"}
+              <ChevronDown className={`h-4 w-4 transition-transform ${archiveOpen ? "rotate-180" : ""}`} aria-hidden />
+            </span>
+          </button>
+          {archiveOpen ? (
+            <div id="archive-projects" className="mt-6">
+              <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted">{tierDescriptions.Archive}</p>
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {projects.filter((project) => project.tier === "Archive").map((project) => (
+                  <ProjectCard key={project.slug} project={project} index={projects.indexOf(project) + 1} />
                 ))}
               </div>
-            </section>
-          )
-        })}
+            </div>
+          ) : null}
+        </section>
       </div>
-    </SectionShell>
+    </section>
   )
 }

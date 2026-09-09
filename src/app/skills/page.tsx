@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { SkillsSection } from "@/components/skills-section"
 
 export const metadata: Metadata = {
-  title: "Skills | Chaitanya",
-  description: "Technical toolkit across web development, databases, and cloud fundamentals.",
+  title: "Capabilities | Chaitanya Singh",
+  description: "Capabilities across finance, quantitative methods, engineering, and product architecture.",
 }
 
 export default function SkillsPage() {

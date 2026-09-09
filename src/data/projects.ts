@@ -65,16 +65,6 @@ export type Project = {
   details?: ProjectDetail
 }
 
-export const projectFields: ProjectField[] = [
-  "AI & Intelligent Systems",
-  "Data Science & Analytics",
-  "Web & Full-Stack",
-  "Mobile Applications",
-  "Finance & Fintech",
-  "Cloud & Infrastructure",
-  "Developer Tools & Security",
-]
-
 export const projectTiers: ProjectTier[] = [
   "Financial systems",
   "Intelligent systems",
@@ -323,7 +313,7 @@ const projectCatalog: Project[] = [
     slug: "hybrid-token-efficient-routing-agent",
     tier: "Intelligent systems",
     description:
-      "AMD Developer Hackathon agent that solves provable tasks deterministically, accepts gated local-model answers, and escalates difficult work to cloud models.",
+      "AMD Developer Hackathon agent that solves provable tasks deterministically, accepts gated local-model answers, and escalates difficult work to larger models.",
     status: "Completed",
     field: "AI & Intelligent Systems",
     tags: ["Python", "LLM Routing", "Qwen", "llama.cpp", "Fireworks API", "Docker"],
@@ -466,7 +456,7 @@ const projectCatalog: Project[] = [
     slug: "reli-score",
     tier: "Intelligent systems",
     description:
-      "Cloud-native storage risk operations platform that predicts hard-drive failures 30 days ahead using SMART telemetry, ML scoring, and fleet-level analytics dashboards.",
+      "Storage risk operations platform that predicts hard-drive failures 30 days ahead using SMART telemetry, ML scoring, and fleet-level analytics dashboards.",
     status: "Completed",
     field: "Cloud & Infrastructure",
     tags: ["Next.js", "NestJS", "FastAPI", "Postgres", "Machine Learning"],
@@ -832,7 +822,7 @@ const projectCatalog: Project[] = [
     slug: "regulus",
     tier: "Applied products",
     description:
-      "Codebase intelligence platform with RAG, AST dependency graphs, blast-radius forecasting, and security scanning.",
+      "Codebase intelligence platform with RAG, AST dependency graphs, ownership analytics, and blast-radius forecasting.",
     status: "Completed",
     field: "Developer Tools & Security",
     tags: ["Next.js", "FastAPI", "RAG", "Graph", "Security"],
