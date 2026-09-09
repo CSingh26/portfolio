@@ -1,5 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
+import { readFileSync } from "node:fs"
+import { featuredProjectSlugs, getProjectMedia } from "../src/data/project-visuals.ts"
 
 const projectsModule = await import("../src/data/projects.ts")
 const writingModule = await import("../src/data/writing.ts")
@@ -72,4 +74,24 @@ test("latest writing returns newest records independent of source order", () => 
     writingModule.getLatestWriting(3).map((post) => post.slug),
     ["apex-arena-completion", "fine-tuning-lifecycle", "choosing-tuning-method"],
   )
+})
+
+test("homepage selections prioritize portfolio work and cover all six finance projects", () => {
+  assert.equal(featuredProjectSlugs[0], "portfolio-pilot")
+  assert.equal(new Set(featuredProjectSlugs).size, 6)
+  const finance = projectsModule.projects.filter((project) => project.tier === "Financial systems")
+  assert.deepEqual([...featuredProjectSlugs].sort(), finance.map((project) => project.slug).sort())
+})
+
+test("every project has real cover, animated flow, and reduced-motion still assets", () => {
+  for (const project of projectsModule.projects) {
+    const media = getProjectMedia(project.slug)
+    assert.ok(media, `Missing media for ${project.slug}`)
+    assert.equal(media.steps.length, 4)
+    const readAsset = (path) => readFileSync(new URL(`../public${path}`, import.meta.url))
+    assert.match(readAsset(media.cover).toString(), /<svg[\s>]/)
+    assert.equal(readAsset(media.flow).subarray(0, 6).toString(), "GIF89a")
+    assert.equal(readAsset(media.still).subarray(1, 4).toString(), "PNG")
+  }
+  assert.equal(getProjectMedia("unknown-project"), undefined)
 })
