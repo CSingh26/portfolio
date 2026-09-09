@@ -96,14 +96,13 @@ function buildCells(): Cell[] {
   return cells.sort((first, second) => first.rank - second.rank)
 }
 
-const HOLD_MS = 2100
+const HOLD_MS = 700
+const SESSION_KEY = "portfolio-preloader-seen"
 
 /**
- * Runs on every full page load. The overlay is part of the server-rendered
- * markup rather than something an effect switches on, so it covers the page
- * from the very first paint instead of flashing the hero first. It survives
- * client-side navigation untouched because the layout keeps this component
- * mounted — only a real reload restarts it.
+ * Runs once per browser session. A small inline guard in the root layout hides
+ * the server-rendered overlay before paint on subsequent reloads, while this
+ * component owns the session marker and the first-run animation lifecycle.
  */
 export function Preloader() {
   const reduceMotion = useReducedMotion()
@@ -117,13 +116,24 @@ export function Preloader() {
   useEffect(() => {
     if (!running) return
 
-    // `useReducedMotion` resolves to null before hydration, so the decision has
-    // to happen here rather than in the render path — otherwise the server and
-    // client would disagree about whether the overlay exists.
-    // 1ms rather than 0 for the reduced-motion path: the first tick then
-    // finishes the run through the same callback, instead of a setState in the
-    // effect body that would cascade a render.
-    const hold = reduceMotion ? 1 : HOLD_MS
+    const finishWithoutAnimation = () => {
+      const timeoutId = window.setTimeout(() => setFinished(true), 0)
+      return () => window.clearTimeout(timeoutId)
+    }
+
+    try {
+      if (window.sessionStorage.getItem(SESSION_KEY)) {
+        return finishWithoutAnimation()
+      }
+      window.sessionStorage.setItem(SESSION_KEY, "true")
+    } catch {
+      // Storage can be unavailable in hardened browsing modes. The preloader
+      // still dismisses normally; it simply cannot persist the session flag.
+    }
+
+    if (reduceMotion) {
+      return finishWithoutAnimation()
+    }
 
     document.body.style.overflow = "hidden"
     const start = Date.now()
@@ -135,8 +145,8 @@ export function Preloader() {
     // next tick after the tab wakes up finishes the run.
     const tick = () => {
       const elapsed = Date.now() - start
-      setProgress(Math.min(100, Math.round((elapsed / hold) * 100)))
-      if (elapsed >= hold) setFinished(true)
+      setProgress(Math.min(100, Math.round((elapsed / HOLD_MS) * 100)))
+      if (elapsed >= HOLD_MS) setFinished(true)
     }
 
     intervalRef.current = window.setInterval(tick, 40)
@@ -159,7 +169,7 @@ export function Preloader() {
           className="preloader"
           initial={{ opacity: 1 }}
           exit={{ y: "-100%" }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden
         >
           <div className="preloader-grid" />
@@ -188,8 +198,8 @@ export function Preloader() {
                 }}
                 animate={{ x: cell.x, y: cell.y, opacity: 1, rotate: 0, scale: 1 }}
                 transition={{
-                  delay: 0.12 + (cell.rank / lastRank) * 0.85,
-                  duration: 0.72,
+                  delay: 0.03 + (cell.rank / lastRank) * 0.2,
+                  duration: 0.3,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 style={{ originX: "50%", originY: "50%" }}
@@ -198,7 +208,7 @@ export function Preloader() {
           </motion.svg>
 
           <div className="preloader-readout">
-            <span>assembling</span>
+            <span>loading</span>
             <span className="preloader-rule">
               <motion.i
                 initial={{ scaleX: 0 }}

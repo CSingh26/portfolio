@@ -1,24 +1,12 @@
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
-import {
-  Bricolage_Grotesque,
-  IBM_Plex_Mono,
-  Instrument_Sans,
-  Instrument_Serif,
-} from "next/font/google"
+import { IBM_Plex_Mono, Instrument_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CursorField } from "@/components/cursor-field"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Preloader } from "@/components/preloader"
-
-const display = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-display-src",
-  axes: ["opsz"],
-})
 
 const sans = Instrument_Sans({
   subsets: ["latin"],
@@ -37,24 +25,26 @@ const serif = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
   weight: "400",
-  style: ["normal", "italic"],
+  style: "normal",
   variable: "--font-serif-src",
 })
 
+const title = "Chaitanya Singh | Finance × Data × Technology"
+const description =
+  "Chaitanya Singh builds intelligent systems at the intersection of finance, data, and technology: quantitative models, market research tools, and software that turns financial complexity into usable intelligence."
+
 export const metadata: Metadata = {
-  title: "Chaitanya Singh | Technology × Finance × Product",
-  description:
-    "Chaitanya Singh builds interactive products at the intersection of technology, finance, data, and strategy.",
+  title,
+  description,
   icons: {
     icon: "/favicon.ico",
   },
   metadataBase: new URL("https://chaitanyasingh.org"),
   openGraph: {
-    title: "Chaitanya Singh | Technology × Finance × Product",
-    description:
-      "Interactive products at the intersection of technology, finance, data, and strategy.",
+    title,
+    description,
     url: "https://chaitanyasingh.org",
-    siteName: "Chaitanya",
+    siteName: "Chaitanya Singh",
     locale: "en_US",
     type: "website",
     images: [
@@ -62,15 +52,14 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1792,
         height: 921,
-        alt: "Chaitanya Singh — Technology, Finance, Product",
+        alt: "Chaitanya Singh — Finance, Data, and Technology",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chaitanya Singh | Technology × Finance × Product",
-    description:
-      "Interactive products at the intersection of technology, finance, data, and strategy.",
+    title,
+    description,
     images: ["/og.png"],
   },
 }
@@ -84,8 +73,16 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${display.variable} ${sans.variable} ${mono.variable} ${serif.variable}`}
+      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('portfolio-preloader-seen'))document.documentElement.dataset.preloaderSeen='true'}catch(e){}",
+          }}
+        />
+      </head>
       <body className="antialiased bg-background text-foreground">
         {/* The preloader ships in the server-rendered markup so it covers the
             first paint. Without JS nothing would ever dismiss it, so hide it. */}
@@ -95,13 +92,8 @@ export default function RootLayout({
         <ThemeProvider>
           <Preloader />
           <CursorField />
-          <div className="pointer-events-none fixed inset-0 -z-10">
-            <div className="absolute left-[-10%] top-[-10%] h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
-            <div className="absolute right-[-8%] top-[10%] h-72 w-72 rounded-full bg-foreground/10 blur-3xl" />
-            <div className="absolute bottom-[-12%] right-[15%] h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
-          </div>
           <Navbar />
-          <main className="relative z-10 min-h-screen pb-10">{children}</main>
+          <div className="relative z-10 min-h-screen pb-10">{children}</div>
           <Footer />
         </ThemeProvider>
       </body>

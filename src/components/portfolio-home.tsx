@@ -1,331 +1,256 @@
 "use client"
 
-import { useMemo, useState, type CSSProperties, type MouseEvent } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  Download,
-  Github,
-  MoveUpRight,
-  Sparkles,
-} from "lucide-react"
-import { projects } from "@/data/projects"
+import { ArrowDownRight, ArrowUpRight, Download, Github } from "lucide-react"
 import { Marquee } from "@/components/marquee"
-import { Magnetic } from "@/components/magnetic"
+import { now } from "@/data/now"
+import { projects, type Project } from "@/data/projects"
+import { getLatestWriting } from "@/data/writing"
 
-const FOCUS_AREAS = [
-  "AI",
-  "Finance",
-  "Data",
-  "Product",
-  "Cloud",
-  "Strategy",
-  "Systems",
-  "Research",
+const focusAreas = ["Markets", "Risk", "Data", "Systems", "Research"] as const
+
+const workAreas = [
+  {
+    index: "01",
+    title: "Financial analysis",
+    description: "I study how businesses allocate capital, report performance, and create or absorb risk.",
+    items: ["Corporate finance", "Valuation", "Financial statements", "SEC filings", "Capital budgeting", "Risk and return"],
+  },
+  {
+    index: "02",
+    title: "Quantitative systems",
+    description: "I build models and pipelines that turn market behavior into measurable, testable signals.",
+    items: ["Volatility modeling", "Monte Carlo simulation", "Regime detection", "Risk calculations", "Market data pipelines"],
+  },
+  {
+    index: "03",
+    title: "Product engineering",
+    description: "I build the infrastructure and interfaces that move analysis from a notebook into useful decisions.",
+    items: ["Backend architecture", "APIs", "Data infrastructure", "Applied machine learning", "Clear interfaces"],
+  },
 ] as const
 
-const lenses = {
-  technology: {
-    label: "Technology",
-    index: "01",
-    headline: "Systems that hold up.",
-    note: "Full-stack products, data pipelines, cloud infrastructure, and applied AI.",
-    color: "var(--color-blue)",
-  },
-  finance: {
-    label: "Finance",
-    index: "02",
-    headline: "Numbers with context.",
-    note: "Risk, markets, valuation, and decision tools that make complexity legible.",
-    color: "var(--color-lime)",
-  },
-  product: {
-    label: "Product",
-    index: "03",
-    headline: "Ideas people can use.",
-    note: "Clear interfaces, honest data, and experiences built beyond the prototype.",
-    color: "var(--color-coral)",
-  },
-} as const
-
-type Lens = keyof typeof lenses
-
 const featuredSlugs = [
+  "synaxis",
+  "credit-lens",
+  "fraud-pulse",
+  "hybrid-token-efficient-routing-agent",
   "apex-arena",
   "cinejaal",
-  "hybrid-token-efficient-routing-agent",
-  "reli-score",
-  "careerpath-ai",
-  "synaxis",
-  "quiz-app",
-  "grid-design-website",
-]
+] as const
 
-const visualBySlug: Record<string, { number: string; tone: string; proof: string }> = {
-  "apex-arena": { number: "5", tone: "race", proof: "AI voices · live race data" },
-  cinejaal: { number: "4,953", tone: "cinema", proof: "sourced relationships" },
-  "hybrid-token-efficient-routing-agent": { number: "282", tone: "routing", proof: "passing regression tests" },
-  "reli-score": { number: "30d", tone: "signal", proof: "failure-risk horizon" },
-  "careerpath-ai": { number: "AI", tone: "path", proof: "explainable career fit" },
-  synaxis: { number: "24h", tone: "money", proof: "hackathon build" },
-  "quiz-app": { number: "LIVE", tone: "quiz", proof: "rooms · rankings · AWS" },
-  "grid-design-website": { number: "01", tone: "studio", proof: "production client site" },
-}
+const featured = featuredSlugs
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is Project => Boolean(project))
 
 const principles = [
-  ["Curiosity", "Start between disciplines."],
-  ["Clarity", "Make the complex feel obvious."],
-  ["Trust", "Show sources, limits, and uncertainty."],
-  ["Execution", "Think beyond the first demo."],
-]
+  ["Curiosity", "Start between disciplines and follow the question wherever the evidence leads."],
+  ["Clarity", "Make complexity legible without removing the nuance that matters."],
+  ["Trust", "Show sources, limits, assumptions, and uncertainty."],
+  ["Execution", "Build beyond the first demo and design for the work of operating it."],
+] as const
 
 export function PortfolioHome() {
   const reduceMotion = useReducedMotion()
-  const [activeLens, setActiveLens] = useState<Lens>("technology")
-  const selectedLens = lenses[activeLens]
-  const featured = useMemo(
-    () => featuredSlugs.map((slug) => projects.find((project) => project.slug === slug)).filter(Boolean),
-    [],
-  )
-
-  // Tiles read pointer position as a normalised -0.5..0.5 pair. The CSS uses
-  // it to drift the big stat against the card, so the number sits on its own
-  // plane instead of the whole tile tilting like every other card grid.
-  const handleTileMove = (event: MouseEvent<HTMLElement>) => {
-    if (reduceMotion) return
-    const bounds = event.currentTarget.getBoundingClientRect()
-    event.currentTarget.style.setProperty("--px", `${(event.clientX - bounds.left) / bounds.width - 0.5}`)
-    event.currentTarget.style.setProperty("--py", `${(event.clientY - bounds.top) / bounds.height - 0.5}`)
-  }
-
-  const resetTile = (event: MouseEvent<HTMLElement>) => {
-    event.currentTarget.style.setProperty("--px", "0")
-    event.currentTarget.style.setProperty("--py", "0")
-  }
-
-  const handlePortraitMove = (event: MouseEvent<HTMLDivElement>) => {
-    if (reduceMotion) return
-    const bounds = event.currentTarget.getBoundingClientRect()
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5
-    event.currentTarget.style.setProperty("--portrait-rx", `${y * -7}deg`)
-    event.currentTarget.style.setProperty("--portrait-ry", `${x * 7}deg`)
-  }
+  const latestWriting = getLatestWriting(3)
+  const rise = (delay = 0) => ({
+    initial: { opacity: 0, y: reduceMotion ? 0 : 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.18 },
+    transition: { delay, duration: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] as const },
+  })
 
   return (
-    <div className="portfolio-home overflow-hidden">
+    <main className="portfolio-home overflow-hidden">
       <section className="relative min-h-[94vh] border-b border-border pt-28 sm:pt-32">
         <div className="hero-grid" aria-hidden />
-        <div className="container relative grid min-h-[calc(94vh-8rem)] gap-12 pb-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div className="container relative grid min-h-[calc(94vh-8rem)] gap-12 pb-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10"
           >
-            <div className="mb-7 flex flex-wrap items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-muted">
-              <span className="status-dot" />
-              Building across disciplines
-              <span className="h-px w-10 bg-border" />
-              India ↔ USA
-            </div>
-            <h1 className="hero-title max-w-4xl font-display text-[clamp(2.9rem,7vw,6.2rem)] font-bold leading-[0.92] tracking-[-0.045em]">
-              Tech mind.<br />
-              <span className="font-serif-accent text-blue tracking-[-0.01em]">Finance lens.</span><br />
-              <span className="scribble">Builder</span> energy.
+            <p className="section-kicker">Finance × Data × Technology</p>
+            <h1 className="hero-title max-w-4xl text-[clamp(3.3rem,7.3vw,7rem)] leading-[0.9] tracking-[-0.045em]">
+              Turning financial complexity into usable intelligence.
             </h1>
-            <div className="mt-8 flex max-w-2xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <p className="max-w-sm text-base leading-relaxed text-muted sm:text-lg">
-                I turn data, intelligence, and ambitious ideas into products people can explore.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Magnetic>
-                  <Link href="/projects" className="button-primary">
-                    Explore work <ArrowDownRight className="h-4 w-4" />
-                  </Link>
-                </Magnetic>
-                <Magnetic>
-                  <Link href="/Chaitanya_Singh_Resume.pdf" className="button-quiet">
-                    Résumé <Download className="h-4 w-4" />
-                  </Link>
-                </Magnetic>
-              </div>
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+              I build software and quantitative systems for financial markets. MS Finance candidate at W. P. Carey, BS Computer Science from the Ira A. Fulton Schools of Engineering at ASU.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/projects" className="button-primary">
+                Selected work <ArrowDownRight className="h-4 w-4" />
+              </Link>
+              <Link href="/Chaitanya_Singh_Resume.pdf" className="button-quiet">
+                Résumé <Download className="h-4 w-4" />
+              </Link>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.94, rotate: 2 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="portrait-stage"
-            onMouseMove={handlePortraitMove}
-            onMouseLeave={(event) => {
-              event.currentTarget.style.setProperty("--portrait-rx", "0deg")
-              event.currentTarget.style.setProperty("--portrait-ry", "0deg")
-            }}
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: reduceMotion ? 0 : 0.12, duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="market-instrument"
+            aria-hidden="true"
           >
-            <div className="portrait-card">
-              <div className="portrait-frame">
-                <Image
-                  src="/profile.png"
-                  alt="Chaitanya Singh"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 34vw, 78vw"
-                  className="object-cover object-center"
-                />
-              </div>
-              <div className="portrait-caption">
-                <span>Chaitanya Singh</span>
-                <span>CS · AI · Finance</span>
-              </div>
-            </div>
-            <div className="orbit-tag orbit-tag-one">data → decisions</div>
-            <div className="orbit-tag orbit-tag-two">build → learn → repeat</div>
-            <div className="spark-mark" aria-hidden><Sparkles className="h-7 w-7" /></div>
+            <svg viewBox="0 0 560 420" className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
+              <defs>
+                <pattern id="instrument-grid" width="56" height="52.5" patternUnits="userSpaceOnUse">
+                  <path d="M 56 0 L 0 0 0 52.5" fill="none" stroke="var(--color-border)" strokeWidth="1" />
+                </pattern>
+              </defs>
+              <rect width="560" height="420" fill="url(#instrument-grid)" />
+              <path
+                d="M0 292 C44 278 74 300 112 260 S177 182 220 214 S283 326 326 260 S384 126 430 174 S496 248 560 112"
+                fill="none"
+                stroke="var(--color-accent)"
+                strokeWidth="1.6"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path d="M0 318 H560" stroke="var(--color-border-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+              <circle cx="430" cy="174" r="3" fill="var(--color-accent)" />
+              <text x="24" y="38" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.4">σ 30d</text>
+              <text x="372" y="148" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.1">regime: high vol</text>
+              <text x="24" y="392" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.4">p(≥2σ) 0.047</text>
+            </svg>
           </motion.div>
         </div>
-        <Marquee items={FOCUS_AREAS} label="Areas of focus" duration={30} />
+        <Marquee items={focusAreas} label="Areas of focus" duration={56} />
       </section>
 
       <section className="container py-24 sm:py-32" id="about">
-        <div className="mb-10 grid gap-5 md:grid-cols-[0.75fr_1.25fr] md:items-end">
+        <motion.div {...rise()} className="mb-12 grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-end">
           <div>
-            <p className="section-kicker">The intersection</p>
-            <h2 className="section-title">Three lenses.<br />One practice.</h2>
+            <p className="section-kicker">The practice</p>
+            <h2 className="section-title">What I work on</h2>
           </div>
           <p className="max-w-xl text-lg leading-relaxed text-muted md:justify-self-end">
-            Click a lens. This is where I like to work: not inside one neat box, but in the overlap.
+            Financial reasoning, quantitative methods, and product engineering brought into one working system.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="intersection-lab">
-          <div className="lens-controls" role="tablist" aria-label="Choose a working lens">
-            {(Object.entries(lenses) as [Lens, (typeof lenses)[Lens]][]).map(([key, lens]) => (
-              <button
-                key={key}
-                type="button"
-                role="tab"
-                aria-selected={activeLens === key}
-                onClick={() => setActiveLens(key)}
-                className={`lens-button ${activeLens === key ? "is-active" : ""}`}
-                style={{ "--lens-color": lens.color } as CSSProperties}
-              >
-                <span>{lens.index}</span>
-                {lens.label}
-                <MoveUpRight className="h-5 w-5" />
-              </button>
-            ))}
-          </div>
-          <motion.div
-            key={activeLens}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="lens-output"
-            style={{ "--lens-color": selectedLens.color } as CSSProperties}
-            role="tabpanel"
-          >
-            <span className="lens-giant-index">{selectedLens.index}</span>
-            <div className="relative z-10">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-muted">{selectedLens.label} lens</p>
-              <h3 className="font-display text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">{selectedLens.headline}</h3>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-muted">{selectedLens.note}</p>
-            </div>
-            <div className="intersection-orbits" aria-hidden>
-              <span className="orbit orbit-a" />
-              <span className="orbit orbit-b" />
-              <span className="orbit orbit-c" />
-              <span className="orbit-core">CS</span>
-            </div>
-          </motion.div>
+        <div className="grid border-l border-t border-border md:grid-cols-3">
+          {workAreas.map((area, index) => (
+            <motion.article
+              key={area.index}
+              {...rise(index * 0.06)}
+              className="flex min-h-[25rem] flex-col border-b border-r border-border p-6 sm:p-8"
+            >
+              <span className="font-mono text-xs tracking-[0.14em] text-accent">{area.index}</span>
+              <h3 className="mt-8 font-display text-3xl tracking-[-0.025em]">{area.title}</h3>
+              <p className="mt-4 leading-relaxed text-muted">{area.description}</p>
+              <ul className="mt-auto space-y-2 pt-8 text-sm text-foreground">
+                {area.items.map((item) => (
+                  <li key={item} className="border-t border-border pt-2">{item}</li>
+                ))}
+              </ul>
+            </motion.article>
+          ))}
         </div>
       </section>
 
-      <section className="border-y border-border bg-ink py-24 text-paper sm:py-32" id="selected-work">
+      <section className="border-y border-border bg-card/40 py-20 sm:py-24" id="now">
+        <motion.div {...rise()} className="container grid gap-10 lg:grid-cols-[0.45fr_1.55fr]">
+          <div>
+            <p className="section-kicker">Current focus</p>
+            <h2 className="section-title">Now</h2>
+            <p className="mt-4 font-mono text-xs uppercase tracking-[0.14em] text-muted">{now.date}</p>
+          </div>
+          <div className="border-t border-border-strong">
+            {now.focus.map((line, index) => (
+              <div key={line} className="grid gap-3 border-b border-border-strong py-5 sm:grid-cols-[2.5rem_1fr]">
+                <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
+                <p className="text-lg leading-relaxed">{line}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="border-b border-border bg-ink py-24 text-paper sm:py-32" id="selected-work">
         <div className="container">
-          <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <motion.div {...rise()} className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="section-kicker text-lime">Selected systems · 2024—26</p>
-              <h2 className="section-title text-paper">Built to be explored.</h2>
+              <p className="section-kicker !text-[rgba(244,241,232,0.55)]">Systems · 2024 to 2026</p>
+              <h2 className="section-title text-paper">Selected work.</h2>
             </div>
             <Link href="/projects" className="button-on-dark">
               All projects <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </div>
+          </motion.div>
 
           <div className="project-wall">
-            {featured.map((project, index) => {
-              if (!project) return null
-              const visual = visualBySlug[project.slug]
-              return (
-                <motion.article
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 26 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: Math.min(index * 0.05, 0.25), duration: 0.55 }}
-                  className={`project-tile project-${visual.tone}`}
-                  onMouseMove={handleTileMove}
-                  onMouseLeave={resetTile}
-                >
-                  <Link href={`/projects/${project.slug}`} className="project-tile-main" aria-label={`Read about ${project.title}`}>
-                    <div className="project-tile-top">
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <span>{project.field.split(" & ")[0]}</span>
-                    </div>
-                    <div className="project-visual" aria-hidden>
-                      <strong>{visual.number}</strong>
-                      <span>{visual.proof}</span>
-                    </div>
-                    <div>
-                      <h3>{project.title}</h3>
-                      <p>{project.description}</p>
-                    </div>
-                  </Link>
-                  <div className="project-links">
-                    {project.links?.live ? (
-                      <a href={project.links.live} target="_blank" rel="noreferrer">Live <ArrowUpRight className="h-4 w-4" /></a>
-                    ) : <span>{project.status}</span>}
+            {featured.map((project, index) => (
+              <motion.article key={project.slug} {...rise(Math.min(index * 0.05, 0.2))} className="project-tile">
+                <Link href={`/projects/${project.slug}`} className="project-tile-main" aria-label={`Read about ${project.title}`}>
+                  <div className="project-tile-top">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{project.tier}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </Link>
+                <div className="project-links">
+                  <span>{project.status}</span>
+                  <div className="flex items-center gap-4">
                     {project.links?.github ? (
                       <a href={project.links.github} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}>
                         <Github className="h-4 w-4" />
                       </a>
                     ) : null}
+                    {project.links?.live ? (
+                      <a href={project.links.live} target="_blank" rel="noreferrer">Live <ArrowUpRight className="h-4 w-4" /></a>
+                    ) : null}
                   </div>
-                </motion.article>
-              )
-            })}
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="container py-24 sm:py-32">
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="section-kicker">Operating system</p>
-            <h2 className="section-title">How I build.</h2>
-            <p className="mt-5 max-w-sm text-lg leading-relaxed text-muted">
-              Ambition works best when it has a method.
-            </p>
+      <section className="container py-24 sm:py-32" id="research-notes">
+        <motion.div {...rise()} className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="section-kicker">Analysis in progress</p>
+            <h2 className="section-title">Research notes</h2>
           </div>
+          <Link href="/writing" className="button-quiet">All writing <ArrowUpRight className="h-4 w-4" /></Link>
+        </motion.div>
+        <div className="border-t border-border-strong">
+          {latestWriting.map((post, index) => (
+            <motion.article key={post.slug} {...rise(index * 0.06)} className="grid gap-4 border-b border-border-strong py-6 md:grid-cols-[9rem_1fr_auto] md:items-center">
+              <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted">{post.date}</p>
+              <div>
+                <h3 className="font-display text-2xl tracking-[-0.02em]">{post.title}</h3>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">{post.description}</p>
+              </div>
+              <Link href={`/writing/${post.slug}`} className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-accent transition hover:text-foreground">
+                Read note <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="container pb-24 sm:pb-32">
+        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+          <motion.div {...rise()} className="lg:sticky lg:top-28 lg:self-start">
+            <p className="section-kicker">Operating principles</p>
+            <h2 className="section-title">How I build.</h2>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
+              Technology should handle the complexity. The user should receive clarity.
+            </p>
+          </motion.div>
           <div className="principle-stack">
             {principles.map(([title, line], index) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, x: 28 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: index * 0.08 }}
-                className="principle-row"
-              >
+              <motion.div key={title} {...rise(index * 0.06)} className="principle-row">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{title}</h3>
                 <p>{line}</p>
-                <ArrowUpRight className="h-6 w-6" />
               </motion.div>
             ))}
           </div>
@@ -333,18 +258,17 @@ export function PortfolioHome() {
       </section>
 
       <section className="container pb-20 sm:pb-28">
-        <div className="future-card">
-          <div className="future-orb" aria-hidden />
-          <p className="section-kicker relative z-10">Next chapter</p>
-          <h2 className="relative z-10 max-w-4xl font-display text-[clamp(3rem,7vw,6.5rem)] font-semibold leading-[0.92] tracking-[-0.07em]">
-            Learning finance.<br />Still shipping software.
+        <motion.div {...rise()} className="closing-block">
+          <p className="section-kicker">The through line</p>
+          <h2 className="max-w-5xl font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.92] tracking-[-0.045em]">
+            Finance is the domain. Software is the instrument.
           </h2>
-          <div className="relative z-10 mt-9 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/experience" className="button-primary">My journey <ArrowUpRight className="h-4 w-4" /></Link>
-            <Link href="/contact" className="button-quiet">Start a conversation</Link>
+            <Link href="/contact" className="button-quiet">Get in touch</Link>
           </div>
-        </div>
+        </motion.div>
       </section>
-    </div>
+    </main>
   )
 }
