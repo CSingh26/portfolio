@@ -1,12 +1,15 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowDownRight, ArrowUpRight, Download, Github } from "lucide-react"
 import { Marquee } from "@/components/marquee"
 import { now } from "@/data/now"
 import { projects, type Project } from "@/data/projects"
 import { getLatestWriting } from "@/data/writing"
+import { featuredProjectSlugs } from "@/data/project-visuals"
+import { ProjectVisual } from "@/components/project-visual"
 
 const focusAreas = ["Markets", "Risk", "Data", "Systems", "Research"] as const
 
@@ -31,16 +34,7 @@ const workAreas = [
   },
 ] as const
 
-const featuredSlugs = [
-  "synaxis",
-  "credit-lens",
-  "fraud-pulse",
-  "hybrid-token-efficient-routing-agent",
-  "apex-arena",
-  "cinejaal",
-] as const
-
-const featured = featuredSlugs
+const featured = featuredProjectSlugs
   .map((slug) => projects.find((project) => project.slug === slug))
   .filter((project): project is Project => Boolean(project))
 
@@ -65,7 +59,7 @@ export function PortfolioHome() {
     <main className="portfolio-home overflow-hidden">
       <section className="relative min-h-[94vh] border-b border-border pt-28 sm:pt-32">
         <div className="hero-grid" aria-hidden />
-        <div className="container relative grid min-h-[calc(94vh-8rem)] gap-12 pb-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
+        <div className="container hero-layout relative grid gap-12 pb-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -73,8 +67,8 @@ export function PortfolioHome() {
             className="relative z-10"
           >
             <p className="section-kicker">Finance × Data × Technology</p>
-            <h1 className="hero-title max-w-4xl text-[clamp(3.3rem,7.3vw,7rem)] leading-[0.9] tracking-[-0.045em]">
-              Turning financial complexity into usable intelligence.
+            <h1 className="hero-title">
+              Turning financial complexity into <span>usable intelligence.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
               I build software and quantitative systems for financial markets. MS Finance candidate at W. P. Carey, BS Computer Science from the Ira A. Fulton Schools of Engineering at ASU.
@@ -93,10 +87,14 @@ export function PortfolioHome() {
             initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: reduceMotion ? 0 : 0.12, duration: reduceMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="market-instrument"
-            aria-hidden="true"
+            className="hero-portrait-composition"
           >
-            <svg viewBox="0 0 560 420" className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
+            <div className="hero-photo-frame">
+              <Image src="/profile.png" alt="Chaitanya Singh" fill priority sizes="(min-width: 1024px) 440px, (min-width: 640px) 480px, 90vw" className="hero-photo" />
+              <div className="hero-photo-label"><span>Chaitanya Singh</span><span>Finance + Computer Science</span></div>
+            </div>
+            <div className="hero-chart-panel" aria-hidden="true">
+            <svg viewBox="0 0 560 420" className="h-full w-full" preserveAspectRatio="none">
               <defs>
                 <pattern id="instrument-grid" width="56" height="52.5" patternUnits="userSpaceOnUse">
                   <path d="M 56 0 L 0 0 0 52.5" fill="none" stroke="var(--color-border)" strokeWidth="1" />
@@ -112,10 +110,11 @@ export function PortfolioHome() {
               />
               <path d="M0 318 H560" stroke="var(--color-border-strong)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
               <circle cx="430" cy="174" r="3" fill="var(--color-accent)" />
-              <text x="24" y="38" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.4">σ 30d</text>
-              <text x="372" y="148" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.1">regime: high vol</text>
-              <text x="24" y="392" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.4">p(≥2σ) 0.047</text>
+              <text x="24" y="38" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="17" letterSpacing="1.4">MARKETS / SYSTEMS</text>
+              <text x="24" y="392" fill="var(--color-muted)" fontFamily="var(--font-mono)" fontSize="17" letterSpacing="1.4">A quantitative perspective</text>
             </svg>
+            </div>
+            <p className="hero-location"><i aria-hidden />Based in Arizona · Building across disciplines</p>
           </motion.div>
         </div>
         <Marquee items={focusAreas} label="Areas of focus" duration={56} />
@@ -170,14 +169,15 @@ export function PortfolioHome() {
         </motion.div>
       </section>
 
-      <section className="border-b border-border bg-ink py-24 text-paper sm:py-32" id="selected-work">
+      <section className="selected-work-section border-b border-border py-24 sm:py-32" id="selected-work">
         <div className="container">
           <motion.div {...rise()} className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="section-kicker !text-[rgba(244,241,232,0.55)]">Systems · 2024 to 2026</p>
-              <h2 className="section-title text-paper">Selected work.</h2>
+              <p className="section-kicker">Finance in practice</p>
+              <h2 className="section-title">Selected work.</h2>
+              <p className="mt-5 max-w-xl text-muted">Portfolio construction, credit decisions, financial research, and the systems that connect them.</p>
             </div>
-            <Link href="/projects" className="button-on-dark">
+            <Link href="/projects" className="button-quiet">
               All projects <ArrowUpRight className="h-4 w-4" />
             </Link>
           </motion.div>
@@ -185,6 +185,7 @@ export function PortfolioHome() {
           <div className="project-wall">
             {featured.map((project, index) => (
               <motion.article key={project.slug} {...rise(Math.min(index * 0.05, 0.2))} className="project-tile">
+                <ProjectVisual slug={project.slug} />
                 <Link href={`/projects/${project.slug}`} className="project-tile-main" aria-label={`Read about ${project.title}`}>
                   <div className="project-tile-top">
                     <span>{String(index + 1).padStart(2, "0")}</span>

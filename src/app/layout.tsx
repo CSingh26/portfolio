@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import type { Metadata } from "next"
-import { IBM_Plex_Mono, Instrument_Sans, Instrument_Serif } from "next/font/google"
+import { IBM_Plex_Mono, Manrope, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CursorField } from "@/components/cursor-field"
@@ -8,7 +8,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Preloader } from "@/components/preloader"
 
-const sans = Instrument_Sans({
+const sans = Manrope({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans-src",
@@ -21,12 +21,10 @@ const mono = IBM_Plex_Mono({
   variable: "--font-mono-src",
 })
 
-const serif = Instrument_Serif({
+const display = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
-  style: "normal",
-  variable: "--font-serif-src",
+  variable: "--font-display-src",
 })
 
 const title = "Chaitanya Singh | Finance × Data × Technology"
@@ -73,7 +71,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
+      className={`${sans.variable} ${mono.variable} ${display.variable}`}
     >
       <head>
         <script

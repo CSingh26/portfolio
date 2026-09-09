@@ -4,6 +4,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowUpRight, Github } from "lucide-react"
 import { projects } from "@/data/projects"
+import { ProjectVisual } from "@/components/project-visual"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -98,16 +99,17 @@ export default async function ProjectDetail({ params }: Props) {
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
         <div className="space-y-6">
+          <ProjectVisual slug={project.slug} detail />
           {media ? (
             <figure className="glass overflow-hidden rounded-[1.75rem] border border-border shadow-soft">
-              <div className="relative aspect-[3/2] w-full bg-background/60">
+              <div className="relative w-full bg-background/60 p-4">
                 <Image
                   src={media.src}
                   alt={media.alt}
-                  fill
+                  width={media.width}
+                  height={media.height}
                   sizes="(min-width: 1024px) 60vw, 100vw"
-                  className="object-cover"
-                  priority
+                  className="h-auto w-full rounded-xl object-contain"
                 />
               </div>
               {media.caption ? <figcaption className="px-5 py-4 text-sm text-muted">{media.caption}</figcaption> : null}
