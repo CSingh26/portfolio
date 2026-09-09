@@ -4,7 +4,7 @@
 
 **Goal:** Reposition the portfolio as a precise, research-oriented presentation of work across finance, data, and technology.
 
-**Architecture:** Preserve the existing Next.js route structure while replacing playful interactive presentation components with data-driven static sections. Centralize mutable Now and Journey copy in new data modules, add a required project tier contract, and enforce the repositioning with dependency-free source-contract tests plus the existing lint and build checks.
+**Architecture:** Preserve the existing Next.js route structure while replacing playful interactive presentation components with data-driven static sections. Centralize mutable Now and Journey copy in new data modules, add a required project tier contract, and exercise the non-trivial data behavior with dependency-free tests plus the existing lint, build, and browser checks.
 
 **Tech Stack:** Next.js 15, React 19, TypeScript, Tailwind CSS 3, Framer Motion 11, Node's built-in test runner
 
@@ -22,57 +22,51 @@
 
 ---
 
-### Task 1: Add Repositioning Contract Tests
+### Task 1: Add Repositioning Behavior Tests
 
 **Files:**
-- Create: `tests/portfolio-contracts.test.mjs`
+- Create: `tests/portfolio-data.test.mjs`
 - Modify: `package.json`
 
 **Interfaces:**
-- Consumes: repository source files as UTF-8 text
-- Produces: `npm test`, a dependency-free contract suite that guards copy, project tier assignments, theme tokens, navigation, and preloader behavior
+- Consumes: the real `projects` and `writing` data modules
+- Produces: `npm test`, a dependency-free behavior suite that guards project tier membership/order and newest-writing selection
 
-- [ ] **Step 1: Write the failing contract suite**
+- [ ] **Step 1: Write the failing behavior suite**
 
-Create tests with `node:test`, `node:assert/strict`, and `readFileSync` that assert:
+Create tests with `node:test` and `node:assert/strict` that import the real TypeScript data modules and assert:
 
 ```js
-test("the homepage exposes the new positioning and supporting sections", () => {
-  const source = read("src/components/portfolio-home.tsx")
-  assert.match(source, /Turning financial complexity into usable intelligence\./)
-  assert.match(source, /What I work on/)
-  assert.match(source, /Research notes/)
+test("projects are grouped into the approved tiers and order", () => {
+  assert.deepEqual(
+    projects.filter((project) => project.tier === "Financial systems").map((project) => project.slug),
+    ["synaxis", "portfolio-pilot", "credit-lens", "fraud-pulse", "hedgefund-ai-agent", "stock-market-predictions"],
+  )
 })
 
-test("every project has exactly one approved tier", () => {
-  const source = read("src/data/projects.ts")
-  assert.equal((source.match(/\n    tier: /g) ?? []).length, 21)
-  for (const tier of ["Financial systems", "Intelligent systems", "Applied products", "Archive"]) {
-    assert.match(source, new RegExp(`tier: "${tier}"`))
-  }
-})
-
-test("the visual system has one named accent and no retired color tokens", () => {
-  const source = read("src/app/globals.css")
-  assert.match(source, /--color-accent: #4567f2/)
-  assert.doesNotMatch(source, /--color-(lime|coral)/)
-  assert.doesNotMatch(source, /#c7ed62|#ff5b4d/i)
+test("latest writing returns the newest records independent of source order", () => {
+  assert.equal(typeof getLatestWriting, "function")
+  assert.deepEqual(getLatestWriting(3).map((post) => post.slug), [
+    "apex-arena-completion",
+    "fine-tuning-lifecycle",
+    "choosing-tuning-method",
+  ])
 })
 ```
 
-Add equivalent assertions for `src/data/now.ts`, `src/data/journey.ts`, static navigation labels, absent phone/template contact copy, footer positioning, and `sessionStorage` plus `HOLD_MS = 700` in the preloader. Add `"test": "node --test tests/*.test.mjs"` to `package.json`.
+Cover all four project tiers with literal expected slug arrays and confirm every project appears exactly once. Add `"test": "node --no-warnings --experimental-strip-types --test tests/*.test.mjs"` to `package.json`. Editorial copy, CSS tokens, navigation, contact/footer content, and browser-session preloader behavior are verified through lint, build, repository searches, and browser inspection because text-grep tests would not exercise runtime behavior.
 
 - [ ] **Step 2: Run the suite and verify RED**
 
 Run: `npm test`
 
-Expected: failures for missing `now.ts`/`journey.ts`, missing tiers and new copy, retired color tokens, old navigation/contact/footer content, and preloader behavior.
+Expected: assertion failures because projects have no tiers and `getLatestWriting` is not exported.
 
 - [ ] **Step 3: Commit the failing tests**
 
 ```bash
-git add package.json tests/portfolio-contracts.test.mjs
-git commit -m "test: define portfolio repositioning contracts"
+git add package.json tests/portfolio-data.test.mjs
+git commit -m "test: define portfolio data behavior"
 ```
 
 ### Task 2: Establish Data, Metadata, and Shared Visual Foundations
