@@ -1,40 +1,57 @@
 export type SkillCategory = {
-  category: string
+  category: "Finance" | "Quantitative" | "Engineering" | "Product"
   items: string[]
 }
 
 export const skills: SkillCategory[] = [
   {
-    category: "Languages",
+    category: "Finance",
     items: [
-      "Python",
-      "R",
-      "Java",
-      "C",
-      "C++",
-      "SQL",
-      "JavaScript",
-      "Swift",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "Shell Scripting",
+      "Financial statement analysis",
+      "Corporate finance",
+      "Valuation",
+      "Capital budgeting",
+      "Risk and return",
+      "Portfolio concepts",
+      "Accounting fundamentals",
+      "SEC filings (10-K, 10-Q)",
     ],
   },
   {
-    category: "Frameworks & Libraries",
-    items: ["React", "Next.js", "Express.js", "Flask", "Tailwind CSS", "Framer Motion"],
+    category: "Quantitative",
+    items: [
+      "Volatility modeling (GARCH)",
+      "Monte Carlo simulation",
+      "Regime detection",
+      "Risk metrics",
+      "Time-series analysis",
+      "Backtesting discipline",
+    ],
   },
   {
-    category: "Databases",
-    items: ["MySQL", "PostgreSQL", "DynamoDB", "MongoDB"],
+    category: "Engineering",
+    items: [
+      "Python",
+      "TypeScript",
+      "FastAPI",
+      "Next.js",
+      "PostgreSQL",
+      "Redis",
+      "Containers",
+      "Cloud deployment",
+      "Data pipelines",
+      "Machine learning",
+      "AI integration",
+    ],
   },
   {
-    category: "Cloud & DevOps",
-    items: ["AWS (EC2, S3, Lambda, RDS, CloudFormation)", "Docker", "Kubernetes", "CI/CD Basics"],
-  },
-  {
-    category: "Tools",
-    items: ["Git", "GitHub", "VS Code", "Postman", "Jupyter Notebook", "Excel", "Linux", "RESTful APIs"],
+    category: "Product",
+    items: [
+      "User journeys",
+      "Simplification",
+      "Feature prioritization",
+      "Product architecture",
+      "Platform strategy",
+    ],
   },
 ]

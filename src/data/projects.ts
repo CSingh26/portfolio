@@ -1,5 +1,11 @@
 export type ProjectStatus = "Live" | "In Progress" | "Completed" | "Research"
 
+export type ProjectTier =
+  | "Financial systems"
+  | "Intelligent systems"
+  | "Applied products"
+  | "Archive"
+
 export type ProjectField =
   | "AI & Intelligent Systems"
   | "Data Science & Analytics"
@@ -48,6 +54,7 @@ export type Project = {
   slug: string
   description: string
   status: ProjectStatus
+  tier: ProjectTier
   field: ProjectField
   tags: string[]
   links?: {
@@ -68,10 +75,50 @@ export const projectFields: ProjectField[] = [
   "Developer Tools & Security",
 ]
 
-export const projects: Project[] = [
+export const projectTiers: ProjectTier[] = [
+  "Financial systems",
+  "Intelligent systems",
+  "Applied products",
+  "Archive",
+]
+
+const projectSlugsByTier: Record<ProjectTier, string[]> = {
+  "Financial systems": [
+    "synaxis",
+    "portfolio-pilot",
+    "credit-lens",
+    "fraud-pulse",
+    "hedgefund-ai-agent",
+    "stock-market-predictions",
+  ],
+  "Intelligent systems": [
+    "hybrid-token-efficient-routing-agent",
+    "careerpath-ai",
+    "reli-score",
+  ],
+  "Applied products": [
+    "apex-arena",
+    "cinejaal",
+    "quiz-app",
+    "grid-design-website",
+    "studyos",
+    "habit-app",
+    "regulus",
+    "algorithm-visualizer",
+  ],
+  Archive: [
+    "used-car-price-prediction",
+    "breast-cancer-prediction",
+    "sentiment-analysis",
+    "movie-genre-nlp",
+  ],
+}
+
+const projectCatalog: Project[] = [
   {
     title: "Apex Arena",
     slug: "apex-arena",
+    tier: "Applied products",
     description:
       "Live Formula racing fan experience where five specialist AI agents debate strategy, telemetry, racecraft, and history using evidence-linked session data.",
     status: "Live",
@@ -169,6 +216,7 @@ export const projects: Project[] = [
   {
     title: "Synaxis (MoneyMatters)",
     slug: "synaxis",
+    tier: "Financial systems",
     description:
       "24-hour hackathon platform that combines personal finance management with AI-powered insurance policy analysis, coverage-gap detection, and scenario simulation.",
     status: "Completed",
@@ -273,6 +321,7 @@ export const projects: Project[] = [
   {
     title: "Hybrid Token-Efficient Routing Agent",
     slug: "hybrid-token-efficient-routing-agent",
+    tier: "Intelligent systems",
     description:
       "AMD Developer Hackathon agent that solves provable tasks deterministically, accepts gated local-model answers, and escalates difficult work to cloud models.",
     status: "Completed",
@@ -353,6 +402,7 @@ export const projects: Project[] = [
   {
     title: "CineJaal",
     slug: "cinejaal",
+    tier: "Applied products",
     description:
       "Interactive cultural archive for exploring the interconnected universe of Hindi cinema across films, artists, studios, music, and franchises.",
     status: "Live",
@@ -414,6 +464,7 @@ export const projects: Project[] = [
   {
     title: "ReliScore",
     slug: "reli-score",
+    tier: "Intelligent systems",
     description:
       "Cloud-native storage risk operations platform that predicts hard-drive failures 30 days ahead using SMART telemetry, ML scoring, and fleet-level analytics dashboards.",
     status: "Completed",
@@ -447,6 +498,7 @@ export const projects: Project[] = [
   {
     title: "Grid Design Website",
     slug: "grid-design-website",
+    tier: "Applied products",
     description:
       "Next.js agency site with dedicated Home/About/Services/Contact pages, JSON-driven content blocks, and reusable sections for testimonials, services, and contact forms.",
     status: "Live",
@@ -472,6 +524,7 @@ export const projects: Project[] = [
   {
     title: "CareerPath-AI",
     slug: "careerpath-ai",
+    tier: "Intelligent systems",
     description:
       "Explainable career guidance product that turns transcripts and official course evidence into clear career-fit signals, strengths, gaps, and next steps.",
     status: "Completed",
@@ -496,6 +549,7 @@ export const projects: Project[] = [
   {
     title: "quiz-app",
     slug: "quiz-app",
+    tier: "Applied products",
     description:
       "Full-stack quiz platform for instructors and students with room creation, test module uploads, timers, and live leaderboards backed by AWS S3 and MongoDB.",
     status: "Completed",
@@ -531,6 +585,7 @@ export const projects: Project[] = [
   {
     title: "HedgeFundAIAgent",
     slug: "hedgefund-ai-agent",
+    tier: "Financial systems",
     description: "Agent workflow exploring hedge-fund style research, data ingestion, and signal summaries.",
     status: "Research",
     field: "Finance & Fintech",
@@ -551,6 +606,7 @@ export const projects: Project[] = [
   {
     title: "AlgorithmVisualizer",
     slug: "algorithm-visualizer",
+    tier: "Applied products",
     description:
       "Interactive algorithm visualizer with a browser UI plus a Java app, showcasing animated sorting and pathfinding demos.",
     status: "Completed",
@@ -575,6 +631,7 @@ export const projects: Project[] = [
   {
     title: "UsedCarPricePrediction",
     slug: "used-car-price-prediction",
+    tier: "Archive",
     description:
       "Used-car price prediction pipeline with feature engineering, multiple regressors, and neural networks plus Keras Tuner hyperparameter search.",
     status: "Research",
@@ -598,6 +655,7 @@ export const projects: Project[] = [
   {
     title: "StockMarketPredictions",
     slug: "stock-market-predictions",
+    tier: "Financial systems",
     description:
       "Stock prediction and analysis toolkit covering EDA, RSI calculation, time-series visualizations, and ML models for classification and regression.",
     status: "Research",
@@ -622,6 +680,7 @@ export const projects: Project[] = [
   {
     title: "BreastCancerPrediction",
     slug: "breast-cancer-prediction",
+    tier: "Archive",
     description:
       "Breast cancer diagnosis pipeline on the Wisconsin dataset with preprocessing, feature selection, and model comparisons evaluated with precision and recall.",
     status: "Research",
@@ -646,6 +705,7 @@ export const projects: Project[] = [
   {
     title: "SentimentAnalysis",
     slug: "sentiment-analysis",
+    tier: "Archive",
     description:
       "Twitter sentiment analysis pipeline with text cleaning, EDA, MLP modeling, hyperparameter tuning, cross-validation, and interpretability.",
     status: "Research",
@@ -671,6 +731,7 @@ export const projects: Project[] = [
   {
     title: "MovieGenreNLP",
     slug: "movie-genre-nlp",
+    tier: "Archive",
     description:
       "Movie genre classifier with separate training and prediction scripts for running inference on plot summaries.",
     status: "Research",
@@ -693,6 +754,7 @@ export const projects: Project[] = [
   {
     title: "StudyOS",
     slug: "studyos",
+    tier: "Applied products",
     description:
       "iOS-only study organizer focused on offline-first planning with Canvas sync, iCal imports, focus sessions, and a privacy-first vault.",
     status: "Completed",
@@ -718,6 +780,7 @@ export const projects: Project[] = [
   {
     title: "Habitum",
     slug: "habit-app",
+    tier: "Applied products",
     description:
       "Offline-first habit tracker for iOS and Android with schedules, streaks, journaling, analytics, and a companion system built with Expo Router.",
     status: "Completed",
@@ -742,6 +805,7 @@ export const projects: Project[] = [
   {
     title: "PortfolioPilot",
     slug: "portfolio-pilot",
+    tier: "Financial systems",
     description:
       "Quant portfolio optimizer and backtesting lab with a Next.js analytics dashboard and live market data integrations.",
     status: "Completed",
@@ -766,6 +830,7 @@ export const projects: Project[] = [
   {
     title: "Regulus",
     slug: "regulus",
+    tier: "Applied products",
     description:
       "Codebase intelligence platform with RAG, AST dependency graphs, blast-radius forecasting, and security scanning.",
     status: "Completed",
@@ -790,6 +855,7 @@ export const projects: Project[] = [
   {
     title: "CreditLens",
     slug: "credit-lens",
+    tier: "Financial systems",
     description:
       "Demo credit default risk scoring platform with explainability, fairness diagnostics, and an underwriter dashboard.",
     status: "Completed",
@@ -814,6 +880,7 @@ export const projects: Project[] = [
   {
     title: "FraudPulse",
     slug: "fraud-pulse",
+    tier: "Financial systems",
     description:
       "Real-time fraud detection platform with a Next.js analyst dashboard, API/worker pipeline, and ML scoring service.",
     status: "Completed",
@@ -836,3 +903,13 @@ export const projects: Project[] = [
     },
   },
 ]
+
+const projectsBySlug = new Map(projectCatalog.map((project) => [project.slug, project]))
+
+export const projects = projectTiers.flatMap((tier) =>
+  projectSlugsByTier[tier].map((slug) => {
+    const project = projectsBySlug.get(slug)
+    if (!project) throw new Error(`Unknown project slug in tier order: ${slug}`)
+    return project
+  }),
+)

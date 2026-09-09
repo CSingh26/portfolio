@@ -251,6 +251,12 @@ export const writing: Writing[] = [
   },
 ]
 
+export function getLatestWriting(count: number) {
+  return [...writing]
+    .sort((first, second) => Date.parse(second.date) - Date.parse(first.date))
+    .slice(0, Math.max(0, count))
+}
+
 export const additionalResearch: Record<string, string[]> = {
   "ml-finance-decision-system": [
     "A useful implementation artifact is a decision inventory. For every model-assisted action, it identifies the decision owner, the input snapshot, the prediction horizon, the downstream action, and the error that matters most. This prevents a team from mixing a fraud-ranking model, a credit policy, and a trading signal into one vague definition of ‘performance.’",
