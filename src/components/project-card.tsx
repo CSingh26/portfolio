@@ -9,7 +9,7 @@ type Props = {
 
 export function ProjectCard({ index, project }: Props) {
   return (
-    <article className="group flex h-full flex-col border border-border bg-card p-5 transition hover:border-accent sm:p-6">
+    <article className="group flex min-w-0 h-full flex-col border border-border bg-card p-5 transition hover:border-accent sm:p-6">
       <div className="flex items-center justify-between gap-4 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">
         <span>{String(index).padStart(2, "0")}</span>
         <span>{project.status}</span>
